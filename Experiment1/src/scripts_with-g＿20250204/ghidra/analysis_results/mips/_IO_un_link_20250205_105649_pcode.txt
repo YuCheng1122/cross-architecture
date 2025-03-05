@@ -1,0 +1,56 @@
+Function: _IO_un_link
+Address: 00431a28
+P-code:
+
+00431a28: lui gp,0x9
+	(register, 0x70, 4) INT_LEFT (const, 0x9, 4) , (const, 0x10, 4)
+
+00431a2c: addiu gp,gp,-0x6bc8
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff9438, 4)
+
+00431a30: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+00431a34: lw v0,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00431a38: nop
+
+00431a3c: andi v0,v0,0x80
+	(register, 0x8, 4) INT_AND (register, 0x8, 4) , (const, 0x80, 4)
+
+00431a40: bne v0,zero,0x00431a50
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x431a50, 4) , (unique, 0x1700, 1)
+
+00431a44: _nop
+
+00431a48: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00431a4c: _nop
+
+00431a50: lw t9,-0x7b24(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff84dc, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00431a54: nop
+
+00431a58: addiu t9,t9,0x16b8
+	(register, 0x64, 4) INT_ADD (register, 0x64, 4) , (const, 0x16b8, 4)
+
+00431a5c: b 0x004316b8
+	 ---  BRANCH (ram, 0x4316b8, 4)
+
+00431a60: _nop
+

@@ -1,0 +1,31 @@
+Label: 286
+Function: __get_errname
+Architecture: arm
+Source File: Unknown
+Entry Point: 00033a8c
+
+High-level P-code:
+
+(unique, 0x1f00, 1) INT_LESS (unique, 0x1000000e, 4) , (const, 0x86, 4)
+ ---  CBRANCH (ram, 0x33ac8, 1) , (unique, 0x1f00, 1)
+(unique, 0x1000000e, 4) CAST (register, 0x20, 4)
+(unique, 0x3580, 4) INT_MULT (register, 0x20, 4) , (const, 0x2, 4)
+(register, 0x2c, 4) INT_ADD (ram, 0x33ad0, 4) , (const, 0x33aa4, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x20, 4) , (const, 0x0, 4)
+(unique, 0x10000012, 4) INT_ADD (register, 0x2c, 4) , (unique, 0x3580, 4)
+(unique, 0x44100, 2) LOAD (const, 0x1a1, 4) , (unique, 0x9380, 4)
+(register, 0x2c, 4) INT_ZEXT (unique, 0x44100, 2)
+(unique, 0x9380, 4) CAST (unique, 0x10000012, 4)
+ ---  CBRANCH (ram, 0x33ab4, 1) , (register, 0x65, 1)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x33ac8, 1) , (register, 0x65, 1)
+(register, 0x20, 4) INT_ADD (ram, 0x33ad4, 4) , (const, 0x33bcc, 4)
+(unique, 0x10000016, 4) INT_ADD (register, 0x20, 4) , (register, 0x2c, 4)
+(register, 0x20, 4) CAST (unique, 0x10000016, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x33ad0, 4) COPY (ram, 0x33ad0, 4)
+(ram, 0x33ad4, 4) COPY (ram, 0x33ad4, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x33ad0, 4) COPY (ram, 0x33ad0, 4)
+(ram, 0x33ad4, 4) COPY (ram, 0x33ad4, 4)

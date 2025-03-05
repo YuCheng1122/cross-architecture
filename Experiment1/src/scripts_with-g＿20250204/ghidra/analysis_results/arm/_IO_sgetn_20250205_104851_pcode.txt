@@ -1,0 +1,158 @@
+Function: _IO_sgetn
+Address: 000383ec
+P-code:
+
+000383ec: stmdb sp!,{r4,lr}
+	(register, 0x80, 4) INT_SUB (register, 0x54, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x58, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x30, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+000383f0: ldr r3,[0x3843c]
+	(register, 0x2c, 4) LOAD (const, 0x1a1, 8) , (const, 0x3843c, 4)
+
+000383f4: ldr r4,[r0,#0x98]
+	(unique, 0x6000, 4) INT_ADD (register, 0x20, 4) , (const, 0x98, 4)
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (unique, 0x6000, 4)
+
+000383f8: ldr r12,[0x38440]
+	(register, 0x50, 4) LOAD (const, 0x1a1, 8) , (const, 0x38440, 4)
+
+000383fc: add r3,pc,r3
+	(unique, 0x580, 4) INT_ADD (const, 0x383fc, 4) , (const, 0x8, 4)
+	(register, 0x68, 1) COPY (register, 0x62, 1)
+	(register, 0x66, 1) INT_CARRY (unique, 0x580, 4) , (register, 0x2c, 4)
+	(register, 0x67, 1) INT_SCARRY (unique, 0x580, 4) , (register, 0x2c, 4)
+	(register, 0x2c, 4) INT_ADD (unique, 0x580, 4) , (register, 0x2c, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x2c, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+
+00038400: sub r3,r4,r3
+	(register, 0x68, 1) COPY (register, 0x62, 1)
+	(register, 0x66, 1) INT_LESSEQUAL (register, 0x2c, 4) , (register, 0x30, 4)
+	(register, 0x67, 1) INT_SBORROW (register, 0x30, 4) , (register, 0x2c, 4)
+	(register, 0x2c, 4) INT_SUB (register, 0x30, 4) , (register, 0x2c, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x2c, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+
+00038404: cmp r3,r12
+	(register, 0x68, 1) COPY (register, 0x62, 1)
+	(register, 0x66, 1) INT_LESSEQUAL (register, 0x50, 4) , (register, 0x2c, 4)
+	(register, 0x67, 1) INT_SBORROW (register, 0x2c, 4) , (register, 0x50, 4)
+	(unique, 0x11800, 4) INT_SUB (register, 0x2c, 4) , (register, 0x50, 4)
+	(register, 0x64, 1) INT_SLESS (unique, 0x11800, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (unique, 0x11800, 4) , (const, 0x0, 4)
+	(register, 0x62, 1) COPY (register, 0x66, 1)
+	(register, 0x61, 1) COPY (register, 0x65, 1)
+	(register, 0x60, 1) COPY (register, 0x64, 1)
+	(register, 0x63, 1) COPY (register, 0x67, 1)
+
+00038408: sub sp,sp,#0x10
+	(unique, 0x1c00, 4) INT_RIGHT (const, 0x10, 4) , (const, 0x1f, 4)
+	(unique, 0x1c80, 1) INT_EQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x1d00, 1) BOOL_AND (unique, 0x1c80, 1) , (register, 0x62, 1)
+	(unique, 0x1d80, 1) INT_NOTEQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x1e00, 1) SUBPIECE (unique, 0x1c00, 4) , (const, 0x0, 4)
+	(unique, 0x1e80, 1) BOOL_AND (unique, 0x1d80, 1) , (unique, 0x1e00, 1)
+	(register, 0x68, 1) BOOL_OR (unique, 0x1d00, 1) , (unique, 0x1e80, 1)
+	(register, 0x66, 1) INT_LESSEQUAL (const, 0x10, 4) , (register, 0x54, 4)
+	(register, 0x67, 1) INT_SBORROW (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x54, 4) INT_SUB (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x54, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x54, 4) , (const, 0x0, 4)
+
+0003840c: bhi 0x00038420
+	(unique, 0xc00, 1) BOOL_NEGATE (register, 0x61, 1)
+	(unique, 0xd00, 1) BOOL_AND (register, 0x62, 1) , (unique, 0xc00, 1)
+	 ---  CBRANCH (ram, 0x38420, 4) , (unique, 0xd00, 1)
+
+00038410: ldr r3,[r4,#0x20]
+	(unique, 0x6000, 4) INT_ADD (register, 0x30, 4) , (const, 0x20, 4)
+	(register, 0x2c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x6000, 4)
+
+00038414: add sp,sp,#0x10
+	(unique, 0x1c00, 4) INT_RIGHT (const, 0x10, 4) , (const, 0x1f, 4)
+	(unique, 0x1c80, 1) INT_EQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x1d00, 1) BOOL_AND (unique, 0x1c80, 1) , (register, 0x62, 1)
+	(unique, 0x1d80, 1) INT_NOTEQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x1e00, 1) SUBPIECE (unique, 0x1c00, 4) , (const, 0x0, 4)
+	(unique, 0x1e80, 1) BOOL_AND (unique, 0x1d80, 1) , (unique, 0x1e00, 1)
+	(register, 0x68, 1) BOOL_OR (unique, 0x1d00, 1) , (unique, 0x1e80, 1)
+	(register, 0x66, 1) INT_CARRY (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x67, 1) INT_SCARRY (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x54, 4) INT_ADD (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x54, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x54, 4) , (const, 0x0, 4)
+
+00038418: ldmia sp!,{r4,lr}
+	(register, 0x80, 4) COPY (register, 0x54, 4)
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x58, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) COPY (register, 0x80, 4)
+
+0003841c: bx r3
+	(unique, 0x0, 4) INT_AND (register, 0x2c, 4) , (const, 0x1, 4)
+	(register, 0x78, 1) INT_NOTEQUAL (unique, 0x0, 4) , (const, 0x0, 4)
+	(register, 0x69, 1) COPY (register, 0x78, 1)
+	(register, 0x5c, 4) INT_AND (register, 0x2c, 4) , (const, 0xfffffffe, 4)
+	 ---  BRANCHIND (register, 0x5c, 4)
+
+00038420: stmib sp,{r0,r1,r2}
+	(register, 0x80, 4) INT_ADD (register, 0x54, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x20, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x24, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x28, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+00038424: bl 0x00034bdc
+	(register, 0x58, 4) COPY (const, 0x38428, 4)
+	 ---  CALL (ram, 0x34bdc, 4)
+
+00038428: ldmib sp,{r0,r1,r2}
+	(register, 0x80, 4) INT_ADD (register, 0x54, 4) , (const, 0x4, 4)
+	(register, 0x20, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x24, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x28, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+0003842c: ldr r3,[r4,#0x20]
+	(unique, 0x6000, 4) INT_ADD (register, 0x30, 4) , (const, 0x20, 4)
+	(register, 0x2c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x6000, 4)
+
+00038430: add sp,sp,#0x10
+	(unique, 0x1c00, 4) INT_RIGHT (const, 0x10, 4) , (const, 0x1f, 4)
+	(unique, 0x1c80, 1) INT_EQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x1d00, 1) BOOL_AND (unique, 0x1c80, 1) , (register, 0x62, 1)
+	(unique, 0x1d80, 1) INT_NOTEQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x1e00, 1) SUBPIECE (unique, 0x1c00, 4) , (const, 0x0, 4)
+	(unique, 0x1e80, 1) BOOL_AND (unique, 0x1d80, 1) , (unique, 0x1e00, 1)
+	(register, 0x68, 1) BOOL_OR (unique, 0x1d00, 1) , (unique, 0x1e80, 1)
+	(register, 0x66, 1) INT_CARRY (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x67, 1) INT_SCARRY (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x54, 4) INT_ADD (register, 0x54, 4) , (const, 0x10, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x54, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x54, 4) , (const, 0x0, 4)
+
+00038434: ldmia sp!,{r4,lr}
+	(register, 0x80, 4) COPY (register, 0x54, 4)
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x58, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) COPY (register, 0x80, 4)
+
+00038438: bx r3
+	(unique, 0x0, 4) INT_AND (register, 0x2c, 4) , (const, 0x1, 4)
+	(register, 0x78, 1) INT_NOTEQUAL (unique, 0x0, 4) , (const, 0x0, 4)
+	(register, 0x69, 1) COPY (register, 0x78, 1)
+	(register, 0x5c, 4) INT_AND (register, 0x2c, 4) , (const, 0xfffffffe, 4)
+	 ---  BRANCHIND (register, 0x5c, 4)
+

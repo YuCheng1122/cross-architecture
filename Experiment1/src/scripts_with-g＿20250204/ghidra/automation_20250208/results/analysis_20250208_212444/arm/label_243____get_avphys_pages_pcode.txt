@@ -1,0 +1,44 @@
+Label: 243
+Function: __get_avphys_pages
+Architecture: arm
+Source File: Unknown
+Entry Point: 0002abe0
+
+High-level P-code:
+
+(unique, 0x1000004d, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffb0, 4)
+(register, 0x54, 4) CAST (unique, 0x1000004d, 4)
+ ---  CALL (ram, 0x2b190, 8) , (register, 0x54, 4)
+(stack, 0xffffffffffffffc4, 4) INDIRECT (stack, 0xffffffffffffffc4, 4) , (const, 0x16, 4)
+(stack, 0xffffffffffffffe4, 4) INDIRECT (stack, 0xffffffffffffffe4, 4) , (const, 0x16, 4)
+(register, 0x20, 4) CALL (ram, 0x3e1b8, 8)
+(stack, 0xffffffffffffffc4, 4) INDIRECT (stack, 0xffffffffffffffc4, 4) , (const, 0x18, 4)
+(stack, 0xffffffffffffffe4, 4) INDIRECT (stack, 0xffffffffffffffe4, 4) , (const, 0x18, 4)
+(unique, 0x1f00, 1) INT_LESS (const, 0x1, 4) , (stack, 0xffffffffffffffe4, 4)
+ ---  CBRANCH (ram, 0x2ac04, 1) , (unique, 0x1f00, 1)
+(unique, 0x10000045, 4) COPY (stack, 0xffffffffffffffe4, 4)
+(unique, 0x10000049, 4) COPY (register, 0x20, 4)
+(unique, 0x10000037, 4) MULTIEQUAL (unique, 0x10000045, 4) , (unique, 0x10000049, 4)
+(unique, 0x2080, 1) INT_LESS (const, 0x1, 4) , (unique, 0x10000037, 4)
+ ---  CBRANCH (ram, 0x2ac20, 1) , (unique, 0x2080, 1)
+(unique, 0x3b00, 4) INT_RIGHT (register, 0x30, 4) , (const, 0x1, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x20, 4) , (unique, 0x3b00, 4)
+(register, 0x30, 4) MULTIEQUAL (stack, 0xffffffffffffffe4, 4) , (unique, 0x3b00, 4)
+(unique, 0x3b00, 4) INT_RIGHT (register, 0x2c, 4) , (const, 0x1, 4)
+(register, 0x65, 1) INT_NOTEQUAL (unique, 0x3b00, 4) , (const, 0x1, 4)
+(unique, 0x10000036, 1) INT_NOTEQUAL (unique, 0x3b00, 4) , (const, 0x1, 4)
+(unique, 0x1a80, 1) BOOL_AND (register, 0x65, 1) , (unique, 0x10000036, 1)
+ ---  CBRANCH (ram, 0x2ac0c, 1) , (unique, 0x1a80, 1)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x20, 4) , (unique, 0x3b00, 4)
+(register, 0x30, 4) MULTIEQUAL (stack, 0xffffffffffffffe4, 4) , (unique, 0x3b00, 4)
+(register, 0x20, 4) INT_MULT (register, 0x30, 4) , (stack, 0xffffffffffffffc4, 4)
+(unique, 0x2080, 1) INT_LESS (const, 0x1, 4) , (register, 0x2c, 4)
+ ---  CBRANCH (ram, 0x2ac3c, 1) , (unique, 0x2080, 1)
+(unique, 0x3b00, 4) INT_RIGHT (register, 0x2c, 4) , (const, 0x1, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (unique, 0x3b00, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (unique, 0x3b00, 4)
+(register, 0x65, 1) INT_NOTEQUAL (unique, 0x3b00, 4) , (const, 0x1, 4)
+(unique, 0x3b00, 4) INT_RIGHT (register, 0x20, 4) , (const, 0x1, 4)
+ ---  CBRANCH (ram, 0x2ac2c, 1) , (register, 0x65, 1)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (unique, 0x3b00, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

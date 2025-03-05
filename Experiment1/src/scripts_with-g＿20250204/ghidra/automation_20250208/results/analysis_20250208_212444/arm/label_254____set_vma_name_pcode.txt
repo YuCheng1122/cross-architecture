@@ -1,0 +1,42 @@
+Label: 254
+Function: __set_vma_name
+Architecture: arm
+Source File: Unknown
+Entry Point: 0002b100
+
+High-level P-code:
+
+(unique, 0x10000030, 4) INT_ADD (ram, 0x2b184, 4) , (const, 0x2b10c, 4)
+(register, 0x50, 4) CAST (unique, 0x10000030, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (register, 0x50, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x2b114, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x2b184, 4) COPY (ram, 0x2b184, 4)
+(ram, 0x2b188, 4) COPY (ram, 0x2b188, 4)
+(ram, 0x2b18c, 4) COPY (ram, 0x2b18c, 4)
+(register, 0x24, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffe4, 4)
+ ---  CALL (ram, 0x2d618, 8) , (const, 0x15, 4) , (register, 0x24, 4) , (const, 0x0, 4)
+(ram, 0x2b184, 4) INDIRECT (ram, 0x2b184, 4) , (const, 0x61, 4)
+(ram, 0x2b188, 4) INDIRECT (ram, 0x2b188, 4) , (const, 0x61, 4)
+(ram, 0x2b18c, 4) INDIRECT (ram, 0x2b18c, 4) , (const, 0x61, 4)
+(stack, 0xffffffffffffffe4, 4) INDIRECT (stack, 0xffffffffffffffe4, 4) , (const, 0x61, 4)
+(register, 0x65, 1) INT_NOTEQUAL (stack, 0xffffffffffffffe4, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x2b16c, 1) , (register, 0x65, 1)
+ ---  CALLOTHER (const, 0xf, 4) , (const, 0x0, 4)
+(register, 0x65, 1) INT_NOTEQUAL (ram, 0x2b188, 4) , (const, 0xffffffea, 4)
+ ---  CBRANCH (ram, 0x2b16c, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x2b184, 4) COPY (ram, 0x2b184, 4)
+(ram, 0x2b188, 4) COPY (ram, 0x2b188, 4)
+(ram, 0x2b18c, 4) COPY (ram, 0x2b18c, 4)
+(unique, 0x10000034, 4) INT_ADD (ram, 0x2b18c, 4) , (const, 0x2b17c, 4)
+(register, 0x2c, 4) CAST (unique, 0x10000034, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x2c, 4) , (const, 0x0, 4)
+(ram, 0x2b184, 4) INDIRECT (ram, 0x2b184, 4) , (const, 0xd4, 4)
+(ram, 0x2b188, 4) INDIRECT (ram, 0x2b188, 4) , (const, 0xd4, 4)
+(ram, 0x2b18c, 4) INDIRECT (ram, 0x2b18c, 4) , (const, 0xd4, 4)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x2b184, 4) COPY (ram, 0x2b184, 4)
+(ram, 0x2b188, 4) COPY (ram, 0x2b188, 4)
+(ram, 0x2b18c, 4) COPY (ram, 0x2b18c, 4)

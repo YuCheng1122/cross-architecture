@@ -1,0 +1,65 @@
+Function: read_uleb128
+Address: 0047ff90
+P-code:
+
+0047ff90: or v0,a0,zero
+	(register, 0x8, 4) INT_OR (register, 0x10, 4) , (const, 0x0, 4)
+
+0047ff94: or a2,zero,zero
+	(register, 0x18, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+0047ff98: or a0,zero,zero
+	(register, 0x10, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+0047ff9c: lbu v1,0x0(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(unique, 0x2f00, 1) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x2f00, 1)
+
+0047ffa0: addiu v0,v0,0x1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0x1, 4)
+
+0047ffa4: andi a3,v1,0x7f
+	(register, 0x1c, 4) INT_AND (register, 0xc, 4) , (const, 0x7f, 4)
+
+0047ffa8: sll v1,v1,0x18
+	(register, 0xc, 4) INT_LEFT (register, 0xc, 4) , (const, 0x18, 4)
+
+0047ffac: sllv a3,a3,a2
+	(unique, 0x4f80, 4) INT_AND (register, 0x18, 4) , (const, 0x1f, 4)
+	(register, 0x1c, 4) INT_LEFT (register, 0x1c, 4) , (unique, 0x4f80, 4)
+
+0047ffb0: sra v1,v1,0x18
+	(register, 0xc, 4) INT_SRIGHT (register, 0xc, 4) , (const, 0x18, 4)
+
+0047ffb4: or a0,a0,a3
+	(register, 0x10, 4) INT_OR (register, 0x10, 4) , (register, 0x1c, 4)
+
+0047ffb8: bltz v1,0x0047ff9c
+	(unique, 0x1600, 1) INT_SLESS (register, 0xc, 4) , (const, 0x0, 4)
+	(register, 0x18, 4) INT_ADD (register, 0x18, 4) , (const, 0x7, 4)
+	 ---  CBRANCH (ram, 0x47ff9c, 4) , (unique, 0x1600, 1)
+
+0047ffbc: _addiu a2,a2,0x7
+	(register, 0x18, 4) INT_ADD (register, 0x18, 4) , (const, 0x7, 4)
+
+0047ffc0: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(unique, 0x100, 4) INT_ADD (register, 0x14, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x10, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0047ffc4: _sw a0,0x0(a1)
+	(unique, 0x100, 4) INT_ADD (register, 0x14, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x10, 4)
+

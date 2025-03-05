@@ -1,0 +1,35 @@
+Label: 1608143350
+Function: __pread64_nocancel
+Architecture: mips
+Source File: Unknown
+Entry Point: 0043a0e0
+
+High-level P-code:
+
+(stack, 0x10, 4) SUBPIECE (stack, 0x10, 8) , (const, 0x4, 4)
+ ---  CALL (ram, 0x421070, 8)
+(register, 0x8, 4) INDIRECT (stack, 0x10, 4) , (const, 0x27, 4)
+(register, 0xc, 4) INDIRECT (register, 0xc, 4) , (const, 0x27, 4)
+(register, 0x3274, 4) INDIRECT (register, 0x3274, 4) , (const, 0x27, 4)
+(ram, 0x4b3130, 4) INDIRECT (ram, 0x4b3130, 4) , (const, 0x27, 4)
+(ram, 0x4b397c, 4) INDIRECT (ram, 0x4b397c, 4) , (const, 0x27, 4)
+(unique, 0x1200, 1) INT_NOTEQUAL (register, 0xc, 4) , (const, 0x0, 4)
+(unique, 0x10000009, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+ ---  CBRANCH (ram, 0x43a130, 1) , (unique, 0x1200, 1)
+(unique, 0x10000005, 4) INT_2COMP (register, 0x8, 4)
+ ---  CBRANCH (ram, 0x43a148, 1) , (unique, 0x10000009, 1)
+(register, 0x8, 4) MULTIEQUAL (register, 0x8, 4) , (unique, 0x10000005, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+(ram, 0x4b3130, 4) COPY (ram, 0x4b3130, 4)
+(ram, 0x4b397c, 4) COPY (ram, 0x4b397c, 4)
+(register, 0xc, 4) CALLOTHER (const, 0x26, 4) , (register, 0x3274, 4)
+(unique, 0x1000000d, 4) INT_2COMP (register, 0x8, 4)
+(register, 0xc, 4) PTRADD (ram, 0x4b397c, 4) , (register, 0xc, 4) , (const, 0x1, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x10000013, 4) , (unique, 0x1000000d, 4)
+(ram, 0x4b3130, 4) INDIRECT (ram, 0x4b3130, 4) , (const, 0x4f, 4)
+(ram, 0x4b397c, 4) INDIRECT (ram, 0x4b397c, 4) , (const, 0x4f, 4)
+(unique, 0x10000013, 4) CAST (register, 0xc, 4)
+(register, 0x8, 4) COPY (const, 0xffffffff, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+(ram, 0x4b3130, 4) COPY (ram, 0x4b3130, 4)
+(ram, 0x4b397c, 4) COPY (ram, 0x4b397c, 4)

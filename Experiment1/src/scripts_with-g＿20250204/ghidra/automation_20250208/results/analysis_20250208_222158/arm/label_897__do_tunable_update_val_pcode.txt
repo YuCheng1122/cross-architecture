@@ -1,0 +1,46 @@
+Label: 897
+Function: do_tunable_update_val
+Architecture: arm
+Source File: Unknown
+Entry Point: 0002ccd0
+
+High-level P-code:
+
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x1000003a, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x30, 4)
+(unique, 0x1000003a, 4) PTRSUB (unique, 0x8280, 4) , (const, 0x0, 4)
+(register, 0x58, 4) INT_ADD (ram, 0x2cec0, 4) , (const, 0x2cce8, 4)
+(unique, 0x1f00, 1) INT_LESS (register, 0x20, 4) , (const, 0x4, 4)
+ ---  CBRANCH (ram, 0x2ce1c, 1) , (unique, 0x1f00, 1)
+(unique, 0x1000006e, 4) INT_ADD (register, 0x58, 4) , (register, 0x20, 4)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(register, 0x20, 4) INT_ZEXT (unique, 0x43980, 1)
+(unique, 0x8480, 4) CAST (unique, 0x1000006e, 4)
+(unique, 0x3580, 4) INT_MULT (register, 0x20, 4) , (const, 0x4, 4)
+(unique, 0x10000072, 4) INT_ADD (unique, 0x3580, 4) , (const, 0x2ccfc, 4)
+ ---  CALLIND (unique, 0x40780, 4)
+ ---  RETURN (const, 0x1, 4)
+(ram, 0x2cec0, 4) INDIRECT (ram, 0x2cec0, 4) , (const, 0x50, 4)
+(ram, 0x2cec0, 4) COPY (ram, 0x2cec0, 4)
+(unique, 0x40780, 4) CAST (unique, 0x10000072, 4)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x1000003e, 4)
+(register, 0x24, 4) LOAD (const, 0x1a1, 4) , (register, 0x80, 4)
+(unique, 0x1000003e, 4) PTRSUB (unique, 0x1000005e, 4) , (const, 0x0, 4)
+(register, 0x80, 4) PTRSUB (unique, 0x10000062, 4) , (const, 0x4, 4)
+(unique, 0x1000005e, 4) PTRSUB (register, 0x24, 4) , (const, 0x0, 4)
+(unique, 0x10000062, 4) PTRSUB (register, 0x24, 4) , (const, 0x0, 4)
+(register, 0x2c, 4) PTRSUB (register, 0x20, 4) , (const, 0x50, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x1000004a, 4) , (register, 0x20, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x80, 4) , (register, 0x24, 4)
+(ram, 0x2cec0, 4) INDIRECT (ram, 0x2cec0, 4) , (const, 0x6f, 4)
+(ram, 0x2cec0, 4) INDIRECT (ram, 0x2cec0, 4) , (const, 0x71, 4)
+(unique, 0x1000004a, 4) PTRSUB (unique, 0x10000066, 4) , (const, 0x0, 4)
+(unique, 0x1000004e, 4) PTRSUB (register, 0x20, 4) , (const, 0x50, 4)
+(register, 0x80, 4) PTRSUB (unique, 0x1000006a, 4) , (const, 0x4, 4)
+(unique, 0x10000066, 4) PTRSUB (register, 0x2c, 4) , (const, 0x0, 4)
+(unique, 0x1000006a, 4) PTRSUB (unique, 0x1000004e, 4) , (const, 0x0, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8280, 4) , (const, 0x1, 1)
+(ram, 0x2cec0, 4) INDIRECT (ram, 0x2cec0, 4) , (const, 0x75, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x58, 4)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x2cec0, 4) COPY (ram, 0x2cec0, 4)

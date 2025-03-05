@@ -1,0 +1,75 @@
+Function: __unorddf2
+Address: 004790f0
+P-code:
+
+004790f0: lui v0,0xf
+	(register, 0x8, 4) INT_LEFT (const, 0xf, 4) , (const, 0x10, 4)
+
+004790f4: ori v0,v0,0xffff
+	(register, 0x8, 4) INT_OR (register, 0x8, 4) , (const, 0xffff, 4)
+
+004790f8: and t0,v0,a0
+	(register, 0x20, 4) INT_AND (register, 0x8, 4) , (register, 0x10, 4)
+
+004790fc: srl a0,a0,0x14
+	(register, 0x10, 4) INT_RIGHT (register, 0x10, 4) , (const, 0x14, 4)
+
+00479100: and v1,v0,a2
+	(register, 0xc, 4) INT_AND (register, 0x8, 4) , (register, 0x18, 4)
+
+00479104: andi a0,a0,0x7ff
+	(register, 0x10, 4) INT_AND (register, 0x10, 4) , (const, 0x7ff, 4)
+
+00479108: srl a2,a2,0x14
+	(register, 0x18, 4) INT_RIGHT (register, 0x18, 4) , (const, 0x14, 4)
+
+0047910c: li v0,0x7ff
+	(register, 0x8, 4) COPY (const, 0x7ff, 4)
+
+00479110: bne a0,v0,0x00479124
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x10, 4) , (register, 0x8, 4)
+	(register, 0x18, 4) INT_AND (register, 0x18, 4) , (const, 0x7ff, 4)
+	 ---  CBRANCH (ram, 0x479124, 4) , (unique, 0x1700, 1)
+
+00479114: _andi a2,a2,0x7ff
+	(register, 0x18, 4) INT_AND (register, 0x18, 4) , (const, 0x7ff, 4)
+
+00479118: or a1,t0,a1
+	(register, 0x14, 4) INT_OR (register, 0x20, 4) , (register, 0x14, 4)
+
+0047911c: bne a1,zero,0x00479138
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x14, 4) , (const, 0x0, 4)
+	(register, 0x8, 4) COPY (const, 0x1, 4)
+	 ---  CBRANCH (ram, 0x479138, 4) , (unique, 0x1700, 1)
+
+00479120: _li v0,0x1
+	(register, 0x8, 4) COPY (const, 0x1, 4)
+
+00479124: li a0,0x7ff
+	(register, 0x10, 4) COPY (const, 0x7ff, 4)
+
+00479128: bne a2,a0,0x00479138
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x18, 4) , (register, 0x10, 4)
+	(register, 0x8, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x479138, 4) , (unique, 0x1700, 1)
+
+0047912c: _or v0,zero,zero
+	(register, 0x8, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+00479130: or v0,v1,a3
+	(register, 0x8, 4) INT_OR (register, 0xc, 4) , (register, 0x1c, 4)
+
+00479134: sltu v0,zero,v0
+	(unique, 0x5380, 1) INT_LESS (const, 0x0, 4) , (register, 0x8, 4)
+	(register, 0x8, 4) INT_ZEXT (unique, 0x5380, 1)
+
+00479138: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0047913c: _nop
+

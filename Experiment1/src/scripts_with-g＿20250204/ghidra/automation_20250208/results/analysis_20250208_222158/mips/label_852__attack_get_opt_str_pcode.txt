@@ -1,0 +1,31 @@
+Label: 852
+Function: attack_get_opt_str
+Architecture: mips
+Source File: Unknown
+Entry Point: 00408038
+
+High-level P-code:
+
+(stack, 0xfffffffffffffff0, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x4080cc, 1)
+(register, 0x8, 4) INT_MULT (stack, 0xfffffffffffffff0, 4) , (const, 0x8, 4)
+(register, 0x8, 4) INT_ADD (register, 0x14, 4) , (register, 0x8, 4)
+(unique, 0x1000000e, 4) INT_ADD (register, 0x8, 4) , (const, 0x4, 4)
+(unique, 0x2f00, 1) LOAD (const, 0x1a1, 4) , (unique, 0x100, 4)
+(unique, 0x100, 4) CAST (unique, 0x1000000e, 4)
+(unique, 0x1700, 1) INT_EQUAL (register, 0x1b, 1) , (unique, 0x2f00, 1)
+ ---  CBRANCH (ram, 0x4080bc, 1) , (unique, 0x1700, 1)
+(register, 0x8, 4) INT_MULT (stack, 0xfffffffffffffff0, 4) , (const, 0x8, 4)
+(unique, 0x10000012, 4) INT_ADD (register, 0x14, 4) , (register, 0x8, 4)
+(register, 0x8, 4) CAST (unique, 0x10000012, 4)
+(register, 0x8, 4) LOAD (const, 0x1a1, 4) , (register, 0x8, 4)
+(register, 0x8, 4) INT_ADD (stack, 0xfffffffffffffff0, 4) , (const, 0x1, 4)
+(register, 0x8, 4) INT_ZEXT (register, 0x13, 1)
+(stack, 0xfffffffffffffff0, 4) MULTIEQUAL (stack, 0xfffffffffffffff0, 4) , (register, 0x8, 4)
+(unique, 0x5080, 1) INT_SLESSEQUAL (unique, 0x1000000a, 4) , (stack, 0xfffffffffffffff0, 4)
+(unique, 0x1000000a, 4) CAST (register, 0x8, 4)
+ ---  CBRANCH (ram, 0x40806c, 1) , (unique, 0x5080, 1)
+(register, 0x8, 4) COPY (register, 0x1c, 4)
+(register, 0x8, 4) COPY (register, 0x8, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)

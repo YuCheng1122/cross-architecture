@@ -1,0 +1,92 @@
+Label: 553
+Function: __new_getrlimit
+Architecture: mips
+Source File: Unknown
+Entry Point: 0043a1d0
+
+P-code:
+
+0043a1d0: lui gp,0x8
+	(register, 0x70, 4) INT_LEFT (const, 0x8, 4) , (const, 0x10, 4)
+
+0043a1d4: addiu gp,gp,0xc90
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xc90, 4)
+
+0043a1d8: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0043a1dc: li v0,0xfec
+	(register, 0x8, 4) COPY (const, 0xfec, 4)
+
+0043a1e0: syscall
+	 ---  CALLOTHER (const, 0x3, 4) , (const, 0x0, 4)
+
+0043a1e4: beq a3,zero,0x0043a1f4
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x1c, 4) , (const, 0x0, 4)
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5280, 1)
+	 ---  CBRANCH (ram, 0x43a1f4, 4) , (unique, 0x1200, 1)
+
+0043a1e8: _sltiu v1,v0,-0xfff
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5280, 1)
+
+0043a1ec: subu v0,zero,v0
+	(register, 0x8, 4) INT_SUB (const, 0x0, 4) , (register, 0x8, 4)
+
+0043a1f0: sltiu v1,v0,-0xfff
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5280, 1)
+
+0043a1f4: beq v1,zero,0x0043a204
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x43a204, 4) , (unique, 0x1200, 1)
+
+0043a1f8: _nop
+
+0043a1fc: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0043a200: _nop
+
+0043a204: rdhwr v1,HW_ULR
+	(register, 0xc, 4) CALLOTHER (const, 0x26, 4) , (register, 0x3274, 4)
+
+0043a208: or a0,v1,zero
+	(register, 0x10, 4) INT_OR (register, 0xc, 4) , (const, 0x0, 4)
+
+0043a20c: lw v1,-0x74e4(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8b1c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0043a210: subu v0,zero,v0
+	(register, 0x8, 4) INT_SUB (const, 0x0, 4) , (register, 0x8, 4)
+
+0043a214: addu v1,v1,a0
+	(register, 0xc, 4) INT_ADD (register, 0xc, 4) , (register, 0x10, 4)
+
+0043a218: sw v0,0x0(v1)
+	(unique, 0x100, 4) INT_ADD (register, 0xc, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x8, 4)
+
+0043a21c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) COPY (const, 0xffffffff, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0043a220: _li v0,-0x1
+	(register, 0x8, 4) COPY (const, 0xffffffff, 4)
+

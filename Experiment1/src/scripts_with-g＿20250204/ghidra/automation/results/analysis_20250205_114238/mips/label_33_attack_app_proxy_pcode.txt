@@ -1,0 +1,77 @@
+Label: 33
+Function: attack_app_proxy
+Architecture: mips
+Source File: Unknown
+Entry Point: 00400a90
+
+P-code:
+
+00400a90: addiu sp,sp,-0x8
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0xfffffff8, 4)
+
+00400a94: sw s8,0x4(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x78, 4)
+
+00400a98: or s8,sp,zero
+	(register, 0x78, 4) INT_OR (register, 0x74, 4) , (const, 0x0, 4)
+
+00400a9c: or v0,a0,zero
+	(register, 0x8, 4) INT_OR (register, 0x10, 4) , (const, 0x0, 4)
+
+00400aa0: sw a1,0xc(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0xc, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x14, 4)
+
+00400aa4: or v1,a2,zero
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+
+00400aa8: sw a3,0x14(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x14, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x1c, 4)
+
+00400aac: sb v0,0x8(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0xb, 1)
+
+00400ab0: or v0,v1,zero
+	(register, 0x8, 4) INT_OR (register, 0xc, 4) , (const, 0x0, 4)
+
+00400ab4: sb v0,0x10(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x10, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0xb, 1)
+
+00400ab8: nop
+
+00400abc: or sp,s8,zero
+	(register, 0x74, 4) INT_OR (register, 0x78, 4) , (const, 0x0, 4)
+
+00400ac0: lw s8,0x4(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x78, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00400ac4: addiu sp,sp,0x8
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x8, 4)
+
+00400ac8: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00400acc: _nop
+

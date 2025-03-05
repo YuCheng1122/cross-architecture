@@ -1,0 +1,29 @@
+Label: 94755854
+Function: clock
+Architecture: arm
+Source File: Unknown
+Entry Point: 00028320
+
+High-level P-code:
+
+(register, 0x54, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffe8, 4)
+(register, 0x20, 4) CALL (ram, 0x28408, 8) , (const, 0x2, 4) , (register, 0x54, 4)
+(ram, 0x28378, 4) INDIRECT (ram, 0x28378, 4) , (const, 0x1c, 4)
+(stack, 0xffffffffffffffe8, 4) INDIRECT (stack, 0xffffffffffffffe8, 4) , (const, 0x1c, 4)
+(stack, 0xfffffffffffffff0, 4) INDIRECT (stack, 0xfffffffffffffff0, 4) , (const, 0x1c, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x2836c, 1) , (register, 0x65, 1)
+(unique, 0x6b300, 8) INT_SEXT (stack, 0xfffffffffffffff0, 4)
+(unique, 0x6b400, 8) INT_SEXT (ram, 0x28378, 4)
+(unique, 0x6b500, 8) INT_MULT (unique, 0x6b300, 8) , (unique, 0x6b400, 8)
+(unique, 0x4100, 4) INT_SRIGHT (stack, 0xfffffffffffffff0, 4) , (const, 0x1f, 4)
+(unique, 0x4100, 4) SUBPIECE (unique, 0x1000004a, 8) , (const, 0x0, 4)
+(register, 0x20, 4) INT_SUB (unique, 0x4100, 4) , (unique, 0x4100, 4)
+(unique, 0x1000004a, 8) INT_SRIGHT (unique, 0x6b500, 8) , (const, 0x26, 4)
+(register, 0x20, 4) INT_ADD (register, 0x20, 4) , (unique, 0x10000041, 4)
+(unique, 0x10000041, 4) INT_MULT (stack, 0xffffffffffffffe8, 4) , (const, 0xf4240, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x28378, 4) COPY (ram, 0x28378, 4)
+(register, 0x20, 4) COPY (const, 0xffffffff, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x28378, 4) COPY (ram, 0x28378, 4)

@@ -1,0 +1,39 @@
+Label: 317
+Function: __socket
+Architecture: mips
+Source File: Unknown
+Entry Point: 00422250
+
+P-code:
+
+00422250: lui gp,0xa
+	(register, 0x70, 4) INT_LEFT (const, 0xa, 4) , (const, 0x10, 4)
+
+00422254: addiu gp,gp,-0x73f0
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8c10, 4)
+
+00422258: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0042225c: li v0,0x1057
+	(register, 0x8, 4) COPY (const, 0x1057, 4)
+
+00422260: syscall
+	 ---  CALLOTHER (const, 0x3, 4) , (const, 0x0, 4)
+
+00422264: bne a3,zero,0x00422240
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x1c, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x422240, 4) , (unique, 0x1700, 1)
+
+00422268: _nop
+
+0042226c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00422270: _nop
+

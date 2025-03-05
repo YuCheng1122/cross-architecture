@@ -1,0 +1,37 @@
+Label: 860
+Function: base_of_encoded_value
+Architecture: arm
+Source File: Unknown
+Entry Point: 000703b4
+
+High-level P-code:
+
+(register, 0x65, 1) INT_EQUAL (register, 0x20, 1) , (const, 0xff, 1)
+ ---  CBRANCH (ram, 0x703f8, 1) , (register, 0x65, 1)
+(register, 0x2c, 1) INT_AND (register, 0x20, 1) , (const, 0x70, 1)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 1) , (const, 0x30, 1)
+ ---  CBRANCH (ram, 0x70404, 1) , (register, 0x65, 1)
+(unique, 0x1f00, 1) INT_LESS (register, 0x2c, 1) , (const, 0x31, 1)
+ ---  CBRANCH (ram, 0x703e8, 1) , (unique, 0x1f00, 1)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 1) , (const, 0x20, 1)
+ ---  CBRANCH (ram, 0x70400, 1) , (register, 0x65, 1)
+(unique, 0x2080, 1) INT_LESS (register, 0x2c, 1) , (const, 0x21, 1)
+ ---  CBRANCH (ram, 0x703f8, 1) , (unique, 0x2080, 1)
+ ---  CALL (ram, 0x10140, 8)
+ ---  RETURN (const, 0x1, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 1) , (const, 0x40, 1)
+ ---  CBRANCH (ram, 0x70408, 1) , (register, 0x65, 1)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 1) , (const, 0x50, 1)
+ ---  CBRANCH (ram, 0x703e0, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) CALL (ram, 0x103b8, 8)
+ ---  RETURN (const, 0x0, 8) , (register, 0x20, 4)
+ ---  CALL (ram, 0x103b0, 8) , (register, 0x24, 4)
+ ---  RETURN (const, 0x1, 4)
+(register, 0x20, 4) CALL (ram, 0x7031c, 8) , (register, 0x24, 4)
+ ---  RETURN (const, 0x0, 8) , (register, 0x20, 4)

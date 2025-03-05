@@ -1,0 +1,31 @@
+Label: 704
+Function: __hash_string
+Architecture: mips
+Source File: Unknown
+Entry Point: 0045a400
+
+High-level P-code:
+
+(unique, 0x2d00, 1) LOAD (const, 0x1a1, 4) , (register, 0x10, 4)
+(unique, 0x10000003, 1) INT_NOTEQUAL (unique, 0x10000002, 1) , (const, 0x0, 1)
+(register, 0x8, 4) COPY (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x45a450, 1) , (unique, 0x10000003, 1)
+(unique, 0x10000002, 1) MULTIEQUAL (unique, 0x2d00, 1) , (unique, 0x2d00, 1)
+(unique, 0x10000004, 4) MULTIEQUAL (register, 0x8, 4) , (register, 0x8, 4)
+(unique, 0x10000008, 4) MULTIEQUAL (register, 0x10, 4) , (register, 0x10, 4)
+(register, 0xc, 4) INT_ZEXT (unique, 0x10000002, 1)
+(register, 0x8, 4) INT_MULT (unique, 0x10000004, 4) , (const, 0x10, 4)
+(register, 0x8, 4) INT_ADD (register, 0xc, 4) , (register, 0x8, 4)
+(register, 0xc, 4) INT_AND (register, 0x8, 4) , (const, 0xf0000000, 4)
+(register, 0x14, 4) INT_AND (register, 0x8, 4) , (const, 0xfffffff, 4)
+(register, 0x18, 4) INT_RIGHT (register, 0xc, 4) , (const, 0x18, 4)
+(unique, 0x1200, 1) INT_NOTEQUAL (register, 0xc, 4) , (const, 0x0, 4)
+(unique, 0x10000010, 4) PTRADD (unique, 0x1000000c, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+ ---  CBRANCH (ram, 0x45a440, 1) , (unique, 0x1200, 1)
+(unique, 0x1000000c, 4) CAST (unique, 0x10000008, 4)
+(register, 0x10, 4) CAST (unique, 0x10000010, 4)
+(register, 0x8, 4) INT_XOR (register, 0x18, 4) , (register, 0x14, 4)
+(unique, 0x2d00, 1) LOAD (const, 0x1a1, 4) , (register, 0x10, 4)
+(register, 0x8, 4) MULTIEQUAL (register, 0x8, 4) , (register, 0x8, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+(register, 0x8, 4) COPY (unique, 0x10000004, 4)

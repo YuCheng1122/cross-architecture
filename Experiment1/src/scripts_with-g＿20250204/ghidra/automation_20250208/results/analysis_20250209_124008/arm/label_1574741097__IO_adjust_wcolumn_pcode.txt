@@ -1,0 +1,26 @@
+Label: 1574741097
+Function: _IO_adjust_wcolumn
+Architecture: arm
+Source File: Unknown
+Entry Point: 0005ca10
+
+High-level P-code:
+
+(register, 0x58, 4) PTRADD (register, 0x24, 4) , (register, 0x28, 4) , (const, 0x4, 4)
+ ---  BRANCH (ram, 0x5ca2c, 1)
+(unique, 0x1000001a, 4) COPY (register, 0x58, 4)
+(register, 0x50, 4) LOAD (const, 0x1a1, 4) , (register, 0x2c, 4)
+(register, 0x2c, 4) PTRADD (register, 0x2c, 4) , (const, 0xffffffff, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x50, 4) , (const, 0xa, 4)
+ ---  CBRANCH (ram, 0x5ca3c, 1) , (register, 0x65, 1)
+(register, 0x2c, 4) MULTIEQUAL (unique, 0x1000001a, 4) , (register, 0x2c, 4)
+(unique, 0x1f00, 1) INT_LESSEQUAL (register, 0x2c, 4) , (register, 0x24, 4)
+ ---  CBRANCH (ram, 0x5ca20, 1) , (unique, 0x1f00, 1)
+(register, 0x20, 4) INT_ADD (register, 0x28, 4) , (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x58, 4) INT_SUB (unique, 0x1000001e, 4) , (unique, 0x10000022, 4)
+(unique, 0x1000001e, 4) CAST (register, 0x58, 4)
+(unique, 0x10000022, 4) CAST (register, 0x2c, 4)
+(unique, 0x4100, 4) INT_SRIGHT (register, 0x58, 4) , (const, 0x2, 4)
+(register, 0x20, 4) INT_ADD (unique, 0x4100, 4) , (const, 0xffffffff, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

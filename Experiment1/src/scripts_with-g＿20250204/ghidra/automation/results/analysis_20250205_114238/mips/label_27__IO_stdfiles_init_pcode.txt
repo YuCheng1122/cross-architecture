@@ -1,0 +1,72 @@
+Label: 27
+Function: _IO_stdfiles_init
+Architecture: mips
+Source File: Unknown
+Entry Point: 004008d4
+
+P-code:
+
+004008d4: lui gp,0xc
+	(register, 0x70, 4) INT_LEFT (const, 0xc, 4) , (const, 0x10, 4)
+
+004008d8: addiu gp,gp,-0x5a74
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffffa58c, 4)
+
+004008dc: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+004008e0: lw v1,-0x7f68(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8098, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+004008e4: nop
+
+004008e8: lw v0,0x0(v1)
+	(unique, 0x100, 4) INT_ADD (register, 0xc, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+004008ec: nop
+
+004008f0: beq v0,zero,0x00400910
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x400910, 4) , (unique, 0x1200, 1)
+
+004008f4: _nop
+
+004008f8: sw v1,0x68(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x68, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0xc, 4)
+
+004008fc: addiu v1,v0,0x34
+	(register, 0xc, 4) INT_ADD (register, 0x8, 4) , (const, 0x34, 4)
+
+00400900: lw v0,0x34(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x34, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00400904: nop
+
+00400908: bne v0,zero,0x004008f8
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x4008f8, 4) , (unique, 0x1700, 1)
+
+0040090c: _nop
+
+00400910: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00400914: _nop
+

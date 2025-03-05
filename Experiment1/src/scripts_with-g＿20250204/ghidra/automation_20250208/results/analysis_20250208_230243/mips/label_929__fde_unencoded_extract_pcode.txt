@@ -1,0 +1,24 @@
+Label: 929
+Function: fde_unencoded_extract
+Architecture: mips
+Source File: Unknown
+Entry Point: 0047d8b4
+
+High-level P-code:
+
+(register, 0x40, 4) COPY (const, 0x0, 4)
+(unique, 0x5080, 1) INT_SLESS (register, 0x40, 4) , (register, 0x1c, 4)
+(register, 0x40, 4) MULTIEQUAL (register, 0x40, 4) , (register, 0x40, 4)
+(ram, 0x4b2ec0, 4) MULTIEQUAL (ram, 0x4b2ec0, 4) , (ram, 0x4b2ec0, 4)
+ ---  CBRANCH (ram, 0x47d914, 1) , (unique, 0x5080, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x4b2ec0, 4) COPY (ram, 0x4b2ec0, 4)
+(register, 0x8, 4) PTRADD (register, 0x18, 4) , (register, 0x40, 4) , (const, 0x4, 4)
+(register, 0x14, 4) LOAD (const, 0x1a1, 4) , (register, 0x8, 4)
+(register, 0x14, 4) PTRADD (register, 0x14, 4) , (const, 0x1, 4) , (const, 0x8, 4)
+ ---  CALLIND (unique, 0x10000011, 4) , (register, 0x10, 4) , (register, 0x14, 4) , (const, 0x4, 4)
+(ram, 0x4b2ec0, 4) INDIRECT (ram, 0x4b2ec0, 4) , (const, 0x52, 4)
+(register, 0x10, 4) PTRADD (register, 0x14, 4) , (register, 0x40, 4) , (const, 0x4, 4)
+(unique, 0x10000011, 4) CAST (ram, 0x4b2ec0, 4)
+(register, 0x40, 4) INT_ADD (register, 0x40, 4) , (const, 0x1, 4)
+ ---  BRANCH (ram, 0x47d8ec, 1)

@@ -1,0 +1,21 @@
+Label: 545
+Function: __sigjmp_save
+Architecture: arm
+Source File: Unknown
+Entry Point: 0002e714
+
+High-level P-code:
+
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x24, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x2e730, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+(register, 0x24, 4) MULTIEQUAL (register, 0x24, 4) , (unique, 0x3b00, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8280, 4) , (register, 0x24, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x100, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x28, 4) PTRSUB (register, 0x20, 4) , (const, 0x104, 4)
+(register, 0x20, 4) CALL (ram, 0x1f550, 8) , (const, 0x0, 4) , (const, 0x0, 4) , (unique, 0x1000001e, 4)
+(unique, 0x1000001e, 4) CAST (register, 0x28, 4)
+(unique, 0x3b00, 4) INT_ZEXT (unique, 0x10000015, 1)
+(unique, 0x10000015, 1) INT_EQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  BRANCH (ram, 0x2e724, 1)

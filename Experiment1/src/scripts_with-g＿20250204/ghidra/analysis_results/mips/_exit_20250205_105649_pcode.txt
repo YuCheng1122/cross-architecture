@@ -1,0 +1,78 @@
+Function: _exit
+Address: 0041dbe0
+P-code:
+
+0041dbe0: lui gp,0xa
+	(register, 0x70, 4) INT_LEFT (const, 0xa, 4) , (const, 0x10, 4)
+
+0041dbe4: addiu gp,gp,-0x2d80
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffffd280, 4)
+
+0041dbe8: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0041dbec: lw a1,-0x74e4(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8b1c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x14, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0041dbf0: rdhwr v1,HW_ULR
+	(register, 0xc, 4) CALLOTHER (const, 0x26, 4) , (register, 0x3274, 4)
+
+0041dbf4: addu a1,a1,v1
+	(register, 0x14, 4) INT_ADD (register, 0x14, 4) , (register, 0xc, 4)
+
+0041dbf8: li v0,0x1096
+	(register, 0x8, 4) COPY (const, 0x1096, 4)
+
+0041dbfc: syscall
+	 ---  CALLOTHER (const, 0x3, 4) , (const, 0x0, 4)
+
+0041dc00: beq a3,zero,0x0041dc10
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x1c, 4) , (const, 0x0, 4)
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5280, 1)
+	 ---  CBRANCH (ram, 0x41dc10, 4) , (unique, 0x1200, 1)
+
+0041dc04: _sltiu v1,v0,-0xfff
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5280, 1)
+
+0041dc08: subu v0,zero,v0
+	(register, 0x8, 4) INT_SUB (const, 0x0, 4) , (register, 0x8, 4)
+
+0041dc0c: sltiu v1,v0,-0xfff
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0xfffff001, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5280, 1)
+
+0041dc10: beq v1,zero,0x0041dc24
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	(register, 0x8, 4) INT_SUB (const, 0x0, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x41dc24, 4) , (unique, 0x1200, 1)
+
+0041dc14: _subu v0,zero,v0
+	(register, 0x8, 4) INT_SUB (const, 0x0, 4) , (register, 0x8, 4)
+
+0041dc18: break 0x3fc00
+	 ---  CALLOTHER (const, 0x1, 4) , (const, 0x3fc00, 4)
+
+0041dc1c: b 0x0041dbf8
+	 ---  BRANCH (ram, 0x41dbf8, 4)
+
+0041dc20: _nop
+
+0041dc24: sw v0,0x0(a1)
+	(unique, 0x100, 4) INT_ADD (register, 0x14, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x8, 4)
+
+0041dc28: break 0x3fc00
+	 ---  CALLOTHER (const, 0x1, 4) , (const, 0x3fc00, 4)
+
+0041dc2c: b 0x0041dbf8
+	 ---  BRANCH (ram, 0x41dbf8, 4)
+
+0041dc30: _nop
+

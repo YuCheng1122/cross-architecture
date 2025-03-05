@@ -1,0 +1,75 @@
+Label: 433
+Function: _IO_least_marker
+Architecture: mips
+Source File: Unknown
+Entry Point: 00431ddc
+
+P-code:
+
+00431ddc: lw v0,0xc(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0xc, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00431de0: lw v1,0x30(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x30, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00431de4: nop
+
+00431de8: beq v1,zero,0x00431e18
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	(register, 0x8, 4) INT_SUB (register, 0x14, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x431e18, 4) , (unique, 0x1200, 1)
+
+00431dec: _subu v0,a1,v0
+	(register, 0x8, 4) INT_SUB (register, 0x14, 4) , (register, 0x8, 4)
+
+00431df0: lw a0,0x8(v1)
+	(unique, 0x100, 4) INT_ADD (register, 0xc, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x10, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00431df4: nop
+
+00431df8: slt a2,a0,v0
+	(unique, 0x5080, 1) INT_SLESS (register, 0x10, 4) , (register, 0x8, 4)
+	(register, 0x18, 4) INT_ZEXT (unique, 0x5080, 1)
+
+00431dfc: beq a2,zero,0x00431e08
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x431e08, 4) , (unique, 0x1200, 1)
+
+00431e00: _nop
+
+00431e04: or v0,a0,zero
+	(register, 0x8, 4) INT_OR (register, 0x10, 4) , (const, 0x0, 4)
+
+00431e08: lw v1,0x0(v1)
+	(unique, 0x100, 4) INT_ADD (register, 0xc, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00431e0c: nop
+
+00431e10: bne v1,zero,0x00431df0
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x431df0, 4) , (unique, 0x1700, 1)
+
+00431e14: _nop
+
+00431e18: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00431e1c: _nop
+

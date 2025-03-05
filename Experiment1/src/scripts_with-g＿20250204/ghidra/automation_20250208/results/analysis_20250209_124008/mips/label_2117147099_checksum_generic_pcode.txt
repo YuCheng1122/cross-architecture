@@ -1,0 +1,42 @@
+Label: 2117147099
+Function: checksum_generic
+Architecture: mips
+Source File: Unknown
+Entry Point: 0040c7a0
+
+High-level P-code:
+
+(register, 0x40, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x40c7f0, 1)
+(unique, 0x10000013, 4) COPY (register, 0x10, 4)
+(unique, 0x10000017, 4) COPY (unique, 0x10000013, 4)
+(unique, 0x1000001f, 4) COPY (register, 0x14, 4)
+(register, 0xc, 4) PTRADD (stack, 0x0, 4) , (const, 0x1, 4) , (const, 0x2, 4)
+(unique, 0x3300, 2) LOAD (const, 0x1a1, 4) , (stack, 0x0, 4)
+(register, 0x8, 4) INT_ZEXT (unique, 0x3300, 2)
+(register, 0x40, 4) INT_ADD (register, 0x40, 4) , (register, 0x8, 4)
+(register, 0x8, 4) INT_SUB (stack, 0x4, 4) , (const, 0x2, 4)
+(unique, 0x1000001b, 4) COPY (register, 0xc, 4)
+(register, 0x40, 4) MULTIEQUAL (register, 0x40, 4) , (register, 0x40, 4)
+(stack, 0x0, 4) MULTIEQUAL (unique, 0x10000017, 4) , (unique, 0x1000001b, 4)
+(stack, 0x4, 4) MULTIEQUAL (unique, 0x1000001f, 4) , (register, 0x8, 4)
+(unique, 0x5280, 1) INT_LESS (const, 0x1, 4) , (stack, 0x4, 4)
+ ---  CBRANCH (ram, 0x40c7c4, 1) , (unique, 0x5280, 1)
+(unique, 0x1700, 1) INT_EQUAL (stack, 0x4, 4) , (const, 0x1, 4)
+ ---  CBRANCH (ram, 0x40c830, 1) , (unique, 0x1700, 1)
+(unique, 0x3300, 2) LOAD (const, 0x1a1, 4) , (stack, 0x0, 4)
+(register, 0xb, 1) SUBPIECE (unique, 0x3300, 2) , (const, 0x0, 4)
+(register, 0x8, 4) INT_SEXT (register, 0xb, 1)
+(register, 0x40, 4) INT_ADD (register, 0x40, 4) , (register, 0x8, 4)
+(register, 0xc, 4) INT_RIGHT (register, 0x40, 4) , (const, 0x10, 4)
+(register, 0x40, 4) MULTIEQUAL (register, 0x40, 4) , (register, 0x40, 4)
+(register, 0x8, 4) INT_AND (register, 0x40, 4) , (const, 0xffff, 4)
+(register, 0x40, 4) INT_ADD (register, 0xc, 4) , (register, 0x8, 4)
+(unique, 0x10000004, 2) INT_ADD (unique, 0x10000006, 2) , (unique, 0x10000008, 2)
+(unique, 0x10000000, 2) INT_NEGATE (unique, 0x10000004, 2)
+(register, 0xa, 2) COPY (unique, 0x10000000, 2)
+ ---  RETURN (const, 0x0, 4) , (register, 0xa, 2)
+(unique, 0x10000006, 2) SUBPIECE (register, 0x40, 4) , (const, 0x0, 4)
+(unique, 0x10000008, 2) SUBPIECE (unique, 0x1000000f, 4) , (const, 0x0, 4)
+(unique, 0x1000000f, 4) INT_RIGHT (unique, 0x10000023, 4) , (const, 0x10, 4)
+(unique, 0x10000023, 4) CAST (register, 0x40, 4)

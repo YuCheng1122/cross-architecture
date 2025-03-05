@@ -1,0 +1,18 @@
+Label: 978
+Function: __sync_lock_test_and_set_4
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006ecf4
+
+High-level P-code:
+
+(unique, 0x10000025, 4) COPY (ram, 0x6ed28, 4)
+(register, 0x38, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(ram, 0x6ed28, 4) MULTIEQUAL (ram, 0x6ed28, 4) , (ram, 0x6ed28, 4)
+(register, 0x20, 4) CALLIND (unique, 0x10000025, 4) , (register, 0x38, 4) , (register, 0x24, 4) , (register, 0x20, 4)
+(ram, 0x6ed28, 4) INDIRECT (ram, 0x6ed28, 4) , (const, 0x1b, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6ed04, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (register, 0x38, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x6ed28, 4) COPY (ram, 0x6ed28, 4)

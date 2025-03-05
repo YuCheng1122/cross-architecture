@@ -1,0 +1,37 @@
+Label: 532
+Function: __sched_cpucount
+Architecture: arm
+Source File: Unknown
+Entry Point: 0003dee4
+
+High-level P-code:
+
+(unique, 0x3b00, 4) INT_RIGHT (register, 0x20, 4) , (const, 0x2, 4)
+(register, 0x65, 1) INT_NOTEQUAL (unique, 0x3b00, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x3df2c, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+(unique, 0x10000012, 4) PTRADD (register, 0x24, 4) , (const, 0xffffffff, 4) , (const, 0x80, 4)
+(unique, 0x10000016, 4) PTRSUB (unique, 0x10000012, 4) , (const, 0x0, 4)
+(register, 0x50, 4) PTRADD (unique, 0x10000016, 4) , (const, 0x1f, 4) , (const, 0x4, 4)
+(register, 0x58, 4) PTRADD (register, 0x50, 4) , (unique, 0x3b00, 4) , (const, 0x4, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (register, 0x50, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4)
+(register, 0x50, 4) MULTIEQUAL (register, 0x50, 4) , (register, 0x50, 4)
+(register, 0x50, 4) PTRADD (register, 0x50, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x3df20, 1) , (register, 0x65, 1)
+(register, 0x24, 4) COPY (const, 0x0, 4)
+(register, 0x28, 4) INT_SUB (register, 0x2c, 4) , (const, 0x1, 4)
+(register, 0x24, 4) MULTIEQUAL (register, 0x24, 4) , (register, 0x24, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (register, 0x2c, 4)
+(register, 0x2c, 4) INT_AND (register, 0x2c, 4) , (register, 0x28, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+(register, 0x24, 4) INT_ADD (register, 0x24, 4) , (const, 0x1, 4)
+ ---  CBRANCH (ram, 0x3df0c, 1) , (register, 0x65, 1)
+(register, 0x20, 4) INT_ADD (register, 0x20, 4) , (register, 0x24, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x50, 4) , (register, 0x58, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4)
+ ---  CBRANCH (ram, 0x3defc, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

@@ -1,0 +1,38 @@
+Label: 110204533
+Function: __printf_buffer_flush
+Architecture: arm
+Source File: Unknown
+Entry Point: 00065f4c
+
+High-level P-code:
+
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x18, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x66024, 1) , (register, 0x65, 1)
+(register, 0x2c, 4) INT_ADD (register, 0x2c, 4) , (const, 0xffffffff, 4)
+(register, 0x28, 4) INT_ADD (ram, 0x66050, 4) , (const, 0x65f68, 4)
+(unique, 0x1f00, 1) INT_LESS (register, 0x2c, 4) , (const, 0xb, 4)
+ ---  CBRANCH (ram, 0x6604c, 1) , (unique, 0x1f00, 1)
+(unique, 0x1000002b, 4) INT_ADD (register, 0x28, 4) , (register, 0x2c, 4)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(register, 0x2c, 4) INT_ZEXT (unique, 0x43980, 1)
+(unique, 0x8480, 4) CAST (unique, 0x1000002b, 4)
+(unique, 0x3580, 4) INT_MULT (register, 0x2c, 4) , (const, 0x4, 4)
+(unique, 0x1000002f, 4) INT_ADD (unique, 0x3580, 4) , (const, 0x65f80, 4)
+(register, 0x20, 1) CALLIND (unique, 0x40780, 4)
+ ---  RETURN (const, 0x1, 4) , (register, 0x20, 1)
+(register, 0x20, 1) COPY (unique, 0x10000033, 1)
+(ram, 0x66050, 4) INDIRECT (ram, 0x66050, 4) , (const, 0x53, 4)
+(ram, 0x66050, 4) COPY (ram, 0x66050, 4)
+(unique, 0x40780, 4) CAST (unique, 0x1000002f, 4)
+(unique, 0x10000033, 1) CAST (register, 0x20, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 1)
+(register, 0x20, 1) COPY (const, 0x0, 1)
+(ram, 0x66050, 4) COPY (ram, 0x66050, 4)
+(unique, 0x10000027, 4) CALLOTHER (const, 0x11, 4) , (const, 0x0, 4) , (const, 0x6604c, 4)
+ ---  CALLIND (unique, 0x3cd80, 4)
+ ---  RETURN (const, 0x1, 4)
+(ram, 0x66050, 4) INDIRECT (ram, 0x66050, 4) , (const, 0x55, 4)
+(ram, 0x66050, 4) COPY (ram, 0x66050, 4)
+(unique, 0x3cd80, 4) CAST (unique, 0x10000027, 4)

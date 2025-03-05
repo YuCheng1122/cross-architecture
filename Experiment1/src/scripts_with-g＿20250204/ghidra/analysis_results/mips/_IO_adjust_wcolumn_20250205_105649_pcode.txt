@@ -1,0 +1,76 @@
+Function: _IO_adjust_wcolumn
+Address: 004623bc
+P-code:
+
+004623bc: sll v0,a2,0x2
+	(register, 0x8, 4) INT_LEFT (register, 0x18, 4) , (const, 0x2, 4)
+
+004623c0: addu v0,a1,v0
+	(register, 0x8, 4) INT_ADD (register, 0x14, 4) , (register, 0x8, 4)
+
+004623c4: or v1,v0,zero
+	(register, 0xc, 4) INT_OR (register, 0x8, 4) , (const, 0x0, 4)
+
+004623c8: b 0x004623e0
+	(register, 0x20, 4) COPY (const, 0xa, 4)
+	 ---  BRANCH (ram, 0x4623e0, 4)
+
+004623cc: _li t0,0xa
+	(register, 0x20, 4) COPY (const, 0xa, 4)
+
+004623d0: lw a3,0x0(v1)
+	(unique, 0x100, 4) INT_ADD (register, 0xc, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x1c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+004623d4: nop
+
+004623d8: beq a3,t0,0x004623f4
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x1c, 4) , (register, 0x20, 4)
+	 ---  CBRANCH (ram, 0x4623f4, 4) , (unique, 0x1200, 1)
+
+004623dc: _nop
+
+004623e0: sltu a3,a1,v1
+	(unique, 0x5380, 1) INT_LESS (register, 0x14, 4) , (register, 0xc, 4)
+	(register, 0x1c, 4) INT_ZEXT (unique, 0x5380, 1)
+
+004623e4: bne a3,zero,0x004623d0
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x1c, 4) , (const, 0x0, 4)
+	(register, 0xc, 4) INT_ADD (register, 0xc, 4) , (const, 0xfffffffc, 4)
+	 ---  CBRANCH (ram, 0x4623d0, 4) , (unique, 0x1700, 1)
+
+004623e8: _addiu v1,v1,-0x4
+	(register, 0xc, 4) INT_ADD (register, 0xc, 4) , (const, 0xfffffffc, 4)
+
+004623ec: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) INT_ADD (register, 0x18, 4) , (register, 0x10, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+004623f0: _addu v0,a2,a0
+	(register, 0x8, 4) INT_ADD (register, 0x18, 4) , (register, 0x10, 4)
+
+004623f4: subu v0,v0,v1
+	(register, 0x8, 4) INT_SUB (register, 0x8, 4) , (register, 0xc, 4)
+
+004623f8: sra v0,v0,0x2
+	(register, 0x8, 4) INT_SRIGHT (register, 0x8, 4) , (const, 0x2, 4)
+
+004623fc: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xffffffff, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00462400: _addiu v0,v0,-0x1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xffffffff, 4)
+

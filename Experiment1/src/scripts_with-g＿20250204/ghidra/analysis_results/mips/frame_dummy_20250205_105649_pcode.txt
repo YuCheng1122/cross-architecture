@@ -1,0 +1,55 @@
+Function: frame_dummy
+Address: 00400a54
+P-code:
+
+00400a54: lui v0,0x48
+	(register, 0x8, 4) INT_LEFT (const, 0x48, 4) , (const, 0x10, 4)
+
+00400a58: addiu v0,v0,-0xf3c
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xfffff0c4, 4)
+
+00400a5c: beq v0,zero,0x00400a84
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	(register, 0x14, 4) INT_LEFT (const, 0x4b, 4) , (const, 0x10, 4)
+	 ---  CBRANCH (ram, 0x400a84, 4) , (unique, 0x1200, 1)
+
+00400a60: _lui a1,0x4b
+	(register, 0x14, 4) INT_LEFT (const, 0x4b, 4) , (const, 0x10, 4)
+
+00400a64: lui a0,0x4a
+	(register, 0x10, 4) INT_LEFT (const, 0x4a, 4) , (const, 0x10, 4)
+
+00400a68: addiu sp,sp,-0x20
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0xffffffe0, 4)
+
+00400a6c: addiu a1,a1,0x39d4
+	(register, 0x14, 4) INT_ADD (register, 0x14, 4) , (const, 0x39d4, 4)
+
+00400a70: sw ra,0x1c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x1c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x7c, 4)
+
+00400a74: jal 0x00400440
+	(register, 0x7c, 4) COPY (const, 0x400a7c, 4)
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0xffffb9f0, 4)
+	 ---  CALL (ram, 0x400440, 4)
+
+00400a78: _addiu a0,a0,-0x4610
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0xffffb9f0, 4)
+
+00400a7c: lw ra,0x1c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x1c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x7c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00400a80: addiu sp,sp,0x20
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x20, 4)
+
+00400a84: j 0x004009b4
+	 ---  BRANCH (ram, 0x4009b4, 4)
+
+00400a88: _nop
+

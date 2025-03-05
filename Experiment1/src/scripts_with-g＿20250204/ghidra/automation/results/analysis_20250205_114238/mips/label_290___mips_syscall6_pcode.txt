@@ -1,0 +1,29 @@
+Label: 290
+Function: __mips_syscall6
+Architecture: mips
+Source File: Unknown
+Entry Point: 00421070
+
+P-code:
+
+00421070: lw v0,0x18(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x18, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00421074: syscall
+	 ---  CALLOTHER (const, 0x3, 4) , (const, 0x0, 4)
+
+00421078: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0xc, 4) INT_OR (register, 0x1c, 4) , (const, 0x0, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0042107c: _or v1,a3,zero
+	(register, 0xc, 4) INT_OR (register, 0x1c, 4) , (const, 0x0, 4)
+

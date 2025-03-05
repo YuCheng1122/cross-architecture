@@ -1,0 +1,34 @@
+Label: 825
+Function: __mpn_cmp
+Architecture: arm
+Source File: Unknown
+Entry Point: 00064680
+
+High-level P-code:
+
+(register, 0x2c, 4) INT_ADD (register, 0x28, 4) , (const, 0xffffffff, 4)
+(register, 0x64, 1) INT_SLESS (const, 0xffffffff, 4) , (register, 0x2c, 4)
+ ---  CBRANCH (ram, 0x646bc, 1) , (register, 0x64, 1)
+(register, 0x20, 4) PTRADD (register, 0x20, 4) , (register, 0x28, 4) , (const, 0x4, 4)
+(register, 0x24, 4) PTRADD (register, 0x24, 4) , (register, 0x28, 4) , (const, 0x4, 4)
+ ---  BRANCH (ram, 0x6469c, 1)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0xffffffff, 4)
+ ---  CBRANCH (ram, 0x646bc, 1) , (register, 0x65, 1)
+(register, 0x50, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4)
+(register, 0x24, 4) MULTIEQUAL (register, 0x24, 4) , (register, 0x24, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (register, 0x2c, 4)
+(register, 0x20, 4) PTRADD (register, 0x20, 4) , (const, 0xffffffff, 4) , (const, 0x4, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (register, 0x24, 4)
+(register, 0x24, 4) PTRADD (register, 0x24, 4) , (const, 0xffffffff, 4) , (const, 0x4, 4)
+(register, 0x2c, 4) INT_ADD (register, 0x2c, 4) , (const, 0xffffffff, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x50, 4) , (register, 0x28, 4)
+ ---  CBRANCH (ram, 0x64694, 1) , (register, 0x65, 1)
+(unique, 0x2080, 1) INT_LESS (register, 0x28, 4) , (register, 0x50, 4)
+ ---  CBRANCH (ram, 0x646c4, 1) , (unique, 0x2080, 1)
+(register, 0x20, 4) COPY (const, 0x1, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) COPY (const, 0xffffffff, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

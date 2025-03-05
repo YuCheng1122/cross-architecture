@@ -1,0 +1,26 @@
+Label: 553232242
+Function: __open64_nocancel
+Architecture: mips
+Source File: Unknown
+Entry Point: 0043a030
+
+High-level P-code:
+
+(register, 0xc, 4) INT_AND (register, 0x14, 4) , (const, 0x100, 4)
+(unique, 0x1700, 1) INT_NOTEQUAL (register, 0xc, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x43a0a0, 1) , (unique, 0x1700, 1)
+(register, 0x18, 4) INT_AND (register, 0x14, 4) , (const, 0x410000, 4)
+(unique, 0x1200, 1) INT_EQUAL (register, 0x18, 4) , (const, 0x410000, 4)
+ ---  CBRANCH (ram, 0x43a0a4, 1) , (unique, 0x1200, 1)
+(unique, 0x10000011, 4) COPY (const, 0x0, 4)
+(unique, 0x10000016, 4) COPY (unique, 0x10000011, 4)
+(register, 0xc, 4) MULTIEQUAL (unique, 0x10000016, 4) , (unique, 0x1000001a, 4)
+(register, 0x8, 4) COPY (const, 0x10c0, 4)
+ ---  CALLOTHER (const, 0x3, 4) , (const, 0x0, 4)
+(unique, 0x1200, 1) INT_NOTEQUAL (register, 0xc, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x43a090, 1) , (unique, 0x1200, 1)
+(unique, 0x10000000, 4) COPY (const, 0xffffef40, 4)
+(register, 0x8, 4) MULTIEQUAL (register, 0x8, 4) , (unique, 0x10000000, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+ ---  BRANCH (ram, 0x43a06c, 1)
+(unique, 0x1000001a, 4) COPY (register, 0x18, 4)

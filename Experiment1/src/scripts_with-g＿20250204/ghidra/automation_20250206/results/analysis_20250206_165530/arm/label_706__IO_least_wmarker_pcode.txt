@@ -1,0 +1,36 @@
+Label: 706
+Function: _IO_least_wmarker
+Architecture: arm
+Source File: Unknown
+Entry Point: 0005bee8
+
+High-level P-code:
+
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x5c, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x30, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x28, 4) , (const, 0x8, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+(register, 0x20, 4) INT_SUB (unique, 0x1000002e, 4) , (unique, 0x10000032, 4)
+(unique, 0x1000002e, 4) CAST (register, 0x24, 4)
+(unique, 0x10000032, 4) CAST (register, 0x28, 4)
+(unique, 0x4100, 4) INT_SRIGHT (register, 0x20, 4) , (const, 0x2, 4)
+(register, 0x20, 4) COPY (unique, 0x4100, 4)
+ ---  CBRANCH (ram, 0x5bf04, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(register, 0x20, 4) MULTIEQUAL (unique, 0x4100, 4) , (register, 0x20, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (register, 0x2c, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x2c, 4) , (const, 0x8, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x10000022, 4)
+(unique, 0x10000022, 4) PTRSUB (register, 0x2c, 4) , (const, 0x0, 4)
+(unique, 0x2180, 1) INT_SLESSEQUAL (register, 0x28, 4) , (register, 0x20, 4)
+ ---  CBRANCH (ram, 0x5bf14, 1) , (unique, 0x2180, 1)
+(unique, 0x10000026, 4) COPY (register, 0x20, 4)
+(unique, 0x1000002a, 4) COPY (register, 0x28, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+(register, 0x20, 4) MULTIEQUAL (unique, 0x10000026, 4) , (unique, 0x1000002a, 4)
+ ---  CBRANCH (ram, 0x5bf04, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

@@ -1,0 +1,19 @@
+Label: 1588602985
+Function: __sync_fetch_and_or_4
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006dfe4
+
+High-level P-code:
+
+(unique, 0x10000025, 4) COPY (ram, 0x6e018, 4)
+(register, 0x34, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(ram, 0x6e018, 4) MULTIEQUAL (ram, 0x6e018, 4) , (ram, 0x6e018, 4)
+(register, 0x24, 4) INT_OR (register, 0x34, 4) , (register, 0x24, 4)
+(register, 0x20, 4) CALLIND (unique, 0x10000025, 4) , (register, 0x34, 4) , (register, 0x24, 4) , (register, 0x20, 4)
+(ram, 0x6e018, 4) INDIRECT (ram, 0x6e018, 4) , (const, 0x20, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6dff4, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (register, 0x34, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x6e018, 4) COPY (ram, 0x6e018, 4)

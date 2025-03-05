@@ -1,0 +1,23 @@
+Label: 1588400212
+Function: __sync_val_compare_and_swap_4
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006eb5c
+
+High-level P-code:
+
+(register, 0x3c, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(ram, 0x6eb9c, 4) MULTIEQUAL (ram, 0x6eb9c, 4) , (ram, 0x6eb9c, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x3c, 4) , (register, 0x24, 4)
+ ---  CBRANCH (ram, 0x6eb94, 1) , (register, 0x65, 1)
+(register, 0x20, 4) CALLIND (ram, 0x6eb9c, 4) , (register, 0x24, 4) , (register, 0x28, 4) , (register, 0x20, 4)
+(ram, 0x6eb9c, 4) INDIRECT (ram, 0x6eb9c, 4) , (const, 0x28, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6eb6c, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (register, 0x3c, 4)
+(ram, 0x6eb9c, 4) COPY (ram, 0x6eb9c, 4)
+(register, 0x20, 4) COPY (register, 0x3c, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x6eb9c, 4) COPY (ram, 0x6eb9c, 4)
+(ram, 0x6eb9c, 4) COPY (ram, 0x6eb9c, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

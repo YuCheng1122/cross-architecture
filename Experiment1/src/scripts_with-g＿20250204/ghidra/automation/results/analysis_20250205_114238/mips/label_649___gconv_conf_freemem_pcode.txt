@@ -1,0 +1,84 @@
+Label: 649
+Function: __gconv_conf_freemem
+Architecture: mips
+Source File: Unknown
+Entry Point: 0044b0e8
+
+P-code:
+
+0044b0e8: lui gp,0x7
+	(register, 0x70, 4) INT_LEFT (const, 0x7, 4) , (const, 0x10, 4)
+
+0044b0ec: addiu gp,gp,-0x288
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xfffffd78, 4)
+
+0044b0f0: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0044b0f4: lw v0,-0x7930(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff86d0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0044b0f8: nop
+
+0044b0fc: lw a0,0x0(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x10, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0044b100: nop
+
+0044b104: beq a0,zero,0x0044b130
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x10, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x44b130, 4) , (unique, 0x1200, 1)
+
+0044b108: _nop
+
+0044b10c: lw v0,-0x7e64(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff819c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0044b110: nop
+
+0044b114: addiu v0,v0,-0x4368
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xffffbc98, 4)
+
+0044b118: beq a0,v0,0x0044b130
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x10, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x44b130, 4) , (unique, 0x1200, 1)
+
+0044b11c: _nop
+
+0044b120: lw t9,-0x7f78(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8088, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0044b124: nop
+
+0044b128: jr t9
+	(unique, 0xc80, 4) INT_AND (register, 0x64, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x64, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  BRANCHIND (register, 0x80, 4)
+
+0044b12c: _nop
+
+0044b130: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0044b134: _nop
+

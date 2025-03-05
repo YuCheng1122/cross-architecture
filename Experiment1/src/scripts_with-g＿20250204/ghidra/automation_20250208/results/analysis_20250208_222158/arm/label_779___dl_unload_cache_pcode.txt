@@ -1,0 +1,27 @@
+Label: 779
+Function: _dl_unload_cache
+Architecture: arm
+Source File: Unknown
+Entry Point: 000478ec
+
+High-level P-code:
+
+(unique, 0x10000016, 4) INT_ADD (ram, 0x4791c, 4) , (const, 0x478fc, 4)
+(register, 0x30, 4) CAST (unique, 0x10000016, 4)
+(unique, 0x1000001a, 4) LOAD (const, 0x1a1, 4) , (register, 0x30, 4)
+(register, 0x20, 4) CAST (unique, 0x1000001a, 4)
+(register, 0x2c, 4) INT_SUB (unique, 0x1000001e, 4) , (const, 0x1, 4)
+(unique, 0x1000001e, 4) CAST (register, 0x20, 4)
+(unique, 0x1f00, 1) INT_LESS (const, 0xfffffffd, 4) , (register, 0x2c, 4)
+ ---  CBRANCH (ram, 0x47908, 1) , (unique, 0x1f00, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x4791c, 4) COPY (ram, 0x4791c, 4)
+(unique, 0x10000022, 4) INT_ADD (ram, 0x4791c, 4) , (const, 0x47900, 4)
+(register, 0x24, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) CAST (unique, 0x10000022, 4)
+ ---  CALL (ram, 0x2ad70, 8) , (register, 0x20, 4) , (register, 0x24, 4)
+(ram, 0x4791c, 4) INDIRECT (ram, 0x4791c, 4) , (const, 0x3e, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x30, 4) , (const, 0x0, 4)
+(ram, 0x4791c, 4) INDIRECT (ram, 0x4791c, 4) , (const, 0x4c, 4)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x4791c, 4) COPY (ram, 0x4791c, 4)

@@ -1,0 +1,54 @@
+Function: _Unwind_SetGRPtr
+Address: 0047920c
+P-code:
+
+0047920c: lw v1,0x30c(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x30c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00479210: lui v0,0x4000
+	(register, 0x8, 4) INT_LEFT (const, 0x4000, 4) , (const, 0x10, 4)
+
+00479214: and v0,v0,v1
+	(register, 0x8, 4) INT_AND (register, 0x8, 4) , (register, 0xc, 4)
+
+00479218: beq v0,zero,0x00479224
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	(register, 0x8, 4) INT_ADD (register, 0x10, 4) , (register, 0x14, 4)
+	 ---  CBRANCH (ram, 0x479224, 4) , (unique, 0x1200, 1)
+
+0047921c: _addu v0,a0,a1
+	(register, 0x8, 4) INT_ADD (register, 0x10, 4) , (register, 0x14, 4)
+
+00479220: sb zero,0x318(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x318, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (const, 0x0, 1)
+
+00479224: sll a1,a1,0x2
+	(register, 0x14, 4) INT_LEFT (register, 0x14, 4) , (const, 0x2, 4)
+
+00479228: addu a0,a0,a1
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (register, 0x14, 4)
+
+0047922c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x18, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00479230: _sw a2,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x18, 4)
+

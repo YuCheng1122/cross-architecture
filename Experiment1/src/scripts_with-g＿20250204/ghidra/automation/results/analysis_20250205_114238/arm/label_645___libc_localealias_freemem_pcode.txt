@@ -1,0 +1,51 @@
+Label: 645
+Function: __libc_localealias_freemem
+Architecture: arm
+Source File: Unknown
+Entry Point: 00055944
+
+P-code:
+
+00055944: stmdb sp!,{r4,lr}
+	(register, 0x80, 4) INT_SUB (register, 0x54, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x58, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x30, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+00055948: ldr r4,[0x55964]
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (const, 0x55964, 4)
+
+0005594c: add r4,pc,r4
+	(unique, 0x1780, 4) INT_ADD (const, 0x5594c, 4) , (const, 0x8, 4)
+	(register, 0x68, 1) COPY (register, 0x62, 1)
+	(register, 0x66, 1) INT_CARRY (unique, 0x1780, 4) , (register, 0x30, 4)
+	(register, 0x67, 1) INT_SCARRY (unique, 0x1780, 4) , (register, 0x30, 4)
+	(register, 0x30, 4) INT_ADD (unique, 0x1780, 4) , (register, 0x30, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x30, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x30, 4) , (const, 0x0, 4)
+
+00055950: ldr r0,[r4,#0x14]
+	(unique, 0x8280, 4) INT_ADD (register, 0x30, 4) , (const, 0x14, 4)
+	(register, 0x20, 4) LOAD (const, 0x1a1, 8) , (unique, 0x8280, 4)
+
+00055954: bl 0x00025fe0
+	(register, 0x58, 4) COPY (const, 0x55958, 4)
+	 ---  CALL (ram, 0x25fe0, 4)
+
+00055958: ldr r0,[r4,#0x8]
+	(unique, 0x8280, 4) INT_ADD (register, 0x30, 4) , (const, 0x8, 4)
+	(register, 0x20, 4) LOAD (const, 0x1a1, 8) , (unique, 0x8280, 4)
+
+0005595c: ldmia sp!,{r4,lr}
+	(register, 0x80, 4) COPY (register, 0x54, 4)
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x58, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) COPY (register, 0x80, 4)
+
+00055960: b 0x00025fe0
+	 ---  BRANCH (ram, 0x25fe0, 4)
+

@@ -1,0 +1,42 @@
+Label: 249929495
+Function: rand_str
+Architecture: mips
+Source File: Unknown
+Entry Point: 0040f608
+
+High-level P-code:
+
+ ---  BRANCH (ram, 0x40f708, 1)
+(unique, 0x10000013, 4) COPY (register, 0x10, 4)
+(unique, 0x10000017, 4) COPY (unique, 0x10000013, 4)
+(unique, 0x10000027, 4) COPY (register, 0x14, 4)
+(unique, 0x5180, 1) INT_SLESS (stack, 0x4, 4) , (const, 0x4, 4)
+ ---  CBRANCH (ram, 0x40f67c, 1) , (unique, 0x5180, 1)
+(register, 0x8, 4) CALL (ram, 0x40f524, 8)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x1000002f, 4) , (register, 0x8, 4)
+(unique, 0x1000002f, 4) CAST (stack, 0x0, 4)
+(register, 0x8, 4) PTRADD (stack, 0x0, 4) , (const, 0x4, 4) , (const, 0x1, 4)
+(register, 0x8, 4) INT_ADD (stack, 0x4, 4) , (const, 0xfffffffc, 4)
+ ---  BRANCH (ram, 0x40f708, 1)
+(unique, 0x1000001b, 4) COPY (register, 0x8, 4)
+(unique, 0x5180, 1) INT_SLESS (stack, 0x4, 4) , (const, 0x2, 4)
+ ---  CBRANCH (ram, 0x40f6d0, 1) , (unique, 0x5180, 1)
+(register, 0x8, 4) CALL (ram, 0x40f524, 8)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x1000002b, 4) , (unique, 0x1000000f, 2)
+(unique, 0x1000000f, 2) SUBPIECE (register, 0x8, 4) , (const, 0x0, 4)
+(unique, 0x1000002b, 4) CAST (stack, 0x0, 4)
+(register, 0x8, 4) PTRADD (stack, 0x0, 4) , (const, 0x2, 4) , (const, 0x1, 4)
+(register, 0x8, 4) INT_ADD (stack, 0x4, 4) , (const, 0xfffffffe, 4)
+ ---  BRANCH (ram, 0x40f708, 1)
+(unique, 0x1000001f, 4) COPY (register, 0x8, 4)
+(register, 0x8, 4) CALL (ram, 0x40f524, 8)
+(register, 0xc, 4) PTRADD (stack, 0x0, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(register, 0xf, 1) SUBPIECE (register, 0x8, 4) , (const, 0x0, 4)
+ ---  STORE (const, 0x1a1, 4) , (stack, 0x0, 4) , (register, 0xf, 1)
+(register, 0x8, 4) INT_ADD (stack, 0x4, 4) , (const, 0xffffffff, 4)
+(unique, 0x10000023, 4) COPY (register, 0xc, 4)
+(stack, 0x0, 4) MULTIEQUAL (unique, 0x10000017, 4) , (unique, 0x1000001b, 4) , (unique, 0x1000001f, 4) , (unique, 0x10000023, 4)
+(stack, 0x4, 4) MULTIEQUAL (unique, 0x10000027, 4) , (register, 0x8, 4) , (register, 0x8, 4) , (register, 0x8, 4)
+(unique, 0x1400, 1) INT_SLESS (const, 0x0, 4) , (stack, 0x4, 4)
+ ---  CBRANCH (ram, 0x40f628, 1) , (unique, 0x1400, 1)
+ ---  RETURN (const, 0x0, 4)

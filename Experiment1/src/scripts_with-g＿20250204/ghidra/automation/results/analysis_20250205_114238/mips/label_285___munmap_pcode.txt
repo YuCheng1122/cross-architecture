@@ -1,0 +1,39 @@
+Label: 285
+Function: __munmap
+Architecture: mips
+Source File: Unknown
+Entry Point: 00420c30
+
+P-code:
+
+00420c30: lui gp,0xa
+	(register, 0x70, 4) INT_LEFT (const, 0xa, 4) , (const, 0x10, 4)
+
+00420c34: addiu gp,gp,-0x5dd0
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffffa230, 4)
+
+00420c38: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+00420c3c: li v0,0xffb
+	(register, 0x8, 4) COPY (const, 0xffb, 4)
+
+00420c40: syscall
+	 ---  CALLOTHER (const, 0x3, 4) , (const, 0x0, 4)
+
+00420c44: bne a3,zero,0x00420c20
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x1c, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x420c20, 4) , (unique, 0x1700, 1)
+
+00420c48: _nop
+
+00420c4c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00420c50: _nop
+

@@ -1,0 +1,36 @@
+Label: 407
+Function: __lseek64
+Architecture: arm
+Source File: Unknown
+Entry Point: 0003dfdc
+
+High-level P-code:
+
+ ---  CALLOTHER (const, 0xf, 4) , (const, 0x0, 4)
+(unique, 0x1f00, 1) INT_LESS (unique, 0x10000031, 4) , (const, 0xfffff001, 4)
+ ---  CBRANCH (ram, 0x3e024, 1) , (unique, 0x1f00, 1)
+(unique, 0x10000031, 4) CAST (register, 0x20, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x3e00c, 1) , (register, 0x65, 1)
+(unique, 0x10000029, 4) COPY (stack, 0xffffffffffffffe8, 4)
+(unique, 0x4100, 4) INT_SRIGHT (register, 0x20, 4) , (const, 0x1f, 4)
+(unique, 0x1000002d, 4) COPY (register, 0x20, 4)
+(register, 0x24, 4) MULTIEQUAL (unique, 0x4100, 4) , (stack, 0xffffffffffffffec, 4)
+(unique, 0x10000021, 4) MULTIEQUAL (unique, 0x1000002d, 4) , (unique, 0x10000029, 4)
+ ---  RETURN (const, 0x0, 4) , (VARIABLE, 0x0, 8)
+(VARIABLE, 0x0, 8) PIECE (register, 0x24, 4) , (unique, 0x10000021, 4)
+(ram, 0x3e04c, 4) COPY (ram, 0x3e04c, 4)
+(register, 0x20, 4) CALL (ram, 0x1f2a0, 8)
+(register, 0x2c, 4) INDIRECT (register, 0x20, 4) , (const, 0x7d, 4)
+(ram, 0x3e04c, 4) INDIRECT (ram, 0x3e04c, 4) , (const, 0x7d, 4)
+(unique, 0x1000001d, 4) INT_2COMP (register, 0x2c, 4)
+(unique, 0x10000035, 4) INT_ADD (ram, 0x3e04c, 4) , (const, 0x3e03c, 4)
+(register, 0x50, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x8480, 4) CAST (unique, 0x10000035, 4)
+(unique, 0x10000039, 4) INT_ADD (register, 0x20, 4) , (register, 0x50, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8480, 4) , (unique, 0x1000001d, 4)
+(ram, 0x3e04c, 4) INDIRECT (ram, 0x3e04c, 4) , (const, 0x9c, 4)
+(unique, 0x8480, 4) CAST (unique, 0x10000039, 4)
+ ---  RETURN (const, 0x0, 4) , (VARIABLE, 0x0, 8)
+(VARIABLE, 0x0, 8) COPY (const, 0xffffffffffffffff, 8)
+(ram, 0x3e04c, 4) COPY (ram, 0x3e04c, 4)

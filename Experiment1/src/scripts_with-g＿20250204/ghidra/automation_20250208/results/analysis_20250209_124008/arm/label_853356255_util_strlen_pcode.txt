@@ -1,0 +1,22 @@
+Label: 853356255
+Function: util_strlen
+Architecture: arm
+Source File: Unknown
+Entry Point: 0001dea8
+
+High-level P-code:
+
+(stack, 0xfffffffffffffff4, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x1ded0, 1)
+(unique, 0x10000004, 4) COPY (register, 0x20, 4)
+(unique, 0x10000008, 4) COPY (unique, 0x10000004, 4)
+(register, 0x2c, 4) INT_ADD (stack, 0xfffffffffffffff4, 4) , (const, 0x1, 4)
+(unique, 0x1000000c, 4) COPY (register, 0x28, 4)
+(stack, 0xffffffffffffffec, 4) MULTIEQUAL (unique, 0x10000008, 4) , (unique, 0x1000000c, 4)
+(stack, 0xfffffffffffffff4, 4) MULTIEQUAL (stack, 0xfffffffffffffff4, 4) , (register, 0x2c, 4)
+(register, 0x28, 4) PTRADD (stack, 0xffffffffffffffec, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (stack, 0xffffffffffffffec, 4)
+(register, 0x65, 1) INT_NOTEQUAL (unique, 0x43980, 1) , (const, 0x0, 1)
+ ---  CBRANCH (ram, 0x1dec4, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (stack, 0xfffffffffffffff4, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

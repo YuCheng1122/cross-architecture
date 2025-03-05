@@ -1,0 +1,42 @@
+Label: 815
+Function: __gconv_destroy_spec
+Architecture: arm
+Source File: Unknown
+Entry Point: 000629e0
+
+P-code:
+
+000629e0: stmdb sp!,{r4,lr}
+	(register, 0x80, 4) INT_SUB (register, 0x54, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x58, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x30, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+000629e4: cpy r4,r0
+	(register, 0x30, 4) COPY (register, 0x20, 4)
+
+000629e8: ldr r0,[r0,#0x0]
+	(unique, 0x8280, 4) INT_ADD (register, 0x20, 4) , (const, 0x0, 4)
+	(register, 0x20, 4) LOAD (const, 0x1a1, 8) , (unique, 0x8280, 4)
+
+000629ec: bl 0x00025fe0
+	(register, 0x58, 4) COPY (const, 0x629f0, 4)
+	 ---  CALL (ram, 0x25fe0, 4)
+
+000629f0: ldr r0,[r4,#0x4]
+	(unique, 0x8280, 4) INT_ADD (register, 0x30, 4) , (const, 0x4, 4)
+	(register, 0x20, 4) LOAD (const, 0x1a1, 8) , (unique, 0x8280, 4)
+
+000629f4: ldmia sp!,{r4,lr}
+	(register, 0x80, 4) COPY (register, 0x54, 4)
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x58, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) COPY (register, 0x80, 4)
+
+000629f8: b 0x00025fe0
+	 ---  BRANCH (ram, 0x25fe0, 4)
+

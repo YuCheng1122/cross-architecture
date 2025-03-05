@@ -1,0 +1,28 @@
+Label: 498471578
+Function: read_uleb128
+Architecture: arm
+Source File: Unknown
+Entry Point: 00070348
+
+High-level P-code:
+
+(register, 0x2c, 4) COPY (const, 0x0, 4)
+(register, 0x28, 4) COPY (const, 0x0, 4)
+(unique, 0x10000001, 4) COPY (register, 0x20, 4)
+(register, 0x20, 4) PTRADD (register, 0x20, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(register, 0x50, 4) INT_ZEXT (unique, 0x43980, 1)
+(register, 0x20, 4) MULTIEQUAL (unique, 0x10000001, 4) , (unique, 0x10000005, 4)
+(register, 0x28, 4) MULTIEQUAL (register, 0x28, 4) , (register, 0x28, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (register, 0x2c, 4)
+(register, 0x58, 4) INT_AND (register, 0x50, 4) , (const, 0x7f, 4)
+(register, 0x65, 1) INT_NOTEQUAL (unique, 0x10000000, 1) , (const, 0x0, 1)
+(unique, 0x10000000, 1) INT_AND (unique, 0x43980, 1) , (const, 0x80, 1)
+(unique, 0x4a80, 4) INT_AND (register, 0x28, 4) , (const, 0xff, 4)
+(unique, 0x5080, 4) INT_LEFT (register, 0x58, 4) , (unique, 0x4a80, 4)
+(register, 0x2c, 4) INT_OR (register, 0x2c, 4) , (unique, 0x5080, 4)
+(register, 0x28, 4) INT_ADD (register, 0x28, 4) , (const, 0x7, 4)
+ ---  CBRANCH (ram, 0x70354, 1) , (register, 0x65, 1)
+(unique, 0x10000005, 4) COPY (register, 0x20, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x24, 4) , (register, 0x2c, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

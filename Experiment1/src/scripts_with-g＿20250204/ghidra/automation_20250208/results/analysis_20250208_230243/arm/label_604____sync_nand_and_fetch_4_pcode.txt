@@ -1,0 +1,20 @@
+Label: 604
+Function: __sync_nand_and_fetch_4
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006e650
+
+High-level P-code:
+
+(unique, 0x10000025, 4) COPY (ram, 0x6e688, 4)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(ram, 0x6e688, 4) MULTIEQUAL (ram, 0x6e688, 4) , (ram, 0x6e688, 4)
+(register, 0x30, 4) INT_AND (register, 0x20, 4) , (register, 0x24, 4)
+(register, 0x30, 4) INT_NEGATE (register, 0x30, 4)
+(register, 0x20, 4) CALLIND (unique, 0x10000025, 4) , (register, 0x20, 4) , (register, 0x30, 4) , (register, 0x20, 4)
+(ram, 0x6e688, 4) INDIRECT (ram, 0x6e688, 4) , (const, 0x26, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6e660, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (register, 0x30, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x6e688, 4) COPY (ram, 0x6e688, 4)

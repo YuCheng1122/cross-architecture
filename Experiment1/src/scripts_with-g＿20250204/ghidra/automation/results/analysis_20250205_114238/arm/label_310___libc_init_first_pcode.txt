@@ -1,0 +1,99 @@
+Label: 310
+Function: __libc_init_first
+Architecture: arm
+Source File: Unknown
+Entry Point: 0002e50c
+
+P-code:
+
+0002e50c: stmdb sp!,{r4,r5,r6,lr}
+	(register, 0x80, 4) INT_SUB (register, 0x54, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x58, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x38, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x34, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x30, 4)
+	(register, 0x80, 4) INT_SUB (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+0002e510: cpy r4,r0
+	(register, 0x30, 4) COPY (register, 0x20, 4)
+
+0002e514: cpy r5,r1
+	(register, 0x34, 4) COPY (register, 0x24, 4)
+
+0002e518: cpy r6,r2
+	(register, 0x38, 4) COPY (register, 0x28, 4)
+
+0002e51c: ldr r3,[0x2e554]
+	(register, 0x2c, 4) LOAD (const, 0x1a1, 8) , (const, 0x2e554, 4)
+
+0002e520: ldr lr,[0x2e558]
+	(register, 0x58, 4) LOAD (const, 0x1a1, 8) , (const, 0x2e558, 4)
+
+0002e524: add r3,pc,r3
+	(unique, 0x1780, 4) INT_ADD (const, 0x2e524, 4) , (const, 0x8, 4)
+	(register, 0x68, 1) COPY (register, 0x62, 1)
+	(register, 0x66, 1) INT_CARRY (unique, 0x1780, 4) , (register, 0x2c, 4)
+	(register, 0x67, 1) INT_SCARRY (unique, 0x1780, 4) , (register, 0x2c, 4)
+	(register, 0x2c, 4) INT_ADD (unique, 0x1780, 4) , (register, 0x2c, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x2c, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+
+0002e528: stmia r3,{r4,r5}
+	(register, 0x80, 4) COPY (register, 0x2c, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x30, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	 ---  STORE (const, 0x1a1, 8) , (register, 0x80, 4) , (register, 0x34, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+
+0002e52c: ldr r12,[0x2e55c]
+	(register, 0x50, 4) LOAD (const, 0x1a1, 8) , (const, 0x2e55c, 4)
+
+0002e530: add lr,pc,lr
+	(unique, 0x1780, 4) INT_ADD (const, 0x2e530, 4) , (const, 0x8, 4)
+	(register, 0x68, 1) COPY (register, 0x62, 1)
+	(register, 0x66, 1) INT_CARRY (unique, 0x1780, 4) , (register, 0x58, 4)
+	(register, 0x67, 1) INT_SCARRY (unique, 0x1780, 4) , (register, 0x58, 4)
+	(register, 0x58, 4) INT_ADD (unique, 0x1780, 4) , (register, 0x58, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x58, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x58, 4) , (const, 0x0, 4)
+
+0002e534: ldr r3,[lr,r12]
+	(unique, 0x8480, 4) INT_ADD (register, 0x58, 4) , (register, 0x50, 4)
+	(register, 0x2c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x8480, 4)
+
+0002e538: str r2,[r3,#0x0]
+	(unique, 0x8280, 4) INT_ADD (register, 0x2c, 4) , (const, 0x0, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x8280, 4) , (register, 0x28, 4)
+
+0002e53c: bl 0x0002d940
+	(register, 0x58, 4) COPY (const, 0x2e540, 4)
+	 ---  CALL (ram, 0x2d940, 4)
+
+0002e540: cpy r2,r6
+	(register, 0x28, 4) COPY (register, 0x38, 4)
+
+0002e544: cpy r1,r5
+	(register, 0x24, 4) COPY (register, 0x34, 4)
+
+0002e548: cpy r0,r4
+	(register, 0x20, 4) COPY (register, 0x30, 4)
+
+0002e54c: ldmia sp!,{r4,r5,r6,lr}
+	(register, 0x80, 4) COPY (register, 0x54, 4)
+	(register, 0x30, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x34, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x38, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x58, 4) LOAD (const, 0x1a1, 8) , (register, 0x80, 4)
+	(register, 0x80, 4) INT_ADD (register, 0x80, 4) , (const, 0x4, 4)
+	(register, 0x54, 4) COPY (register, 0x80, 4)
+
+0002e550: b 0x0003ed34
+	 ---  BRANCH (ram, 0x3ed34, 4)
+

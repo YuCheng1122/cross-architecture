@@ -1,0 +1,43 @@
+Label: 145572495
+Function: __libc_dlopen_mode
+Architecture: arm
+Source File: Unknown
+Entry Point: 00061b98
+
+High-level P-code:
+
+(register, 0x2c, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffe0, 4)
+(register, 0x28, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffd7, 4)
+(unique, 0x10000046, 4) INT_ADD (ram, 0x61c20, 4) , (const, 0x61bc4, 4)
+(register, 0x2c, 4) CAST (unique, 0x10000046, 4)
+(register, 0x24, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffdc, 4)
+(register, 0x20, 4) PTRSUB (register, 0x54, 4) , (const, 0xffffffd8, 4)
+(stack, 0xffffffffffffffdc, 4) COPY (const, 0x0, 4)
+(register, 0x20, 4) CALL (ram, 0x3f20c, 8) , (register, 0x20, 4) , (register, 0x24, 4) , (register, 0x28, 4) , (register, 0x2c, 4) , (register, 0x2c, 4)
+(ram, 0x61c20, 4) INDIRECT (ram, 0x61c20, 4) , (const, 0x65, 4)
+(stack, 0xffffffffffffffd7, 1) INDIRECT (stack, 0xffffffffffffffd7, 1) , (const, 0x65, 4)
+(stack, 0xffffffffffffffdc, 4) INDIRECT (stack, 0xffffffffffffffdc, 4) , (const, 0x65, 4)
+(stack, 0xffffffffffffffe0, 4) INDIRECT (unique, 0x1000003e, 4) , (const, 0x65, 4)
+(stack, 0xffffffffffffffe4, 4) INDIRECT (unique, 0x10000042, 4) , (const, 0x65, 4)
+(stack, 0xffffffffffffffec, 4) INDIRECT (stack, 0xffffffffffffffec, 4) , (const, 0x65, 4)
+(unique, 0x1000003e, 4) COPY (register, 0x20, 4)
+(unique, 0x10000042, 4) COPY (register, 0x24, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x61bf0, 1) , (register, 0x65, 1)
+(register, 0x65, 1) INT_EQUAL (stack, 0xffffffffffffffdc, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x61c08, 1) , (register, 0x65, 1)
+(register, 0x65, 1) INT_NOTEQUAL (stack, 0xffffffffffffffd7, 1) , (const, 0x0, 1)
+ ---  CBRANCH (ram, 0x61c14, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+(ram, 0x61c20, 4) MULTIEQUAL (ram, 0x61c20, 4) , (ram, 0x61c20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x61c20, 4) COPY (ram, 0x61c20, 4)
+(register, 0x20, 4) COPY (stack, 0xffffffffffffffec, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x61c20, 4) COPY (ram, 0x61c20, 4)
+ ---  CALL (ram, 0x3f270, 8) , (stack, 0xffffffffffffffdc, 4)
+(ram, 0x61c20, 4) INDIRECT (ram, 0x61c20, 4) , (const, 0xc8, 4)
+(stack, 0xffffffffffffffdc, 4) INDIRECT (stack, 0xffffffffffffffdc, 4) , (const, 0xc8, 4)
+(stack, 0xffffffffffffffe0, 4) INDIRECT (stack, 0xffffffffffffffe0, 4) , (const, 0xc8, 4)
+(stack, 0xffffffffffffffe4, 4) INDIRECT (stack, 0xffffffffffffffe4, 4) , (const, 0xc8, 4)
+ ---  BRANCH (ram, 0x61bfc, 1)

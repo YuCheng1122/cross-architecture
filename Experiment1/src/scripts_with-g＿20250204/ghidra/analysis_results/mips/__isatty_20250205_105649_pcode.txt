@@ -1,0 +1,64 @@
+Function: __isatty
+Address: 00468150
+P-code:
+
+00468150: lui gp,0x5
+	(register, 0x70, 4) INT_LEFT (const, 0x5, 4) , (const, 0x10, 4)
+
+00468154: addiu gp,gp,0x2d10
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0x2d10, 4)
+
+00468158: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0046815c: addiu sp,sp,-0x58
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0xffffffa8, 4)
+
+00468160: lw t9,-0x76f8(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8908, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00468164: sw ra,0x54(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x54, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x7c, 4)
+
+00468168: sw gp,0x10(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x10, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x70, 4)
+
+0046816c: bal 0x00468510
+	(register, 0x7c, 4) COPY (const, 0x468174, 4)
+	(register, 0x14, 4) INT_ADD (register, 0x74, 4) , (const, 0x18, 4)
+	 ---  CALL (ram, 0x468510, 4)
+
+00468170: _addiu a1,sp,0x18
+	(register, 0x14, 4) INT_ADD (register, 0x74, 4) , (const, 0x18, 4)
+
+00468174: lw ra,0x54(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x54, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x7c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00468178: sltiu v0,v0,0x1
+	(unique, 0x5280, 1) INT_LESS (register, 0x8, 4) , (const, 0x1, 4)
+	(register, 0x8, 4) INT_ZEXT (unique, 0x5280, 1)
+
+0046817c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x58, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00468180: _addiu sp,sp,0x58
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x58, 4)
+

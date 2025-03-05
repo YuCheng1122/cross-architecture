@@ -1,0 +1,38 @@
+Function: get_fde_encoding
+Address: 0047cff0
+P-code:
+
+0047cff0: lui gp,0x4
+	(register, 0x70, 4) INT_LEFT (const, 0x4, 4) , (const, 0x10, 4)
+
+0047cff4: addiu gp,gp,-0x2190
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffffde70, 4)
+
+0047cff8: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0047cffc: addiu v1,a0,0x4
+	(register, 0xc, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+
+0047d000: lw t9,-0x7fa8(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8058, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0047d004: lw a0,0x4(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x10, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0047d008: addiu t9,t9,-0x31ac
+	(register, 0x64, 4) INT_ADD (register, 0x64, 4) , (const, 0xffffce54, 4)
+
+0047d00c: b 0x0047ce54
+	(register, 0x10, 4) INT_SUB (register, 0xc, 4) , (register, 0x10, 4)
+	 ---  BRANCH (ram, 0x47ce54, 4)
+
+0047d010: _subu a0,v1,a0
+	(register, 0x10, 4) INT_SUB (register, 0xc, 4) , (register, 0x10, 4)
+

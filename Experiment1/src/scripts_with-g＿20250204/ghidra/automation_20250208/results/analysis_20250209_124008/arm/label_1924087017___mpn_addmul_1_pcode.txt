@@ -1,0 +1,47 @@
+Label: 1924087017
+Function: __mpn_addmul_1
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006b730
+
+High-level P-code:
+
+(register, 0x38, 4) LOAD (const, 0x1a1, 4) , (register, 0x24, 4)
+(register, 0x24, 4) PTRADD (register, 0x24, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(register, 0x34, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(register, 0x30, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x6b758, 1)
+(unique, 0x1000003d, 4) COPY (register, 0x20, 4)
+(unique, 0x10000045, 4) COPY (register, 0x24, 4)
+(register, 0x38, 4) LOAD (const, 0x1a1, 4) , (register, 0x24, 4)
+(register, 0x24, 4) PTRADD (register, 0x24, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(register, 0x3c, 4) SUBPIECE (unique, 0x10000014, 8) , (const, 0x0, 4)
+(unique, 0x10000014, 8) INT_ADD (unique, 0x7c500, 8) , (unique, 0x1000001c, 8)
+(register, 0x34, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRADD (register, 0x20, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(register, 0x30, 4) SUBPIECE (unique, 0x10000035, 8) , (const, 0x0, 4)
+(unique, 0x10000035, 8) INT_RIGHT (unique, 0x1000004d, 8) , (const, 0x20, 4)
+(unique, 0x1000004d, 8) CAST (unique, 0x10000014, 8)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x20, 4) , (register, 0x3c, 4)
+(register, 0x20, 4) PTRADD (register, 0x20, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(unique, 0x10000041, 4) COPY (register, 0x20, 4)
+(unique, 0x10000049, 4) COPY (register, 0x24, 4)
+(register, 0x20, 4) MULTIEQUAL (unique, 0x1000003d, 4) , (unique, 0x10000041, 4)
+(register, 0x24, 4) MULTIEQUAL (unique, 0x10000045, 4) , (unique, 0x10000049, 4)
+(register, 0x28, 4) MULTIEQUAL (register, 0x28, 4) , (register, 0x28, 4)
+(register, 0x30, 4) MULTIEQUAL (register, 0x30, 4) , (register, 0x30, 4)
+(register, 0x34, 4) MULTIEQUAL (register, 0x34, 4) , (register, 0x34, 4)
+(register, 0x38, 4) MULTIEQUAL (register, 0x38, 4) , (register, 0x38, 4)
+(unique, 0x1000001c, 8) INT_ZEXT (register, 0x30, 4)
+(unique, 0x7c400, 8) INT_ZEXT (register, 0x34, 4)
+(unique, 0x7c600, 8) INT_ZEXT (register, 0x2c, 4)
+(unique, 0x7c700, 8) INT_ZEXT (register, 0x38, 4)
+(unique, 0x7c780, 8) INT_MULT (unique, 0x7c600, 8) , (unique, 0x7c700, 8)
+(unique, 0x7c500, 8) INT_ADD (unique, 0x7c780, 8) , (unique, 0x7c400, 8)
+(register, 0x34, 4) SUBPIECE (unique, 0x7c500, 8) , (const, 0x0, 4)
+(register, 0x28, 4) INT_ADD (register, 0x28, 4) , (const, 0xffffffff, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x28, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6b744, 1) , (register, 0x65, 1)
+(register, 0x30, 4) INT_ADD (register, 0x30, 4) , (register, 0x34, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x20, 4) , (register, 0x30, 4)
+ ---  RETURN (const, 0x0, 4)

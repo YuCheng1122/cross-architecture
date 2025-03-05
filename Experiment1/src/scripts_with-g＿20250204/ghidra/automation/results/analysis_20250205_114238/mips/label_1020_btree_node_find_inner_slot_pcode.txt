@@ -1,0 +1,63 @@
+Label: 1020
+Function: btree_node_find_inner_slot
+Architecture: mips
+Source File: Unknown
+Entry Point: 0047cacc
+
+P-code:
+
+0047cacc: lw a2,0x4(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x18, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0047cad0: or v0,zero,zero
+	(register, 0x8, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+0047cad4: addiu a0,a0,0xc
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0xc, 4)
+
+0047cad8: bne v0,a2,0x0047cae8
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (register, 0x18, 4)
+	 ---  CBRANCH (ram, 0x47cae8, 4) , (unique, 0x1700, 1)
+
+0047cadc: _nop
+
+0047cae0: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0047cae4: _nop
+
+0047cae8: lw v1,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0047caec: nop
+
+0047caf0: sltu v1,v1,a1
+	(unique, 0x5380, 1) INT_LESS (register, 0xc, 4) , (register, 0x14, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5380, 1)
+
+0047caf4: beq v1,zero,0x0047cae0
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0x8, 4)
+	 ---  CBRANCH (ram, 0x47cae0, 4) , (unique, 0x1200, 1)
+
+0047caf8: _addiu a0,a0,0x8
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0x8, 4)
+
+0047cafc: b 0x0047cad8
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0x1, 4)
+	 ---  BRANCH (ram, 0x47cad8, 4)
+
+0047cb00: _addiu v0,v0,0x1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0x1, 4)
+

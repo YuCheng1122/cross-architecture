@@ -1,0 +1,27 @@
+Label: 1012
+Function: tdestroy_recurse
+Architecture: arm
+Source File: Unknown
+Entry Point: 0003e3f8
+
+High-level P-code:
+
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x4, 4)
+(unique, 0x2080, 1) INT_LESS (const, 0x1, 4) , (register, 0x20, 4)
+ ---  CBRANCH (ram, 0x3e418, 1) , (unique, 0x2080, 1)
+(unique, 0x1000003d, 4) INT_AND (register, 0x20, 4) , (const, 0xfffffffe, 4)
+(register, 0x20, 4) CAST (unique, 0x1000003d, 4)
+ ---  CALL (ram, 0x3e3f8, 8) , (register, 0x20, 4) , (register, 0x24, 4)
+(unique, 0x10000041, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x8, 4)
+(register, 0x20, 4) CAST (unique, 0x10000041, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x3e438, 1) , (register, 0x65, 1)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x10000039, 4)
+(unique, 0x10000039, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CALLIND (register, 0x24, 4) , (register, 0x20, 4)
+ ---  CALL (ram, 0x25fe0, 8) , (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 8)
+ ---  CALL (ram, 0x3e3f8, 8) , (register, 0x20, 4) , (register, 0x24, 4)
+ ---  BRANCH (ram, 0x3e424, 1)

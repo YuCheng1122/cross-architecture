@@ -1,0 +1,44 @@
+Label: 100
+Function: call_fini
+Architecture: mips
+Source File: Unknown
+Entry Point: 00411c00
+
+High-level P-code:
+
+(register, 0x8, 4) INT_SUB (unique, 0x10000013, 4) , (unique, 0x10000017, 4)
+(unique, 0x10000013, 4) CAST (ram, 0x4b2efc, 4)
+(unique, 0x10000017, 4) CAST (ram, 0x4b2f00, 4)
+(register, 0x44, 4) INT_SRIGHT (register, 0x8, 4) , (const, 0x2, 4)
+(unique, 0x1200, 1) INT_NOTEQUAL (register, 0x44, 4) , (const, 0x0, 4)
+(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xfffffffc, 4)
+ ---  CBRANCH (ram, 0x411c58, 1) , (unique, 0x1200, 1)
+(unique, 0x1000001b, 4) PTRADD (ram, 0x4b2f00, 4) , (register, 0x8, 4) , (const, 0x1, 4)
+(register, 0x40, 4) CAST (unique, 0x1000001b, 4)
+(unique, 0x1000001f, 4) LOAD (const, 0x1a1, 4) , (register, 0x40, 4)
+(register, 0x40, 4) MULTIEQUAL (register, 0x40, 4) , (register, 0x40, 4)
+(register, 0x44, 4) MULTIEQUAL (register, 0x44, 4) , (register, 0x44, 4)
+(ram, 0x4b2efc, 4) MULTIEQUAL (ram, 0x4b2efc, 4) , (ram, 0x4b2efc, 4)
+(ram, 0x4b2f00, 4) MULTIEQUAL (ram, 0x4b2f00, 4) , (ram, 0x4b2f00, 4)
+(ram, 0x4b2f04, 4) MULTIEQUAL (ram, 0x4b2f04, 4) , (ram, 0x4b2f04, 4)
+(register, 0x64, 4) CAST (unique, 0x1000001f, 4)
+(register, 0x44, 4) INT_ADD (register, 0x44, 4) , (const, 0xffffffff, 4)
+ ---  CALLIND (register, 0x64, 4)
+(ram, 0x4b2efc, 4) INDIRECT (ram, 0x4b2efc, 4) , (const, 0x2d, 4)
+(ram, 0x4b2f00, 4) INDIRECT (ram, 0x4b2f00, 4) , (const, 0x2d, 4)
+(ram, 0x4b2f04, 4) INDIRECT (ram, 0x4b2f04, 4) , (const, 0x2d, 4)
+(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x44, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x411c3c, 1) , (unique, 0x1700, 1)
+(register, 0x40, 4) PTRADD (register, 0x40, 4) , (const, 0xffffffff, 4) , (const, 0x4, 4)
+(ram, 0x4b2efc, 4) MULTIEQUAL (ram, 0x4b2efc, 4) , (ram, 0x4b2efc, 4)
+(ram, 0x4b2f00, 4) MULTIEQUAL (ram, 0x4b2f00, 4) , (ram, 0x4b2f00, 4)
+(ram, 0x4b2f04, 4) MULTIEQUAL (ram, 0x4b2f04, 4) , (ram, 0x4b2f04, 4)
+ ---  CALLIND (unique, 0x10000023, 4)
+ ---  RETURN (const, 0x1, 4)
+(ram, 0x4b2efc, 4) INDIRECT (ram, 0x4b2efc, 4) , (const, 0x4b, 4)
+(ram, 0x4b2efc, 4) COPY (ram, 0x4b2efc, 4)
+(ram, 0x4b2f00, 4) INDIRECT (ram, 0x4b2f00, 4) , (const, 0x4b, 4)
+(ram, 0x4b2f00, 4) COPY (ram, 0x4b2f00, 4)
+(ram, 0x4b2f04, 4) INDIRECT (ram, 0x4b2f04, 4) , (const, 0x4b, 4)
+(ram, 0x4b2f04, 4) COPY (ram, 0x4b2f04, 4)
+(unique, 0x10000023, 4) CAST (ram, 0x4b2f04, 4)

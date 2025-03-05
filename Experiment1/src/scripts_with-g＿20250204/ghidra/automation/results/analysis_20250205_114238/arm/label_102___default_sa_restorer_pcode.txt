@@ -1,0 +1,31 @@
+Label: 102
+Function: __default_sa_restorer
+Architecture: arm
+Source File: Unknown
+Entry Point: 0001f670
+
+P-code:
+
+0001f670: mov r7,#0x77
+	(unique, 0x2e80, 4) INT_RIGHT (const, 0x77, 4) , (const, 0x1f, 4)
+	(unique, 0x2f00, 1) INT_EQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x2f80, 1) BOOL_AND (unique, 0x2f00, 1) , (register, 0x62, 1)
+	(unique, 0x3000, 1) INT_NOTEQUAL (const, 0x0, 1) , (const, 0x0, 1)
+	(unique, 0x3080, 1) SUBPIECE (unique, 0x2e80, 4) , (const, 0x0, 4)
+	(unique, 0x3100, 1) BOOL_AND (unique, 0x3000, 1) , (unique, 0x3080, 1)
+	(register, 0x68, 1) BOOL_OR (unique, 0x2f80, 1) , (unique, 0x3100, 1)
+	(register, 0x3c, 4) COPY (const, 0x77, 4)
+	(register, 0x64, 1) INT_SLESS (register, 0x3c, 4) , (const, 0x0, 4)
+	(register, 0x65, 1) INT_EQUAL (register, 0x3c, 4) , (const, 0x0, 4)
+	(register, 0x66, 1) COPY (register, 0x68, 1)
+	(register, 0x67, 1) COPY (register, 0x63, 1)
+
+0001f674: swi 0x0
+	 ---  CALLOTHER (const, 0xf, 4) , (const, 0x0, 4)
+
+0001f678: cpy r0,r0
+	(register, 0x20, 4) COPY (register, 0x20, 4)
+
+0001f67c: cpy r0,r0
+	(register, 0x20, 4) COPY (register, 0x20, 4)
+

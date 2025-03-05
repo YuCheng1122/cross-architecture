@@ -1,0 +1,116 @@
+Label: 963
+Function: __atomic_wide_counter_fetch_add_relaxed
+Architecture: mips
+Source File: Unknown
+Entry Point: 00476bc0
+
+P-code:
+
+00476bc0: ll a3,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x1c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00476bc4: addu at,a3,a1
+	(register, 0x4, 4) INT_ADD (register, 0x1c, 4) , (register, 0x14, 4)
+
+00476bc8: sc at,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x4, 4)
+	(register, 0x4, 4) COPY (const, 0x1, 4)
+
+00476bcc: beq at,zero,0x00476bc0
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x4, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x476bc0, 4) , (unique, 0x1200, 1)
+
+00476bd0: _nop
+
+00476bd4: lw v1,0x4(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00476bd8: addu a1,a1,a3
+	(register, 0x14, 4) INT_ADD (register, 0x14, 4) , (register, 0x1c, 4)
+
+00476bdc: sll a2,v1,0x1f
+	(register, 0x18, 4) INT_LEFT (register, 0xc, 4) , (const, 0x1f, 4)
+
+00476be0: srl v0,v1,0x1
+	(register, 0x8, 4) INT_RIGHT (register, 0xc, 4) , (const, 0x1, 4)
+
+00476be4: bltz a1,0x00476bf4
+	(unique, 0x1600, 1) INT_SLESS (register, 0x14, 4) , (const, 0x0, 4)
+	(register, 0x18, 4) INT_OR (register, 0x18, 4) , (register, 0x1c, 4)
+	 ---  CBRANCH (ram, 0x476bf4, 4) , (unique, 0x1600, 1)
+
+00476be8: _or a2,a2,a3
+	(register, 0x18, 4) INT_OR (register, 0x18, 4) , (register, 0x1c, 4)
+
+00476bec: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00476bf0: _or v1,a2,zero
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+
+00476bf4: addiu v1,v1,0x1
+	(register, 0xc, 4) INT_ADD (register, 0xc, 4) , (const, 0x1, 4)
+
+00476bf8: lui a3,0x8000
+	(register, 0x1c, 4) INT_LEFT (const, 0x8000, 4) , (const, 0x10, 4)
+
+00476bfc: or t0,v1,a3
+	(register, 0x20, 4) INT_OR (register, 0xc, 4) , (register, 0x1c, 4)
+
+00476c00: sync 0x0
+	 ---  CALLOTHER (const, 0x29, 4) , (const, 0x0, 1)
+
+00476c04: xor a1,a1,a3
+	(register, 0x14, 4) INT_XOR (register, 0x14, 4) , (register, 0x1c, 4)
+
+00476c08: sw t0,0x4(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x20, 4)
+
+00476c0c: sync 0x0
+	 ---  CALLOTHER (const, 0x29, 4) , (const, 0x0, 1)
+
+00476c10: sw a1,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x14, 4)
+
+00476c14: sync 0x0
+	 ---  CALLOTHER (const, 0x29, 4) , (const, 0x0, 1)
+
+00476c18: sw v1,0x4(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0xc, 4)
+
+00476c1c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00476c20: _or v1,a2,zero
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+

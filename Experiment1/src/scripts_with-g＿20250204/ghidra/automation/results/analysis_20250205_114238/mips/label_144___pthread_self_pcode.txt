@@ -1,0 +1,23 @@
+Label: 144
+Function: __pthread_self
+Architecture: mips
+Source File: Unknown
+Entry Point: 00414040
+
+P-code:
+
+00414040: rdhwr v1,HW_ULR
+	(register, 0xc, 4) CALLOTHER (const, 0x26, 4) , (register, 0x3274, 4)
+
+00414044: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) INT_ADD (register, 0xc, 4) , (const, 0xffff8b20, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00414048: _addiu v0,v1,-0x74e0
+	(register, 0x8, 4) INT_ADD (register, 0xc, 4) , (const, 0xffff8b20, 4)
+

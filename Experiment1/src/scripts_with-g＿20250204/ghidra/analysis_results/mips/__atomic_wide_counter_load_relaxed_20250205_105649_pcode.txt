@@ -1,0 +1,119 @@
+Function: __atomic_wide_counter_load_relaxed
+Address: 00476c24
+P-code:
+
+00476c24: addiu v0,a0,0x4
+	(register, 0x8, 4) INT_ADD (register, 0x10, 4) , (const, 0x4, 4)
+
+00476c28: lw v1,0x0(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00476c2c: sync 0x0
+	 ---  CALLOTHER (const, 0x29, 4) , (const, 0x0, 1)
+
+00476c30: lw a2,0x0(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x18, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00476c34: sync 0x0
+	 ---  CALLOTHER (const, 0x29, 4) , (const, 0x0, 1)
+
+00476c38: lw a1,0x0(v0)
+	(unique, 0x100, 4) INT_ADD (register, 0x8, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x14, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00476c3c: nop
+
+00476c40: bne v1,a1,0x00476c28
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0xc, 4) , (register, 0x14, 4)
+	 ---  CBRANCH (ram, 0x476c28, 4) , (unique, 0x1700, 1)
+
+00476c44: _nop
+
+00476c48: bltz a2,0x00476c70
+	(unique, 0x1600, 1) INT_SLESS (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x476c70, 4) , (unique, 0x1600, 1)
+
+00476c4c: _nop
+
+00476c50: sll v0,v1,0x1f
+	(register, 0x8, 4) INT_LEFT (register, 0xc, 4) , (const, 0x1f, 4)
+
+00476c54: addu a2,v0,a2
+	(register, 0x18, 4) INT_ADD (register, 0x8, 4) , (register, 0x18, 4)
+
+00476c58: sll v1,v1,0x1
+	(register, 0xc, 4) INT_LEFT (register, 0xc, 4) , (const, 0x1, 4)
+
+00476c5c: srl v1,v1,0x2
+	(register, 0xc, 4) INT_RIGHT (register, 0xc, 4) , (const, 0x2, 4)
+
+00476c60: sltu v0,a2,v0
+	(unique, 0x5380, 1) INT_LESS (register, 0x18, 4) , (register, 0x8, 4)
+	(register, 0x8, 4) INT_ZEXT (unique, 0x5380, 1)
+
+00476c64: addu v0,v0,v1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (register, 0xc, 4)
+
+00476c68: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00476c6c: _or v1,a2,zero
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+
+00476c70: bgez v1,0x00476c50
+	(unique, 0x1300, 1) INT_SLESSEQUAL (const, 0x0, 4) , (register, 0xc, 4)
+	 ---  CBRANCH (ram, 0x476c50, 4) , (unique, 0x1300, 1)
+
+00476c74: _nop
+
+00476c78: lui v0,0x8000
+	(register, 0x8, 4) INT_LEFT (const, 0x8000, 4) , (const, 0x10, 4)
+
+00476c7c: xor a2,a2,v0
+	(register, 0x18, 4) INT_XOR (register, 0x18, 4) , (register, 0x8, 4)
+
+00476c80: sll v0,v1,0x1f
+	(register, 0x8, 4) INT_LEFT (register, 0xc, 4) , (const, 0x1f, 4)
+
+00476c84: addu a2,v0,a2
+	(register, 0x18, 4) INT_ADD (register, 0x8, 4) , (register, 0x18, 4)
+
+00476c88: sll v1,v1,0x1
+	(register, 0xc, 4) INT_LEFT (register, 0xc, 4) , (const, 0x1, 4)
+
+00476c8c: srl v1,v1,0x2
+	(register, 0xc, 4) INT_RIGHT (register, 0xc, 4) , (const, 0x2, 4)
+
+00476c90: sltu v0,a2,v0
+	(unique, 0x5380, 1) INT_LESS (register, 0x18, 4) , (register, 0x8, 4)
+	(register, 0x8, 4) INT_ZEXT (unique, 0x5380, 1)
+
+00476c94: addu v0,v0,v1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (register, 0xc, 4)
+
+00476c98: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00476c9c: _or v1,a2,zero
+	(register, 0xc, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+

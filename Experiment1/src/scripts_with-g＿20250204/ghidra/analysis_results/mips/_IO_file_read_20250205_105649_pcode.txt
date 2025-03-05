@@ -1,0 +1,60 @@
+Function: _IO_file_read
+Address: 00430904
+P-code:
+
+00430904: lui gp,0x9
+	(register, 0x70, 4) INT_LEFT (const, 0x9, 4) , (const, 0x10, 4)
+
+00430908: addiu gp,gp,-0x5aa4
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffffa55c, 4)
+
+0043090c: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+00430910: lw v0,0x3c(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x3c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00430914: lw a0,0x38(a0)
+	(unique, 0x100, 4) INT_ADD (register, 0x10, 4) , (const, 0x38, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x10, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00430918: andi v0,v0,0x2
+	(register, 0x8, 4) INT_AND (register, 0x8, 4) , (const, 0x2, 4)
+
+0043091c: bne v0,zero,0x00430934
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x430934, 4) , (unique, 0x1700, 1)
+
+00430920: _nop
+
+00430924: lw t9,-0x7ae8(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8518, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00430928: nop
+
+0043092c: b 0x0041fa10
+	 ---  BRANCH (ram, 0x41fa10, 4)
+
+00430930: _nop
+
+00430934: lw t9,-0x7e14(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff81ec, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00430938: nop
+
+0043093c: b 0x00420020
+	 ---  BRANCH (ram, 0x420020, 4)
+
+00430940: _nop
+

@@ -1,0 +1,28 @@
+Label: 754
+Function: __pthread_cleanup_pop
+Architecture: arm
+Source File: Unknown
+Entry Point: 0005edc8
+
+High-level P-code:
+
+(VARIABLE, 0x0, 8) CALL (ram, 0x1f2a0, 8)
+(register, 0x2c, 4) INDIRECT (register, 0x20, 4) , (const, 0x4, 4)
+(register, 0x20, 4) SUBPIECE (VARIABLE, 0x0, 8) , (const, 0x0, 4)
+(register, 0x24, 4) SUBPIECE (unique, 0x1000001b, 8) , (const, 0x0, 4)
+(unique, 0x1000001b, 8) INT_RIGHT (unique, 0x10000023, 8) , (const, 0x20, 4)
+(unique, 0x10000023, 8) CAST (VARIABLE, 0x0, 8)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x2c, 4) , (const, 0xc, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x24, 4) , (const, 0x0, 4)
+(unique, 0x1000002b, 4) INT_ADD (register, 0x20, 4) , (const, 0xfffffb78, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8380, 4) , (register, 0x28, 4)
+(unique, 0x8380, 4) CAST (unique, 0x1000002b, 4)
+ ---  CBRANCH (ram, 0x5ede4, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x10000013, 4)
+(unique, 0x10000013, 4) PTRSUB (register, 0x2c, 4) , (const, 0x0, 4)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x2c, 4) , (const, 0x4, 4)
+ ---  CALLIND (register, 0x28, 4) , (register, 0x20, 4)
+ ---  RETURN (const, 0x1, 4)

@@ -1,0 +1,28 @@
+Label: 285
+Function: __get_errlist
+Architecture: arm
+Source File: Unknown
+Entry Point: 0005b2bc
+
+High-level P-code:
+
+(register, 0x64, 1) INT_SLESS (const, 0xffffffff, 4) , (register, 0x20, 4)
+ ---  CBRANCH (ram, 0x5b2e8, 1) , (register, 0x64, 1)
+(unique, 0x10000006, 4) INT_ADD (ram, 0x5b2f0, 4) , (const, 0x5b2d0, 4)
+(register, 0x2c, 4) CAST (unique, 0x10000006, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (register, 0x2c, 4)
+(register, 0x66, 1) INT_LESS (unique, 0x1000000a, 4) , (register, 0x2c, 4)
+(unique, 0x1000000a, 4) CAST (register, 0x20, 4)
+ ---  CBRANCH (ram, 0x5b2e8, 1) , (register, 0x66, 1)
+(register, 0x2c, 4) INT_ADD (ram, 0x5b2f4, 4) , (const, 0x5b2e4, 4)
+(unique, 0x7800, 4) INT_MULT (register, 0x20, 4) , (const, 0x4, 4)
+(unique, 0x1000000e, 4) INT_ADD (register, 0x2c, 4) , (unique, 0x7800, 4)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x8480, 4) CAST (unique, 0x1000000e, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x5b2f0, 4) COPY (ram, 0x5b2f0, 4)
+(ram, 0x5b2f4, 4) COPY (ram, 0x5b2f4, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x5b2f0, 4) COPY (ram, 0x5b2f0, 4)
+(ram, 0x5b2f4, 4) COPY (ram, 0x5b2f4, 4)

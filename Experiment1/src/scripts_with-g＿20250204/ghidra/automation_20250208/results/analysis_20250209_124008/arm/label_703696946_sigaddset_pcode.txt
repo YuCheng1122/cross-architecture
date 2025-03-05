@@ -1,0 +1,45 @@
+Label: 703696946
+Function: sigaddset
+Architecture: arm
+Source File: Unknown
+Entry Point: 0001f5f0
+
+High-level P-code:
+
+(register, 0x28, 4) INT_SUB (register, 0x24, 4) , (const, 0x1, 4)
+(unique, 0x10000005, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+(unique, 0x1f00, 1) INT_LESS (register, 0x28, 4) , (const, 0x40, 4)
+(register, 0x2c, 1) BOOL_AND (unique, 0x1f00, 1) , (unique, 0x10000005, 1)
+ ---  CBRANCH (ram, 0x1f63c, 1) , (register, 0x2c, 1)
+(register, 0x24, 4) INT_SUB (register, 0x24, 4) , (const, 0x20, 4)
+(unique, 0x2080, 1) INT_LESS (const, 0x1, 4) , (register, 0x24, 4)
+ ---  CBRANCH (ram, 0x1f63c, 1) , (unique, 0x2080, 1)
+(unique, 0x4100, 4) INT_SRIGHT (unique, 0x1000003f, 4) , (const, 0x5, 4)
+(unique, 0x1000003f, 4) CAST (register, 0x28, 4)
+(register, 0x24, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x1000001f, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+(unique, 0x8480, 4) PTRADD (unique, 0x1000001f, 4) , (unique, 0x4100, 4) , (const, 0x4, 4)
+(register, 0x28, 4) INT_AND (register, 0x28, 4) , (const, 0x1f, 4)
+(unique, 0x5080, 4) INT_LEFT (const, 0x1, 4) , (register, 0x28, 4)
+(register, 0x28, 4) INT_OR (register, 0x24, 4) , (unique, 0x5080, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8480, 4) , (register, 0x28, 4)
+(ram, 0x1f658, 4) INDIRECT (ram, 0x1f658, 4) , (const, 0xa1, 4)
+(unique, 0x1000001b, 4) COPY (const, 0x0, 4)
+(unique, 0x10000027, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+(unique, 0x8480, 4) PTRADD (unique, 0x10000027, 4) , (unique, 0x4100, 4) , (const, 0x4, 4)
+(register, 0x20, 4) COPY (register, 0x2c, 4)
+(register, 0x2c, 4) MULTIEQUAL (unique, 0x1000001b, 4) , (register, 0x2c, 4)
+(ram, 0x1f658, 4) MULTIEQUAL (ram, 0x1f658, 4) , (ram, 0x1f658, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x1f658, 4) COPY (ram, 0x1f658, 4)
+(register, 0x20, 4) CALL (ram, 0x1f2a0, 8)
+(ram, 0x1f658, 4) INDIRECT (ram, 0x1f658, 4) , (const, 0xac, 4)
+(register, 0x2c, 4) COPY (const, 0xffffffff, 4)
+(unique, 0x10000037, 4) INT_ADD (ram, 0x1f658, 4) , (const, 0x1f654, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x8480, 4) CAST (unique, 0x10000037, 4)
+(unique, 0x1000003b, 4) INT_ADD (register, 0x20, 4) , (register, 0x28, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8480, 4) , (const, 0x16, 4)
+(ram, 0x1f658, 4) INDIRECT (ram, 0x1f658, 4) , (const, 0xca, 4)
+(unique, 0x8480, 4) CAST (unique, 0x1000003b, 4)
+ ---  BRANCH (ram, 0x1f634, 1)

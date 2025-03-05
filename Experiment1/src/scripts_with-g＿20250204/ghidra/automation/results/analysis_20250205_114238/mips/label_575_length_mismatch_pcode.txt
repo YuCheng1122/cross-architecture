@@ -1,0 +1,52 @@
+Label: 575
+Function: length_mismatch
+Architecture: mips
+Source File: Unknown
+Entry Point: 0043b9a0
+
+P-code:
+
+0043b9a0: lui gp,0x8
+	(register, 0x70, 4) INT_LEFT (const, 0x8, 4) , (const, 0x10, 4)
+
+0043b9a4: addiu gp,gp,-0xb40
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xfffff4c0, 4)
+
+0043b9a8: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0043b9ac: lw a0,-0x7fa8(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8058, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x10, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0043b9b0: addiu sp,sp,-0x20
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0xffffffe0, 4)
+
+0043b9b4: lw t9,-0x7cec(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8314, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0043b9b8: sw gp,0x10(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x10, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x70, 4)
+
+0043b9bc: sw ra,0x1c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x1c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x7c, 4)
+
+0043b9c0: bal 0x00444200
+	(register, 0x7c, 4) COPY (const, 0x43b9c8, 4)
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0x5b64, 4)
+	 ---  CALL (ram, 0x444200, 4)
+
+0043b9c4: _addiu a0,a0,0x5b64
+	(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0x5b64, 4)
+

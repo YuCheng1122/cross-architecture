@@ -1,0 +1,35 @@
+Label: 84
+Function: _IO_remove_marker
+Architecture: arm
+Source File: Unknown
+Entry Point: 00039798
+
+High-level P-code:
+
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x20, 4) , (const, 0x4, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x28, 4) , (const, 0x30, 4)
+(register, 0x28, 4) PTRSUB (register, 0x28, 4) , (const, 0x30, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x397c0, 1) , (register, 0x65, 1)
+(unique, 0x10000026, 4) COPY (unique, 0x10000036, 4)
+(unique, 0x1000002e, 4) COPY (register, 0x2c, 4)
+(unique, 0x10000036, 4) CAST (register, 0x28, 4)
+ ---  RETURN (const, 0x0, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x1000001a, 4)
+(unique, 0x1000001a, 4) PTRSUB (register, 0x2c, 4) , (const, 0x0, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x397c0, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(unique, 0x1000002a, 4) COPY (register, 0x2c, 4)
+(unique, 0x10000032, 4) COPY (register, 0x2c, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (register, 0x20, 4)
+(register, 0x28, 4) MULTIEQUAL (unique, 0x10000026, 4) , (unique, 0x1000002a, 4)
+(register, 0x2c, 4) MULTIEQUAL (unique, 0x1000002e, 4) , (unique, 0x10000032, 4)
+ ---  CBRANCH (ram, 0x397b0, 1) , (register, 0x65, 1)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x1000001e, 4)
+(unique, 0x1000001e, 4) PTRSUB (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x10000022, 4) , (register, 0x2c, 4)
+(unique, 0x10000022, 4) PTRSUB (register, 0x28, 4) , (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4)

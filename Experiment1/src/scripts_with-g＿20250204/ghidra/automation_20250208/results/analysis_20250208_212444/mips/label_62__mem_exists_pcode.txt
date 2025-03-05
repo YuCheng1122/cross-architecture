@@ -1,0 +1,45 @@
+Label: 62
+Function: mem_exists
+Architecture: mips
+Source File: Unknown
+Entry Point: 0040def4
+
+High-level P-code:
+
+(stack, 0xfffffffffffffff0, 4) COPY (const, 0x0, 4)
+(unique, 0x5080, 1) INT_SLESS (register, 0x14, 4) , (register, 0x1c, 4)
+ ---  CBRANCH (ram, 0x40dfa0, 1) , (unique, 0x5080, 1)
+(unique, 0x10000002, 4) COPY (register, 0x10, 4)
+(unique, 0x10000006, 4) COPY (unique, 0x10000002, 4)
+(unique, 0x10000012, 4) COPY (register, 0x14, 4)
+(unique, 0x10000016, 4) COPY (unique, 0x10000012, 4)
+(register, 0xb, 1) COPY (const, 0x0, 1)
+ ---  BRANCH (ram, 0x40dfbc, 1)
+(register, 0xc, 4) PTRADD (stack, 0x0, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(unique, 0x2d00, 1) LOAD (const, 0x1a1, 4) , (stack, 0x0, 4)
+(unique, 0x1000002a, 4) INT_ADD (register, 0x18, 4) , (stack, 0xfffffffffffffff0, 4)
+(register, 0x8, 4) CAST (unique, 0x1000002a, 4)
+(unique, 0x2d00, 1) LOAD (const, 0x1a1, 4) , (register, 0x8, 4)
+(unique, 0x1700, 1) INT_EQUAL (unique, 0x2d00, 1) , (unique, 0x2d00, 1)
+ ---  CBRANCH (ram, 0x40df9c, 1) , (unique, 0x1700, 1)
+(register, 0x8, 4) INT_ADD (stack, 0xfffffffffffffff0, 4) , (const, 0x1, 4)
+(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (register, 0x1c, 4)
+ ---  CBRANCH (ram, 0x40dfa0, 1) , (unique, 0x1700, 1)
+(unique, 0x1000000a, 4) COPY (register, 0xc, 4)
+(unique, 0x1000001a, 4) COPY (register, 0xc, 4)
+(register, 0xb, 1) COPY (const, 0x1, 1)
+ ---  BRANCH (ram, 0x40dfbc, 1)
+(stack, 0xfffffffffffffff0, 4) COPY (const, 0x0, 4)
+(unique, 0x1000000e, 4) COPY (register, 0xc, 4)
+(unique, 0x1000001e, 4) COPY (register, 0xc, 4)
+(stack, 0x0, 4) MULTIEQUAL (unique, 0x10000006, 4) , (unique, 0x1000000a, 4) , (unique, 0x1000000e, 4)
+(stack, 0x4, 4) MULTIEQUAL (unique, 0x10000016, 4) , (unique, 0x1000001a, 4) , (unique, 0x1000001e, 4)
+(stack, 0xfffffffffffffff0, 4) MULTIEQUAL (stack, 0xfffffffffffffff0, 4) , (register, 0x8, 4) , (stack, 0xfffffffffffffff0, 4)
+(register, 0xc, 4) INT_ADD (stack, 0x4, 4) , (const, 0xffffffff, 4)
+(unique, 0x1700, 1) INT_EQUAL (stack, 0x4, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x40df38, 1) , (unique, 0x1700, 1)
+(register, 0xb, 1) MULTIEQUAL (register, 0xb, 1) , (register, 0xb, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0xb, 1)
+(register, 0xb, 1) COPY (register, 0xb, 1)
+(register, 0xb, 1) COPY (const, 0x0, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0xb, 1)

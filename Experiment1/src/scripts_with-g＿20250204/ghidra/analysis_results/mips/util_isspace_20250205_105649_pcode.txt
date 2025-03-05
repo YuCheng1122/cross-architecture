@@ -1,0 +1,122 @@
+Function: util_isspace
+Address: 00411b20
+P-code:
+
+00411b20: addiu sp,sp,-0x8
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0xfffffff8, 4)
+
+00411b24: sw s8,0x4(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x78, 4)
+
+00411b28: or s8,sp,zero
+	(register, 0x78, 4) INT_OR (register, 0x74, 4) , (const, 0x0, 4)
+
+00411b2c: or v0,a0,zero
+	(register, 0x8, 4) INT_OR (register, 0x10, 4) , (const, 0x0, 4)
+
+00411b30: sb v0,0x8(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0xb, 1)
+
+00411b34: lb v1,0x8(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(unique, 0x2d00, 1) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+	(register, 0xc, 4) INT_SEXT (unique, 0x2d00, 1)
+
+00411b38: li v0,0x20
+	(register, 0x8, 4) COPY (const, 0x20, 4)
+
+00411b3c: beq v1,v0,0x00411b74
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x411b74, 4) , (unique, 0x1200, 1)
+
+00411b40: _nop
+
+00411b44: lb v1,0x8(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(unique, 0x2d00, 1) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+	(register, 0xc, 4) INT_SEXT (unique, 0x2d00, 1)
+
+00411b48: li v0,0x9
+	(register, 0x8, 4) COPY (const, 0x9, 4)
+
+00411b4c: beq v1,v0,0x00411b74
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x411b74, 4) , (unique, 0x1200, 1)
+
+00411b50: _nop
+
+00411b54: lb v1,0x8(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(unique, 0x2d00, 1) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+	(register, 0xc, 4) INT_SEXT (unique, 0x2d00, 1)
+
+00411b58: li v0,0xa
+	(register, 0x8, 4) COPY (const, 0xa, 4)
+
+00411b5c: beq v1,v0,0x00411b74
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x411b74, 4) , (unique, 0x1200, 1)
+
+00411b60: _nop
+
+00411b64: lb v1,0x8(s8)
+	(unique, 0x100, 4) INT_ADD (register, 0x78, 4) , (const, 0x8, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(unique, 0x2d00, 1) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+	(register, 0xc, 4) INT_SEXT (unique, 0x2d00, 1)
+
+00411b68: li v0,0xa
+	(register, 0x8, 4) COPY (const, 0xa, 4)
+
+00411b6c: bne v1,v0,0x00411b80
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0xc, 4) , (register, 0x8, 4)
+	 ---  CBRANCH (ram, 0x411b80, 4) , (unique, 0x1700, 1)
+
+00411b70: _nop
+
+00411b74: li v0,0x1
+	(register, 0x8, 4) COPY (const, 0x1, 4)
+
+00411b78: b 0x00411b84
+	 ---  BRANCH (ram, 0x411b84, 4)
+
+00411b7c: _nop
+
+00411b80: or v0,zero,zero
+	(register, 0x8, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+00411b84: or sp,s8,zero
+	(register, 0x74, 4) INT_OR (register, 0x78, 4) , (const, 0x0, 4)
+
+00411b88: lw s8,0x4(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x78, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00411b8c: addiu sp,sp,0x8
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x8, 4)
+
+00411b90: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00411b94: _nop
+

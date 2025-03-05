@@ -1,0 +1,29 @@
+Label: 98
+Function: __sigprocmask
+Architecture: arm
+Source File: Unknown
+Entry Point: 0001f550
+
+High-level P-code:
+
+(register, 0x20, 4) CALL (ram, 0x20ce0, 8) , (register, 0x20, 4) , (register, 0x24, 4) , (register, 0x28, 4)
+(ram, 0x1f580, 4) INDIRECT (ram, 0x1f580, 4) , (const, 0x7, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x1f568, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (register, 0x2c, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x2c, 4)
+(ram, 0x1f580, 4) MULTIEQUAL (ram, 0x1f580, 4) , (ram, 0x1f580, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x1f580, 4) COPY (ram, 0x1f580, 4)
+(register, 0x20, 4) CALL (ram, 0x1f2a0, 8)
+(register, 0x2c, 4) INDIRECT (register, 0x20, 4) , (const, 0x27, 4)
+(ram, 0x1f580, 4) INDIRECT (ram, 0x1f580, 4) , (const, 0x27, 4)
+(unique, 0x1000001a, 4) INT_ADD (ram, 0x1f580, 4) , (const, 0x1f578, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x8480, 4) CAST (unique, 0x1000001a, 4)
+(unique, 0x1000001e, 4) INT_ADD (register, 0x20, 4) , (register, 0x28, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x8480, 4) , (register, 0x2c, 4)
+(ram, 0x1f580, 4) INDIRECT (ram, 0x1f580, 4) , (const, 0x2d, 4)
+(unique, 0x8480, 4) CAST (unique, 0x1000001e, 4)
+(register, 0x2c, 4) COPY (const, 0xffffffff, 4)
+ ---  BRANCH (ram, 0x1f560, 1)

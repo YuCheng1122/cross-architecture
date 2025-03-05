@@ -1,0 +1,35 @@
+Label: 1276535784
+Function: read_sleb128
+Architecture: mips
+Source File: Unknown
+Entry Point: 0047ca78
+
+High-level P-code:
+
+(register, 0xc, 4) COPY (const, 0x0, 4)
+(register, 0x10, 4) COPY (const, 0x0, 4)
+(unique, 0x2f00, 1) LOAD (const, 0x1a1, 4) , (register, 0x8, 4)
+(register, 0x18, 4) INT_ZEXT (unique, 0x2f00, 1)
+(register, 0x8, 4) MULTIEQUAL (register, 0x10, 4) , (register, 0x8, 4)
+(register, 0xc, 4) MULTIEQUAL (register, 0xc, 4) , (register, 0xc, 4)
+(register, 0x10, 4) MULTIEQUAL (register, 0x10, 4) , (register, 0x10, 4)
+(register, 0x8, 4) PTRADD (register, 0x8, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(register, 0x1c, 4) INT_AND (register, 0x18, 4) , (const, 0x7f, 4)
+(unique, 0x4f80, 4) INT_AND (register, 0x10, 4) , (const, 0x1f, 4)
+(register, 0x1c, 4) INT_LEFT (register, 0x1c, 4) , (unique, 0x4f80, 4)
+(register, 0xc, 4) INT_OR (register, 0xc, 4) , (register, 0x1c, 4)
+(unique, 0x1600, 1) INT_SLESS (unique, 0x10000003, 1) , (const, 0x0, 1)
+(register, 0x10, 4) INT_ADD (register, 0x10, 4) , (const, 0x7, 4)
+ ---  CBRANCH (ram, 0x47ca84, 1) , (unique, 0x1600, 1)
+(unique, 0x10000003, 1) CAST (unique, 0x2f00, 1)
+(unique, 0x5280, 1) INT_LESS (register, 0x10, 4) , (const, 0x20, 4)
+ ---  CBRANCH (ram, 0x47cac4, 1) , (unique, 0x5280, 1)
+(unique, 0x10000000, 1) INT_AND (unique, 0x2f00, 1) , (const, 0x40, 1)
+(unique, 0x1200, 1) INT_NOTEQUAL (unique, 0x10000000, 1) , (const, 0x0, 1)
+ ---  CBRANCH (ram, 0x47cac4, 1) , (unique, 0x1200, 1)
+(unique, 0x4f80, 4) INT_AND (register, 0x10, 4) , (const, 0x1f, 4)
+(register, 0x10, 4) INT_LEFT (const, 0xffffffff, 4) , (unique, 0x4f80, 4)
+(register, 0xc, 4) INT_OR (register, 0xc, 4) , (register, 0x10, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x14, 4) , (register, 0xc, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+(register, 0xc, 4) MULTIEQUAL (register, 0xc, 4) , (register, 0xc, 4) , (register, 0xc, 4)

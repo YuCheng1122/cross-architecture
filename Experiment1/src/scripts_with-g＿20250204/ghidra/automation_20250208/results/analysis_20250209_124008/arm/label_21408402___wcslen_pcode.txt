@@ -1,0 +1,40 @@
+Label: 21408402
+Function: __wcslen
+Architecture: arm
+Source File: Unknown
+Entry Point: 000604f4
+
+High-level P-code:
+
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x60504, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4) , (const, 0x0, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x60534, 1)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRADD (register, 0x2c, 4) , (const, 0x2, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x28, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x60548, 1) , (register, 0x65, 1)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRADD (register, 0x2c, 4) , (const, 0x3, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x28, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x60550, 1) , (register, 0x65, 1)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (register, 0x2c, 4)
+(register, 0x2c, 4) PTRADD (register, 0x2c, 4) , (const, 0x4, 4) , (const, 0x4, 4)
+(register, 0x20, 4) INT_ADD (register, 0x20, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x28, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x60534, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x2c, 4)
+(unique, 0x8280, 4) PTRADD (register, 0x2c, 4) , (const, 0x1, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x28, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6050c, 1) , (register, 0x65, 1)
+(register, 0x20, 4) INT_ADD (register, 0x20, 4) , (const, 0x1, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) INT_ADD (register, 0x20, 4) , (const, 0x2, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) INT_ADD (register, 0x20, 4) , (const, 0x3, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

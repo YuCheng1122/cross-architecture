@@ -1,0 +1,33 @@
+Label: 10
+Function: register_tm_clones
+Architecture: arm
+Source File: Unknown
+Entry Point: 00010484
+
+High-level P-code:
+
+(register, 0x2c, 4) INT_SUB (ram, 0x104b4, 4) , (ram, 0x104b0, 4)
+(unique, 0x1000000d, 4) INT_SRIGHT (register, 0x2c, 4) , (const, 0x1f, 4)
+(unique, 0x4100, 4) INT_SRIGHT (register, 0x2c, 4) , (const, 0x2, 4)
+(register, 0x24, 4) INT_SUB (unique, 0x4100, 4) , (unique, 0x1000000d, 4)
+(unique, 0x4100, 4) INT_SRIGHT (register, 0x24, 4) , (const, 0x1, 4)
+(register, 0x65, 1) INT_EQUAL (unique, 0x4100, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x104a0, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x104b0, 4) COPY (ram, 0x104b0, 4)
+(ram, 0x104b4, 4) COPY (ram, 0x104b4, 4)
+(ram, 0x104b8, 4) COPY (ram, 0x104b8, 4)
+(register, 0x65, 1) INT_EQUAL (ram, 0x104b8, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x104ac, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x104b0, 4) COPY (ram, 0x104b0, 4)
+(ram, 0x104b4, 4) COPY (ram, 0x104b4, 4)
+(ram, 0x104b8, 4) COPY (ram, 0x104b8, 4)
+ ---  CALLIND (ram, 0x104b8, 4)
+ ---  RETURN (const, 0x1, 4)
+(ram, 0x104b0, 4) INDIRECT (ram, 0x104b0, 4) , (const, 0x4d, 4)
+(ram, 0x104b0, 4) COPY (ram, 0x104b0, 4)
+(ram, 0x104b4, 4) INDIRECT (ram, 0x104b4, 4) , (const, 0x4d, 4)
+(ram, 0x104b4, 4) COPY (ram, 0x104b4, 4)
+(ram, 0x104b8, 4) INDIRECT (ram, 0x104b8, 4) , (const, 0x4d, 4)
+(ram, 0x104b8, 4) COPY (ram, 0x104b8, 4)

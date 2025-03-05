@@ -1,0 +1,37 @@
+Label: 1530546046
+Function: __hash_string
+Architecture: arm
+Source File: Unknown
+Entry Point: 00056c0c
+
+High-level P-code:
+
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(register, 0x2c, 4) INT_ZEXT (unique, 0x1000000b, 1)
+(unique, 0x1000000b, 1) CAST (unique, 0x43980, 1)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x56c40, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+(unique, 0x3580, 4) INT_MULT (register, 0x20, 4) , (const, 0x10, 4)
+(register, 0x20, 4) INT_ADD (register, 0x2c, 4) , (unique, 0x3580, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4)
+(register, 0x28, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x28, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (register, 0x2c, 4)
+(register, 0x2c, 4) INT_AND (register, 0x20, 4) , (const, 0xf0000000, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x56c2c, 1) , (register, 0x65, 1)
+(register, 0x20, 4) INT_AND (register, 0x20, 4) , (const, 0xfffffff, 4)
+(unique, 0x3b00, 4) INT_RIGHT (register, 0x2c, 4) , (const, 0x18, 4)
+(register, 0x20, 4) INT_XOR (register, 0x20, 4) , (unique, 0x3b00, 4)
+(unique, 0x10000010, 4) PTRADD (unique, 0x1000000c, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (register, 0x28, 4)
+(register, 0x2c, 4) INT_ZEXT (unique, 0x10000014, 1)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4)
+(unique, 0x1000000c, 4) CAST (register, 0x28, 4)
+(register, 0x28, 4) CAST (unique, 0x10000010, 4)
+(unique, 0x10000014, 1) CAST (unique, 0x43980, 1)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x2c, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x56c20, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

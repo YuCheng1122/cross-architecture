@@ -1,0 +1,73 @@
+Function: ___pthread_cond_clockwait64
+Address: 00481ec8
+P-code:
+
+00481ec8: lui gp,0x4
+	(register, 0x70, 4) INT_LEFT (const, 0x4, 4) , (const, 0x10, 4)
+
+00481ecc: addiu gp,gp,-0x7068
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8f98, 4)
+
+00481ed0: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+00481ed4: lw v1,0xc(a3)
+	(unique, 0x100, 4) INT_ADD (register, 0x1c, 4) , (const, 0xc, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0xc, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00481ed8: lui v0,0x3b9a
+	(register, 0x8, 4) INT_LEFT (const, 0x3b9a, 4) , (const, 0x10, 4)
+
+00481edc: ori v0,v0,0xca00
+	(register, 0x8, 4) INT_OR (register, 0x8, 4) , (const, 0xca00, 4)
+
+00481ee0: sltu v1,v1,v0
+	(unique, 0x5380, 1) INT_LESS (register, 0xc, 4) , (register, 0x8, 4)
+	(register, 0xc, 4) INT_ZEXT (unique, 0x5380, 1)
+
+00481ee4: beq v1,zero,0x00481f0c
+	(unique, 0x1200, 1) INT_EQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x481f0c, 4) , (unique, 0x1200, 1)
+
+00481ee8: _nop
+
+00481eec: sltiu v0,a2,0x2
+	(unique, 0x5280, 1) INT_LESS (register, 0x18, 4) , (const, 0x2, 4)
+	(register, 0x8, 4) INT_ZEXT (unique, 0x5280, 1)
+
+00481ef0: beq v0,zero,0x00481f0c
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x481f0c, 4) , (unique, 0x1200, 1)
+
+00481ef4: _nop
+
+00481ef8: lw t9,-0x7fa8(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8058, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00481efc: nop
+
+00481f00: addiu t9,t9,0x1070
+	(register, 0x64, 4) INT_ADD (register, 0x64, 4) , (const, 0x1070, 4)
+
+00481f04: b 0x00481070
+	 ---  BRANCH (ram, 0x481070, 4)
+
+00481f08: _nop
+
+00481f0c: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) COPY (const, 0x16, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00481f10: _li v0,0x16
+	(register, 0x8, 4) COPY (const, 0x16, 4)
+

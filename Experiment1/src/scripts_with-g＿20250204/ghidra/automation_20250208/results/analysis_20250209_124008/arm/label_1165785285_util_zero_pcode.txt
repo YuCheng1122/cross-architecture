@@ -1,0 +1,24 @@
+Label: 1165785285
+Function: util_zero
+Architecture: arm
+Source File: Unknown
+Entry Point: 0001e0fc
+
+High-level P-code:
+
+ ---  BRANCH (ram, 0x1e130, 1)
+(unique, 0x10000008, 4) COPY (register, 0x24, 4)
+(unique, 0x1000000c, 4) COPY (unique, 0x10000008, 4)
+(unique, 0x10000014, 4) COPY (register, 0x20, 4)
+(unique, 0x10000018, 4) COPY (unique, 0x10000020, 4)
+(unique, 0x10000020, 4) CAST (unique, 0x10000014, 4)
+(register, 0x28, 4) PTRADD (stack, 0xfffffffffffffff4, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+ ---  STORE (const, 0x1a1, 4) , (stack, 0xfffffffffffffff4, 4) , (const, 0x0, 1)
+(unique, 0x10000010, 4) COPY (register, 0x28, 4)
+(unique, 0x1000001c, 4) COPY (register, 0x28, 4)
+(stack, 0xffffffffffffffe8, 4) MULTIEQUAL (unique, 0x1000000c, 4) , (unique, 0x10000010, 4)
+(stack, 0xfffffffffffffff4, 4) MULTIEQUAL (unique, 0x10000018, 4) , (unique, 0x1000001c, 4)
+(register, 0x28, 4) INT_ADD (stack, 0xffffffffffffffe8, 4) , (const, 0xffffffff, 4)
+(register, 0x65, 1) INT_NOTEQUAL (stack, 0xffffffffffffffe8, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x1e11c, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)

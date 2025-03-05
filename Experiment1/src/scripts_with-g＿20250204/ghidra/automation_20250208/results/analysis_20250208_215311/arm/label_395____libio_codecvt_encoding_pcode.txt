@@ -1,0 +1,28 @@
+Label: 395
+Function: __libio_codecvt_encoding
+Architecture: arm
+Source File: Unknown
+Entry Point: 0005e884
+
+High-level P-code:
+
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x10000012, 4)
+(unique, 0x1000000e, 4) PTRSUB (register, 0x20, 4) , (const, 0x0, 4)
+(unique, 0x10000012, 4) PTRSUB (unique, 0x1000000e, 4) , (const, 0x0, 4)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x2c, 4) , (const, 0x34, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x5e8a8, 1) , (register, 0x65, 1)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x2c, 4) , (const, 0x28, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x8280, 4) PTRSUB (register, 0x2c, 4) , (const, 0x24, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x2c, 4) , (register, 0x28, 4)
+ ---  CBRANCH (ram, 0x5e8a4, 1) , (register, 0x65, 1)
+(unique, 0x1000000a, 4) COPY (const, 0x0, 4)
+(unique, 0x10000022, 4) COPY (unique, 0x1000000a, 4)
+(unique, 0x10000026, 4) COPY (register, 0x28, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(register, 0x20, 4) MULTIEQUAL (unique, 0x10000022, 4) , (unique, 0x10000026, 4)
+(register, 0x20, 4) COPY (const, 0xffffffff, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

@@ -1,0 +1,20 @@
+Label: 866
+Function: call_weak_fn
+Architecture: arm
+Source File: Unknown
+Entry Point: 00010434
+
+High-level P-code:
+
+(register, 0x2c, 4) INT_ADD (ram, 0x10450, 4) , (const, 0x10444, 4)
+(unique, 0x10000005, 4) INT_ADD (register, 0x2c, 4) , (ram, 0x10454, 4)
+(register, 0x28, 4) LOAD (const, 0x1a1, 4) , (unique, 0x8480, 4)
+(unique, 0x8480, 4) CAST (unique, 0x10000005, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x28, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x1044c, 1) , (register, 0x65, 1)
+ ---  RETURN (const, 0x0, 4)
+(ram, 0x10450, 4) COPY (ram, 0x10450, 4)
+(ram, 0x10454, 4) COPY (ram, 0x10454, 4)
+ ---  RETURN (const, 0x1, 4)
+(ram, 0x10450, 4) COPY (ram, 0x10450, 4)
+(ram, 0x10454, 4) COPY (ram, 0x10454, 4)

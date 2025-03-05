@@ -1,0 +1,19 @@
+Label: 573
+Function: __sync_and_and_fetch_4
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006e5e0
+
+High-level P-code:
+
+(unique, 0x10000025, 4) COPY (ram, 0x6e614, 4)
+(register, 0x20, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(ram, 0x6e614, 4) MULTIEQUAL (ram, 0x6e614, 4) , (ram, 0x6e614, 4)
+(register, 0x38, 4) INT_AND (register, 0x20, 4) , (register, 0x24, 4)
+(register, 0x20, 4) CALLIND (unique, 0x10000025, 4) , (register, 0x20, 4) , (register, 0x38, 4) , (register, 0x20, 4)
+(ram, 0x6e614, 4) INDIRECT (ram, 0x6e614, 4) , (const, 0x20, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6e5f0, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (register, 0x38, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+(ram, 0x6e614, 4) COPY (ram, 0x6e614, 4)

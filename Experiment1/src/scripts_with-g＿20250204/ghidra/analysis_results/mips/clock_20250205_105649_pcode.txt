@@ -1,0 +1,146 @@
+Function: clock
+Address: 0041d230
+P-code:
+
+0041d230: lui gp,0xa
+	(register, 0x70, 4) INT_LEFT (const, 0xa, 4) , (const, 0x10, 4)
+
+0041d234: addiu gp,gp,-0x23d0
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0xffffdc30, 4)
+
+0041d238: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+0041d23c: addiu sp,sp,-0x30
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0xffffffd0, 4)
+
+0041d240: lw t9,-0x7e3c(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff81c4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0041d244: addiu a1,sp,0x18
+	(register, 0x14, 4) INT_ADD (register, 0x74, 4) , (const, 0x18, 4)
+
+0041d248: sw gp,0x10(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x10, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x70, 4)
+
+0041d24c: sw ra,0x2c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x2c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	 ---  STORE (const, 0x1a1, 8) , (unique, 0x180, 4) , (register, 0x7c, 4)
+
+0041d250: bal 0x0041d3a0
+	(register, 0x7c, 4) COPY (const, 0x41d258, 4)
+	(register, 0x10, 4) COPY (const, 0x2, 4)
+	 ---  CALL (ram, 0x41d3a0, 4)
+
+0041d254: _li a0,0x2
+	(register, 0x10, 4) COPY (const, 0x2, 4)
+
+0041d258: bne v0,zero,0x0041d2a8
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (const, 0x0, 4)
+	(register, 0xc, 4) COPY (const, 0x3e8, 4)
+	 ---  CBRANCH (ram, 0x41d2a8, 4) , (unique, 0x1700, 1)
+
+0041d25c: _li v1,0x3e8
+	(register, 0xc, 4) COPY (const, 0x3e8, 4)
+
+0041d260: lw v0,0x24(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x24, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x8, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0041d264: nop
+
+0041d268: bne v1,zero,0x0041d274
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0xc, 4) , (const, 0x0, 4)
+	(register, 0x3004, 4) INT_SDIV (register, 0x8, 4) , (register, 0xc, 4)
+	(register, 0x3000, 4) INT_SREM (register, 0x8, 4) , (register, 0xc, 4)
+	 ---  CBRANCH (ram, 0x41d274, 4) , (unique, 0x1700, 1)
+
+0041d26c: _div v0,v1
+	(register, 0x3004, 4) INT_SDIV (register, 0x8, 4) , (register, 0xc, 4)
+	(register, 0x3000, 4) INT_SREM (register, 0x8, 4) , (register, 0xc, 4)
+
+0041d270: break 0x1c00
+	 ---  CALLOTHER (const, 0x1, 4) , (const, 0x1c00, 4)
+
+0041d274: lw a0,0x1c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x1c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x10, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0041d278: lw ra,0x2c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x2c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x7c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0041d27c: sll v1,a0,0x5
+	(register, 0xc, 4) INT_LEFT (register, 0x10, 4) , (const, 0x5, 4)
+
+0041d280: subu v1,v1,a0
+	(register, 0xc, 4) INT_SUB (register, 0xc, 4) , (register, 0x10, 4)
+
+0041d284: sll v0,v1,0x6
+	(register, 0x8, 4) INT_LEFT (register, 0xc, 4) , (const, 0x6, 4)
+
+0041d288: subu v0,v0,v1
+	(register, 0x8, 4) INT_SUB (register, 0x8, 4) , (register, 0xc, 4)
+
+0041d28c: sll v0,v0,0x3
+	(register, 0x8, 4) INT_LEFT (register, 0x8, 4) , (const, 0x3, 4)
+
+0041d290: addu v0,v0,a0
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (register, 0x10, 4)
+
+0041d294: sll v0,v0,0x6
+	(register, 0x8, 4) INT_LEFT (register, 0x8, 4) , (const, 0x6, 4)
+
+0041d298: addiu sp,sp,0x30
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x30, 4)
+
+0041d29c: mflo v1
+	(register, 0xc, 4) COPY (register, 0x3004, 4)
+
+0041d2a0: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (register, 0xc, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0041d2a4: _addu v0,v0,v1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (register, 0xc, 4)
+
+0041d2a8: lw ra,0x2c(sp)
+	(unique, 0x100, 4) INT_ADD (register, 0x74, 4) , (const, 0x2c, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x7c, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+0041d2ac: li v0,-0x1
+	(register, 0x8, 4) COPY (const, 0xffffffff, 4)
+
+0041d2b0: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x30, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+0041d2b4: _addiu sp,sp,0x30
+	(register, 0x74, 4) INT_ADD (register, 0x74, 4) , (const, 0x30, 4)
+

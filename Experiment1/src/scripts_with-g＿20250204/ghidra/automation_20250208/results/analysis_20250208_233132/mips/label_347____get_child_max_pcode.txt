@@ -1,0 +1,22 @@
+Label: 347
+Function: __get_child_max
+Architecture: mips
+Source File: Unknown
+Entry Point: 00476b60
+
+High-level P-code:
+
+(register, 0x14, 4) PTRSUB (register, 0x74, 4) , (const, 0xfffffff0, 4)
+(register, 0x8, 4) CALLIND (unique, 0x10000009, 4) , (const, 0x8, 4) , (register, 0x14, 4)
+(ram, 0x4b323c, 4) INDIRECT (ram, 0x4b323c, 4) , (const, 0x18, 4)
+(stack, 0xfffffffffffffff0, 4) INDIRECT (stack, 0xfffffffffffffff0, 4) , (const, 0x18, 4)
+(unique, 0x10000009, 4) CAST (ram, 0x4b323c, 4)
+(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x476bb0, 1) , (unique, 0x1700, 1)
+(unique, 0x1200, 1) INT_EQUAL (stack, 0xfffffffffffffff0, 4) , (const, 0x7fffffff, 4)
+ ---  CBRANCH (ram, 0x476bb0, 1) , (unique, 0x1200, 1)
+(register, 0x8, 4) MULTIEQUAL (stack, 0xfffffffffffffff0, 4) , (register, 0x8, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+(ram, 0x4b323c, 4) COPY (ram, 0x4b323c, 4)
+(register, 0x8, 4) COPY (const, 0xffffffff, 4)
+ ---  BRANCH (ram, 0x476ba0, 1)

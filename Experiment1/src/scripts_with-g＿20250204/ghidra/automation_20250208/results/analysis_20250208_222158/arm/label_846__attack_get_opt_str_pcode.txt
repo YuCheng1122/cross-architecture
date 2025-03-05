@@ -1,0 +1,28 @@
+Label: 846
+Function: attack_get_opt_str
+Architecture: arm
+Source File: Unknown
+Entry Point: 000169dc
+
+High-level P-code:
+
+(stack, 0xfffffffffffffff4, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x16a50, 1)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (unique, 0x8280, 4)
+(unique, 0x1000000e, 4) PTRADD (register, 0x24, 4) , (stack, 0xfffffffffffffff4, 4) , (const, 0x8, 4)
+(unique, 0x8280, 4) PTRSUB (unique, 0x1000000e, 4) , (const, 0x4, 4)
+(register, 0x65, 1) INT_EQUAL (register, 0x28, 1) , (unique, 0x43980, 1)
+ ---  CBRANCH (ram, 0x16a44, 1) , (register, 0x65, 1)
+(register, 0x2c, 4) PTRADD (register, 0x24, 4) , (stack, 0xfffffffffffffff4, 4) , (const, 0x8, 4)
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (unique, 0x1000001a, 4)
+(unique, 0x1000001a, 4) PTRSUB (register, 0x2c, 4) , (const, 0x0, 4)
+(register, 0x2c, 4) INT_ADD (stack, 0xfffffffffffffff4, 4) , (const, 0x1, 4)
+(register, 0x2c, 4) INT_ZEXT (register, 0x20, 1)
+(stack, 0xfffffffffffffff4, 4) MULTIEQUAL (stack, 0xfffffffffffffff4, 4) , (register, 0x2c, 4)
+(unique, 0x2280, 1) INT_SLESSEQUAL (unique, 0x1000001e, 4) , (stack, 0xfffffffffffffff4, 4)
+ ---  CBRANCH (ram, 0x16a0c, 1) , (unique, 0x2280, 1)
+(unique, 0x1000001e, 4) CAST (register, 0x2c, 4)
+(register, 0x20, 4) COPY (register, 0x2c, 4)
+(register, 0x20, 4) COPY (register, 0x2c, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

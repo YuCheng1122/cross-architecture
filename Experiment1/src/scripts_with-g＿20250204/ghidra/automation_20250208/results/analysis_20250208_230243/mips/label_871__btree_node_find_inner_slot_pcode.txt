@@ -1,0 +1,27 @@
+Label: 871
+Function: btree_node_find_inner_slot
+Architecture: mips
+Source File: Unknown
+Entry Point: 0047cacc
+
+High-level P-code:
+
+(register, 0x18, 4) LOAD (const, 0x1a1, 4) , (unique, 0x100, 4)
+(unique, 0x100, 4) PTRSUB (register, 0x10, 4) , (const, 0x4, 4)
+(register, 0x8, 4) COPY (const, 0x0, 4)
+(register, 0x10, 4) PTRSUB (register, 0x10, 4) , (const, 0xc, 4)
+(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x8, 4) , (register, 0x18, 4)
+ ---  CBRANCH (ram, 0x47cae8, 1) , (unique, 0x1700, 1)
+(register, 0x8, 4) MULTIEQUAL (register, 0x8, 4) , (register, 0x8, 4)
+(register, 0x10, 4) MULTIEQUAL (register, 0x10, 4) , (register, 0x10, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x8, 4)
+(register, 0xc, 4) LOAD (const, 0x1a1, 4) , (unique, 0x10000009, 4)
+(unique, 0x10000009, 4) PTRSUB (unique, 0x1000000d, 4) , (const, 0x0, 4)
+(unique, 0x1000000d, 4) PTRSUB (register, 0x10, 4) , (const, 0x0, 4)
+(unique, 0x5380, 1) INT_LESS (register, 0xc, 4) , (register, 0x14, 4)
+(unique, 0x10000015, 4) INT_ADD (unique, 0x10000011, 4) , (const, 0x8, 4)
+ ---  CBRANCH (ram, 0x47cae0, 1) , (unique, 0x5380, 1)
+(unique, 0x10000011, 4) CAST (register, 0x10, 4)
+(register, 0x10, 4) CAST (unique, 0x10000015, 4)
+(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0x1, 4)
+ ---  BRANCH (ram, 0x47cad8, 1)

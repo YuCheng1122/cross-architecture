@@ -1,0 +1,24 @@
+Label: 1882290563
+Function: __inet_aton_exact
+Architecture: arm
+Source File: Unknown
+Entry Point: 0002bd98
+
+High-level P-code:
+
+(register, 0x54, 4) PTRSUB (register, 0x54, 4) , (const, 0xfffffff0, 4)
+(register, 0x28, 4) PTRSUB (register, 0x54, 4) , (const, 0xfffffff4, 4)
+(register, 0x20, 4) CALL (ram, 0x2bc08, 8) , (register, 0x20, 4) , (register, 0x54, 4) , (register, 0x28, 4)
+(stack, 0xfffffffffffffff0, 4) INDIRECT (stack, 0xfffffffffffffff0, 4) , (const, 0x21, 4)
+(stack, 0xfffffffffffffff4, 4) INDIRECT (stack, 0xfffffffffffffff4, 4) , (const, 0x21, 4)
+(register, 0x65, 1) INT_NOTEQUAL (register, 0x20, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x2bdd0, 1) , (register, 0x65, 1)
+(unique, 0x43980, 1) LOAD (const, 0x1a1, 4) , (stack, 0xfffffffffffffff4, 4)
+(register, 0x65, 1) INT_EQUAL (unique, 0x43980, 1) , (const, 0x0, 1)
+ ---  CBRANCH (ram, 0x2bdc8, 1) , (register, 0x65, 1)
+(register, 0x20, 4) COPY (const, 0x0, 4)
+ ---  STORE (const, 0x1a1, 4) , (unique, 0x1000002b, 4) , (unique, 0x1000002f, 4)
+(unique, 0x1000002b, 4) PTRSUB (register, 0x24, 4) , (const, 0x0, 4)
+(unique, 0x1000002f, 4) CAST (stack, 0xfffffffffffffff0, 4)
+(register, 0x20, 4) MULTIEQUAL (register, 0x20, 4) , (register, 0x20, 4) , (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

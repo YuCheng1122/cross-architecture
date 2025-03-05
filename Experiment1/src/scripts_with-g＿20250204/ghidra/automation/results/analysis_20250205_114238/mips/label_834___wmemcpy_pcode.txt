@@ -1,0 +1,37 @@
+Label: 834
+Function: __wmemcpy
+Architecture: mips
+Source File: Unknown
+Entry Point: 004672f0
+
+P-code:
+
+004672f0: lui gp,0x5
+	(register, 0x70, 4) INT_LEFT (const, 0x5, 4) , (const, 0x10, 4)
+
+004672f4: addiu gp,gp,0x3b70
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0x3b70, 4)
+
+004672f8: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+004672fc: lw t9,-0x7fa0(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff8060, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00467300: nop
+
+00467304: jr t9
+	(unique, 0xc80, 4) INT_AND (register, 0x64, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x64, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x18, 4) INT_LEFT (register, 0x18, 4) , (const, 0x2, 4)
+	 ---  BRANCHIND (register, 0x80, 4)
+
+00467308: _sll a2,a2,0x2
+	(register, 0x18, 4) INT_LEFT (register, 0x18, 4) , (const, 0x2, 4)
+

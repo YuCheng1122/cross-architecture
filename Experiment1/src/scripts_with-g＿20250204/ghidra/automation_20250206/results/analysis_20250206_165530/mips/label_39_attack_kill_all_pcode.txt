@@ -1,0 +1,27 @@
+Label: 39
+Function: attack_kill_all
+Architecture: mips
+Source File: Unknown
+Entry Point: 00407824
+
+High-level P-code:
+
+(stack, 0xfffffffffffffff0, 4) COPY (const, 0x0, 4)
+ ---  BRANCH (ram, 0x4078c0, 1)
+(unique, 0x10000006, 4) PTRSUB (const, 0x0, 4) , (const, 0x4b39f8, 4)
+(register, 0x8, 4) PTRADD (unique, 0x10000006, 4) , (stack, 0xfffffffffffffff0, 4) , (const, 0x4, 4)
+(register, 0x8, 4) LOAD (const, 0x1a1, 4) , (register, 0x8, 4)
+(unique, 0x1200, 1) INT_NOTEQUAL (register, 0x8, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x407894, 1) , (unique, 0x1200, 1)
+(unique, 0x1000000a, 4) PTRSUB (const, 0x0, 4) , (const, 0x4b39f8, 4)
+(register, 0x8, 4) PTRADD (unique, 0x1000000a, 4) , (stack, 0xfffffffffffffff0, 4) , (const, 0x4, 4)
+(register, 0x8, 4) LOAD (const, 0x1a1, 4) , (register, 0x8, 4)
+ ---  CALL (ram, 0x400390, 8) , (register, 0x8, 4) , (const, 0x9, 4)
+(unique, 0x1000000e, 4) PTRSUB (const, 0x0, 4) , (const, 0x4b39f8, 4)
+(register, 0x8, 4) PTRADD (unique, 0x1000000e, 4) , (stack, 0xfffffffffffffff0, 4) , (const, 0x4, 4)
+ ---  STORE (const, 0x1a1, 4) , (register, 0x8, 4) , (const, 0x0, 4)
+(register, 0x8, 4) INT_ADD (stack, 0xfffffffffffffff0, 4) , (const, 0x1, 4)
+(stack, 0xfffffffffffffff0, 4) MULTIEQUAL (stack, 0xfffffffffffffff0, 4) , (register, 0x8, 4)
+(unique, 0x5180, 1) INT_SLESS (stack, 0xfffffffffffffff0, 4) , (const, 0x8, 4)
+ ---  CBRANCH (ram, 0x407840, 1) , (unique, 0x5180, 1)
+ ---  RETURN (const, 0x0, 4)

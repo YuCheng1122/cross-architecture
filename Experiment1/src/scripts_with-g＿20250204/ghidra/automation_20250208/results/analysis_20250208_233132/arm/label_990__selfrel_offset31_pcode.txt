@@ -1,0 +1,18 @@
+Label: 990
+Function: selfrel_offset31
+Architecture: arm
+Source File: Unknown
+Entry Point: 0006ee6c
+
+High-level P-code:
+
+(register, 0x2c, 4) LOAD (const, 0x1a1, 4) , (register, 0x20, 4)
+(unique, 0x74000, 4) INT_AND (register, 0x2c, 4) , (const, 0x40000000, 4)
+(register, 0x65, 1) INT_EQUAL (unique, 0x74000, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x6ee78, 1) , (register, 0x65, 1)
+(register, 0x2c, 4) INT_OR (register, 0x2c, 4) , (const, 0x80000000, 4)
+(register, 0x2c, 4) INT_AND (register, 0x2c, 4) , (const, 0x7fffffff, 4)
+(register, 0x20, 4) INT_ADD (unique, 0x10000001, 4) , (register, 0x2c, 4)
+(register, 0x2c, 4) MULTIEQUAL (register, 0x2c, 4) , (register, 0x2c, 4)
+(unique, 0x10000001, 4) CAST (register, 0x20, 4)
+ ---  RETURN (const, 0x0, 4) , (register, 0x20, 4)

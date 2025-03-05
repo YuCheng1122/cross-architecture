@@ -1,0 +1,70 @@
+Label: 943
+Function: __dladdr1
+Architecture: mips
+Source File: Unknown
+Entry Point: 00475c80
+
+P-code:
+
+00475c80: lui gp,0x4
+	(register, 0x70, 4) INT_LEFT (const, 0x4, 4) , (const, 0x10, 4)
+
+00475c84: addiu gp,gp,0x51e0
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (const, 0x51e0, 4)
+
+00475c88: addu gp,gp,t9
+	(register, 0x70, 4) INT_ADD (register, 0x70, 4) , (register, 0x64, 4)
+
+00475c8c: or v0,a3,zero
+	(register, 0x8, 4) INT_OR (register, 0x1c, 4) , (const, 0x0, 4)
+
+00475c90: li v1,0x1
+	(register, 0xc, 4) COPY (const, 0x1, 4)
+
+00475c94: beq v0,v1,0x00475ca8
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x8, 4) , (register, 0xc, 4)
+	(register, 0x1c, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x475ca8, 4) , (unique, 0x1200, 1)
+
+00475c98: _or a3,a2,zero
+	(register, 0x1c, 4) INT_OR (register, 0x18, 4) , (const, 0x0, 4)
+
+00475c9c: li v1,0x2
+	(register, 0xc, 4) COPY (const, 0x2, 4)
+
+00475ca0: beq v0,v1,0x00475cb8
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x8, 4) , (register, 0xc, 4)
+	(register, 0x1c, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+	 ---  CBRANCH (ram, 0x475cb8, 4) , (unique, 0x1200, 1)
+
+00475ca4: _or a3,zero,zero
+	(register, 0x1c, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+00475ca8: lw t9,-0x760c(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff89f4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00475cac: nop
+
+00475cb0: b 0x004785f0
+	(register, 0x18, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+	 ---  BRANCH (ram, 0x4785f0, 4)
+
+00475cb4: _or a2,zero,zero
+	(register, 0x18, 4) INT_OR (const, 0x0, 4) , (const, 0x0, 4)
+
+00475cb8: lw t9,-0x760c(gp)
+	(unique, 0x100, 4) INT_ADD (register, 0x70, 4) , (const, 0xffff89f4, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(register, 0x64, 4) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+
+00475cbc: nop
+
+00475cc0: b 0x004785f0
+	 ---  BRANCH (ram, 0x4785f0, 4)
+
+00475cc4: _nop
+

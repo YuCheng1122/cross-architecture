@@ -1,0 +1,29 @@
+Label: 1058
+Function: util_memcpy
+Architecture: mips
+Source File: Unknown
+Entry Point: 00410f50
+
+High-level P-code:
+
+ ---  BRANCH (ram, 0x410fb4, 1)
+(unique, 0x10000000, 4) COPY (register, 0x18, 4)
+(unique, 0x10000004, 4) COPY (unique, 0x10000000, 4)
+(unique, 0x1000000c, 4) COPY (register, 0x10, 4)
+(unique, 0x10000010, 4) COPY (unique, 0x1000000c, 4)
+(unique, 0x10000018, 4) COPY (register, 0x14, 4)
+(unique, 0x1000001c, 4) COPY (unique, 0x10000018, 4)
+(register, 0x8, 4) PTRADD (stack, 0xfffffffffffffff4, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(register, 0x10, 4) PTRADD (stack, 0xfffffffffffffff0, 4) , (const, 0x1, 4) , (const, 0x1, 4)
+(unique, 0x2d00, 1) LOAD (const, 0x1a1, 4) , (stack, 0xfffffffffffffff4, 4)
+ ---  STORE (const, 0x1a1, 4) , (stack, 0xfffffffffffffff0, 4) , (unique, 0x2d00, 1)
+(unique, 0x10000008, 4) COPY (register, 0xc, 4)
+(unique, 0x10000014, 4) COPY (register, 0x10, 4)
+(unique, 0x10000020, 4) COPY (register, 0x8, 4)
+(stack, 0x8, 4) MULTIEQUAL (unique, 0x10000004, 4) , (unique, 0x10000008, 4)
+(stack, 0xfffffffffffffff0, 4) MULTIEQUAL (unique, 0x10000010, 4) , (unique, 0x10000014, 4)
+(stack, 0xfffffffffffffff4, 4) MULTIEQUAL (unique, 0x1000001c, 4) , (unique, 0x10000020, 4)
+(register, 0xc, 4) INT_ADD (stack, 0x8, 4) , (const, 0xffffffff, 4)
+(unique, 0x1700, 1) INT_NOTEQUAL (stack, 0x8, 4) , (const, 0x0, 4)
+ ---  CBRANCH (ram, 0x410f88, 1) , (unique, 0x1700, 1)
+ ---  RETURN (const, 0x0, 4)

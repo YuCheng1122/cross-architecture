@@ -1,0 +1,71 @@
+Function: _IO_adjust_column
+Address: 00433218
+P-code:
+
+00433218: addu v0,a1,a2
+	(register, 0x8, 4) INT_ADD (register, 0x14, 4) , (register, 0x18, 4)
+
+0043321c: or v1,v0,zero
+	(register, 0xc, 4) INT_OR (register, 0x8, 4) , (const, 0x0, 4)
+
+00433220: b 0x00433238
+	(register, 0x20, 4) COPY (const, 0xa, 4)
+	 ---  BRANCH (ram, 0x433238, 4)
+
+00433224: _li t0,0xa
+	(register, 0x20, 4) COPY (const, 0xa, 4)
+
+00433228: lb a3,0x0(v1)
+	(unique, 0x100, 4) INT_ADD (register, 0xc, 4) , (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (const, 0x0, 4)
+	(unique, 0x180, 4) COPY (unique, 0x100, 4)
+	(unique, 0x2d00, 1) LOAD (const, 0x1a1, 8) , (unique, 0x180, 4)
+	(register, 0x1c, 4) INT_SEXT (unique, 0x2d00, 1)
+
+0043322c: nop
+
+00433230: beq a3,t0,0x0043324c
+	(unique, 0x1200, 1) INT_EQUAL (register, 0x1c, 4) , (register, 0x20, 4)
+	 ---  CBRANCH (ram, 0x43324c, 4) , (unique, 0x1200, 1)
+
+00433234: _nop
+
+00433238: sltu a3,a1,v1
+	(unique, 0x5380, 1) INT_LESS (register, 0x14, 4) , (register, 0xc, 4)
+	(register, 0x1c, 4) INT_ZEXT (unique, 0x5380, 1)
+
+0043323c: bne a3,zero,0x00433228
+	(unique, 0x1700, 1) INT_NOTEQUAL (register, 0x1c, 4) , (const, 0x0, 4)
+	(register, 0xc, 4) INT_ADD (register, 0xc, 4) , (const, 0xffffffff, 4)
+	 ---  CBRANCH (ram, 0x433228, 4) , (unique, 0x1700, 1)
+
+00433240: _addiu v1,v1,-0x1
+	(register, 0xc, 4) INT_ADD (register, 0xc, 4) , (const, 0xffffffff, 4)
+
+00433244: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) INT_ADD (register, 0x18, 4) , (register, 0x10, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00433248: _addu v0,a2,a0
+	(register, 0x8, 4) INT_ADD (register, 0x18, 4) , (register, 0x10, 4)
+
+0043324c: subu v0,v0,v1
+	(register, 0x8, 4) INT_SUB (register, 0x8, 4) , (register, 0xc, 4)
+
+00433250: jr ra
+	(unique, 0xc80, 4) INT_AND (register, 0x7c, 4) , (const, 0x1, 4)
+	(register, 0x3f00, 1) INT_NOTEQUAL (unique, 0xc80, 4) , (const, 0x0, 4)
+	(unique, 0xe00, 4) INT_2COMP (const, 0x2, 4)
+	(unique, 0xe00, 4) INT_AND (unique, 0xe00, 4) , (register, 0x7c, 4)
+	(register, 0x80, 4) COPY (unique, 0xe00, 4)
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xffffffff, 4)
+	 ---  RETURN (register, 0x80, 4)
+
+00433254: _addiu v0,v0,-0x1
+	(register, 0x8, 4) INT_ADD (register, 0x8, 4) , (const, 0xffffffff, 4)
+
