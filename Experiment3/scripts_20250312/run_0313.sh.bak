@@ -1,0 +1,683 @@
+#!/bin/bash
+# Define paths
+GHIDRA_HOME="/home/tommy/ghidra_11.2.1_PUBLIC"
+PROJECT_DIR="/home/tommy/cross-architecture/Experiment3/ghidra_projects"
+SCRIPT="ExtractPcodeAndFunctionCalls.java"
+SCRIPT_PATH="/home/tommy/cross-architecture/Experiment3/scripts_20250312"
+BASE_DIR="/home/tommy/cross-architecture/Experiment3"
+DATA_DIR="$BASE_DIR/data_20250312"
+RESULTS_DIR="$BASE_DIR/results"
+LOGS_DIR="$BASE_DIR/logs"
+TEMP_DIR="$BASE_DIR/temp_hash"
+DATASET_CSV="/home/tommy/datasets/Sorted_Dataset_20250312114058.csv"
+
+# Function to format time in HH:MM:SS
+format_time() {
+    local seconds=$1
+    printf "%02d:%02d:%02d" $((seconds/3600)) $(((seconds%3600)/60)) $((seconds%60))
+}
+
+# Default parameters
+ALL_FILES=false
+CORES=$(($(nproc) * 4))
+TARGET_CPU=""
+TARGET_FAMILY=""
+TARGET_COUNT=0
+declare -a CPU_LIST=()
+declare -a FAMILY_LIST=()
+MULTI_TARGET=false
+BATCH_SIZE=10  # Default batch size for processing
+
+# Function to display usage
+show_usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  all                 Process all files"
+    echo "  cores=N             Use N cores for processing (default: all system cores)"
+    echo "  cpu=ARCHITECTURE    Target specific CPU architecture (e.g., ARM, MIPS)"
+    echo "  family=NAME         Target specific malware family"
+    echo "  count=N             Number of unique results to collect"
+    echo "  multi               Enable multi-target mode for processing multiple CPUs/families"
+    echo "  cpus=ARCH1,ARCH2    Comma-separated list of CPU architectures to target"
+    echo "  families=FAM1,FAM2  Comma-separated list of malware families to target"
+    echo "  data=PATH           Custom data directory path (default: $DATA_DIR)"
+    echo "  batch=N             Number of files to process in each batch (default: 10)"
+    echo ""
+    echo "Examples:"
+    echo "  $0 cpu=ARM family=mirai count=10 cores=4"
+    echo "  $0 multi cpus=ARM,MIPS families=mirai,hajime count=5 cores=4 batch=20"
+}
+
+# Parse command line parameters
+for arg in "$@"; do
+    case "$arg" in
+        all)
+            ALL_FILES=true ;;
+        multi)
+            MULTI_TARGET=true ;;
+        cores=*)
+            CORES=${arg#cores=} ;;
+        cpu=*)
+            TARGET_CPU=${arg#cpu=} ;;
+        cpus=*)
+            IFS=',' read -r -a CPU_LIST <<< "${arg#cpus=}" ;;
+        family=*)
+            TARGET_FAMILY=${arg#family=} ;;
+        families=*)
+            IFS=',' read -r -a FAMILY_LIST <<< "${arg#families=}" ;;
+        count=*)
+            TARGET_COUNT=${arg#count=} ;;
+        data=*)
+            DATA_DIR=${arg#data=}
+            RESULTS_DIR="$BASE_DIR/results" ;;
+        batch=*)
+            BATCH_SIZE=${arg#batch=} ;;
+        help|--help)
+            show_usage
+            exit 0 ;;
+    esac
+done
+
+# If we have CPU_LIST or FAMILY_LIST but multi flag is not set, enable it
+if [[ ${#CPU_LIST[@]} -gt 0 || ${#FAMILY_LIST[@]} -gt 0 ]]; then
+    MULTI_TARGET=true
+fi
+
+# If single targets are provided and multi is enabled, add them to lists
+if [[ "$MULTI_TARGET" == "true" ]]; then
+    if [[ -n "$TARGET_CPU" && ${#CPU_LIST[@]} -eq 0 ]]; then
+        CPU_LIST+=("$TARGET_CPU")
+        TARGET_CPU=""
+    fi
+    
+    if [[ -n "$TARGET_FAMILY" && ${#FAMILY_LIST[@]} -eq 0 ]]; then
+        FAMILY_LIST+=("$TARGET_FAMILY")
+        TARGET_FAMILY=""
+    fi
+fi
+
+# Display configuration
+echo "Configuration:"
+echo "- Data directory: $DATA_DIR"
+echo "- Results directory: $RESULTS_DIR"
+echo "- Using $CORES cores for parallel processing"
+echo "- Batch size: $BATCH_SIZE files per batch"
+
+if [[ "$MULTI_TARGET" == "true" ]]; then
+    echo "- Multi-target mode enabled"
+    
+    if [[ ${#CPU_LIST[@]} -gt 0 ]]; then
+        echo "- Targeting CPUs: ${CPU_LIST[*]}"
+    else
+        echo "- Targeting all available CPUs"
+    fi
+    
+    if [[ ${#FAMILY_LIST[@]} -gt 0 ]]; then
+        echo "- Targeting families: ${FAMILY_LIST[*]}"
+    else
+        echo "- Targeting all available families"
+    fi
+    
+    if [[ $TARGET_COUNT -gt 0 ]]; then
+        echo "- Collecting $TARGET_COUNT unique results per CPU-family combination"
+    fi
+else
+    [[ -n "$TARGET_CPU" ]] && echo "- Targeting CPU: $TARGET_CPU"
+    [[ -n "$TARGET_FAMILY" ]] && echo "- Targeting family: $TARGET_FAMILY"
+    [[ $TARGET_COUNT -gt 0 ]] && echo "- Collecting $TARGET_COUNT unique results"
+fi
+
+# Ensure necessary directory structure exists
+mkdir -p "$RESULTS_DIR" "$LOGS_DIR" "$PROJECT_DIR" "$TEMP_DIR"
+
+# Log file setup
+LOG_FILE="$LOGS_DIR/batch_execution_$(date +%Y%m%d_%H%M%S).log"
+echo "===== Batch analysis started $(date '+%Y-%m-%d %H:%M:%S') =====" > "$LOG_FILE"
+
+# New batch processing function
+process_file_batch() {
+    # 獲取參數
+    local hash_dir="${@: -2:1}"
+    local target_count="${@: -1:1}"
+    local file_paths=("${@:1:$#-2}")
+    
+    echo "Starting batch processing of ${#file_paths[@]} files"
+    
+    # 創建一個處理文件的函數，以便 parallel 使用
+    process_single_file() {
+        local file_path="$1"
+        local hash_dir="$2"
+        local target_count="$3"
+        
+        # 提取基本信息
+        local binary_name=$(basename "$file_path")
+        local relative_path=${file_path#"$DATA_DIR/"}
+        local relative_dir=$(dirname "$relative_path")
+        
+        # 創建結果目錄
+        local result_dir="$RESULTS_DIR/$relative_dir"
+        mkdir -p "$result_dir"
+        
+        # 定義結果文件路徑
+        local result_file="$result_dir/${binary_name}.json"
+        
+        # 創建唯一的項目名
+        local project_name="Project_${binary_name}_$(date +%s)_$$"
+        local process_log="$LOGS_DIR/${binary_name}_$(date +%s)_$$.log"
+        
+        # 檢查目標數是否已達到，如果達到則跳過處理
+        if [[ ! -d "/dev/shm/ghidra_temp" ]]; then
+            mkdir -p /dev/shm/ghidra_temp
+        fi
+        TEMP_PROJECT_DIR="/dev/shm/ghidra_temp"
+
+        # 修改 process_single_file 函數中的項目目錄
+        "$GHIDRA_HOME/support/analyzeHeadless" "$TEMP_PROJECT_DIR" "$project_name" \
+            -import "$file_path" \
+            -postScript "$SCRIPT" "$result_file" \
+            -scriptPath "$SCRIPT_PATH" > "$process_log" 2>&1
+        
+        # 清理項目
+        if [[ -d "$PROJECT_DIR/$project_name" ]]; then
+            rm -rf "$PROJECT_DIR/$project_name"
+        fi
+        
+        # 檢查結果文件是否存在
+        if [[ -f "$result_file" ]]; then
+            # 檢查唯一性
+            if is_unique_result "$result_file" "$hash_dir" "$target_count"; then
+                # 計算唯一結果數量
+                local unique_count=$(find "$hash_dir" -type f -not -name "COMPLETE" | wc -l)
+                echo "Found unique result: $unique_count/$target_count for $binary_name"
+                
+                # 達到目標數量則標記完成
+                if [[ $unique_count -ge $target_count ]]; then
+                    touch "$hash_dir/COMPLETE"
+                    echo "TARGET REACHED: $unique_count/$target_count"
+                fi
+            fi
+        fi
+    }
+    
+    # 導出函數和變量，使 parallel 可以訪問
+    export -f process_single_file is_unique_result calculate_json_hash
+    export GHIDRA_HOME PROJECT_DIR SCRIPT_PATH SCRIPT DATA_DIR RESULTS_DIR LOGS_DIR
+    
+    # 使用 GNU Parallel 或原生並行處理
+    if command -v parallel &> /dev/null; then
+        parallel --will-cite --jobs $CORES --halt soon,fail=1 \
+            "process_single_file {} \"$hash_dir\" \"$target_count\"" ::: "${file_paths[@]}"
+    else
+        # 原生 Bash 並行處理
+        local running=0
+        for file_path in "${file_paths[@]}"; do
+            # 檢查是否達到目標
+            if [[ -f "$hash_dir/COMPLETE" ]]; then
+                break
+            fi
+            
+            # 控制並行數量
+            while [[ $running -ge $CORES ]]; do
+                sleep 0.5
+                running=$(jobs -p | wc -l)
+            done
+            
+            # 處理文件
+            process_single_file "$file_path" "$hash_dir" "$target_count" &
+            ((running++))
+        done
+        
+        # 等待所有任務完成
+        wait
+    fi
+    
+    echo "Completed batch processing"
+}
+
+# Function to calculate MD5 hash of a JSON file
+calculate_json_hash() {
+    local file="$1"
+    # 提取只有 pcode 和 function_calls 部分進行哈希 - 更高效的方式
+    jq '{pcode, function_calls}' "$file" | md5sum | awk '{print $1}'
+}
+
+# Function to check if a result is unique
+# 使用關聯數組來緩存哈希
+declare -A hash_cache
+
+is_unique_result() {
+    local result_file="$1"
+    local temp_hash_dir="$2"
+    local target_count="$3"
+    
+    # 確保哈希目錄存在
+    mkdir -p "$temp_hash_dir"
+    
+    # 計算新結果的哈希值
+    local hash=$(calculate_json_hash "$result_file")
+    
+    # 檢查此哈希是否已存在於緩存中
+    if [[ -n "${hash_cache[$hash]}" ]]; then
+        # 哈希存在，結果不是唯一的
+        return 1
+    fi
+    
+    # 檢查此哈希是否已存在於目錄中
+    local hash_file="$temp_hash_dir/$hash"
+    if [[ -f "$hash_file" ]]; then
+        # 哈希存在，結果不是唯一的
+        hash_cache[$hash]="$result_file"
+        return 1
+    else
+        # 哈希是新的，記錄它
+        echo "$result_file" > "$hash_file"
+        hash_cache[$hash]="$result_file"
+        return 0
+    fi
+}
+
+# Function to process binary files
+process_binary() {
+    local binary_path="$1"
+    local temp_hash_dir="$2"
+    local target_count="$3"
+    
+    local binary_name=$(basename "$binary_path")
+    local relative_path=${binary_path#"$DATA_DIR/"}
+    local relative_dir=$(dirname "$relative_path")
+    local malware_family=$(echo "$relative_dir" | awk -F'/' '{print $1}')
+    
+    # Create unique project name
+    local project_name="Project_${binary_name}_$(date +%s)_$$"
+    local process_log="$LOGS_DIR/process_${binary_name}_$(date +%s)_$$.log"
+    
+    # Create result directory structure, matching the original binary path
+    local result_dir="$RESULTS_DIR/$relative_dir"
+    mkdir -p "$result_dir"
+    
+    # Define path for result file
+    local result_file="$result_dir/${binary_name}.json"
+    
+    # Execute Ghidra headless analyzer
+    "$GHIDRA_HOME/support/analyzeHeadless" "$PROJECT_DIR" "$project_name" \
+        -import "$binary_path" \
+        -postScript "$SCRIPT" "$result_file" \
+        -scriptPath "$SCRIPT_PATH" > "$process_log" 2>&1
+    if [[ -d "$PROJECT_DIR/$project_name" ]]; then
+        rm -rf "$PROJECT_DIR/$project_name"
+    fi
+        
+    # Check if result file exists
+    if [[ -f "$result_file" ]]; then
+        # Check if result is unique (for target count processing)
+        if [[ $target_count -gt 0 ]]; then
+            if is_unique_result "$result_file" "$temp_hash_dir" "$target_count"; then
+                # Calculate unique results
+                unique_count=$(find "$temp_hash_dir" -type f -not -name "COMPLETE" | wc -l)
+                
+                # Check if target count reached
+                if [[ $unique_count -ge $target_count ]]; then
+                    # Signal to stop processing
+                    touch "$temp_hash_dir/COMPLETE"
+                fi
+            fi
+        fi
+    fi
+}
+
+# Function to get file paths from CSV based on criteria
+get_files_from_csv() {
+    local target_cpu="$1"
+    local target_family="$2"
+    local csv_file="$3"
+    
+    # Skip header line, filter by CPU and family if specified
+    awk -F, -v cpu="$target_cpu" -v family="$target_family" '
+    NR > 1 {
+        if ((cpu == "" || $2 == cpu) && (family == "" || $3 == family)) {
+            print $1
+        }
+    }' "$csv_file"
+}
+
+# Process CPU-family combinations in multi-target mode
+process_multi_targeted_files() {
+    echo "Starting multi-targeted processing..."
+    
+    # Check if dataset CSV exists
+    if [[ ! -f "$DATASET_CSV" ]]; then
+        echo "Error: Dataset CSV file not found: $DATASET_CSV"
+        exit 1
+    fi
+    
+    # If no CPUs specified, get all unique CPUs from the CSV
+    if [[ ${#CPU_LIST[@]} -eq 0 ]]; then
+        while IFS= read -r cpu; do
+            CPU_LIST+=("$cpu")
+        done < <(awk -F, 'NR > 1 {print $2}' "$DATASET_CSV" | sort -u)
+        echo "Auto-detected CPU architectures: ${CPU_LIST[*]}"
+    fi
+    
+    # If no families specified, get all unique families from the CSV
+    if [[ ${#FAMILY_LIST[@]} -eq 0 ]]; then
+        while IFS= read -r family; do
+            FAMILY_LIST+=("$family")
+        done < <(awk -F, 'NR > 1 {print $3}' "$DATASET_CSV" | sort -u)
+        echo "Auto-detected malware families: ${FAMILY_LIST[*]}"
+    fi
+    
+    # Process each CPU-family combination
+    local completed=0
+    local combinations=$((${#CPU_LIST[@]} * ${#FAMILY_LIST[@]}))
+    local overall_start_time=$(date +%s)
+    
+    for cpu in "${CPU_LIST[@]}"; do
+        for family in "${FAMILY_LIST[@]}"; do
+            ((completed++))
+            local combo_start_time=$(date +%s)
+            
+            echo ""
+            echo "===== Processing combination $completed/$combinations: CPU=$cpu, Family=$family ====="
+            
+            # Create combination-specific hash directory for tracking unique results
+            local combo_hash_dir="$TEMP_DIR/${cpu}_${family}"
+            mkdir -p "$combo_hash_dir"
+            rm -rf "$combo_hash_dir"/*
+            
+            # Calculate total files to show progress
+            local total_files=$(get_files_from_csv "$cpu" "$family" "$DATASET_CSV" | wc -l)
+            
+            if [[ $total_files -eq 0 ]]; then
+                echo "No files match the combination: CPU=$cpu, Family=$family"
+                continue
+            fi
+            
+            echo "Found $total_files files for CPU=$cpu, Family=$family"
+            
+            # Check if we have fewer files than the target count
+            local actual_target_count=$TARGET_COUNT
+            if [[ $total_files -lt $TARGET_COUNT ]]; then
+                echo "Warning: Only $total_files files available for CPU=$cpu, Family=$family (less than target count $TARGET_COUNT)"
+                echo "Will process all available files instead"
+                actual_target_count=$total_files
+            fi
+            
+            # 以批次方式收集文件
+            local batch_files=()
+            local batch_count=0
+            
+            while IFS= read -r filename; do
+                # 檢查是否已達到唯一結果的目標數量
+                if [[ -f "$combo_hash_dir/COMPLETE" ]]; then
+                    echo "Target count reached, stopping further processing"
+                    break
+                fi
+                
+                local file_path=$(find "$DATA_DIR" -name "$filename" -type f)
+                
+                if [[ -n "$file_path" ]]; then
+                    batch_files+=("$file_path")
+                    
+                    # 當收集了足夠的文件後執行批次處理
+                    if [[ ${#batch_files[@]} -ge $BATCH_SIZE ]]; then
+                        ((batch_count++))
+                        echo "Processing batch $batch_count with ${#batch_files[@]} files"
+                        process_file_batch "${batch_files[@]}" "$combo_hash_dir" "$actual_target_count"
+                        batch_files=() # 清空批次
+                    fi
+                else
+                    echo "Warning: File not found in data directory: $filename"
+                fi
+            done < <(get_files_from_csv "$cpu" "$family" "$DATASET_CSV")
+            
+            # 處理剩餘的文件
+            if [[ ${#batch_files[@]} -gt 0 ]]; then
+                ((batch_count++))
+                echo "Processing final batch $batch_count with ${#batch_files[@]} files"
+                process_file_batch "${batch_files[@]}" "$combo_hash_dir" "$actual_target_count"
+            fi
+            
+            # Gather statistics for this combination
+            local unique_count=$(find "$combo_hash_dir" -type f -not -name "COMPLETE" | wc -l)
+            local combo_end_time=$(date +%s)
+            local combo_duration=$((combo_end_time - combo_start_time))
+            
+            echo "Completed processing combination CPU=$cpu, Family=$family in $(format_time $combo_duration). Collected $unique_count unique results"
+            
+            # Estimate overall progress
+            local overall_elapsed=$((combo_end_time - overall_start_time))
+            local avg_time_per_combo=$((overall_elapsed / completed))
+            local remaining_combos=$((combinations - completed))
+            local eta=$((avg_time_per_combo * remaining_combos))
+            
+            echo "Overall progress: $completed/$combinations combinations processed ($(printf "%.1f" $((completed * 100 / combinations)))%)"
+            echo "Estimated time remaining: $(format_time $eta)"
+            echo "-----------------------------------------------------------"
+        done
+    done
+    
+    local overall_end_time=$(date +%s)
+    local total_duration=$((overall_end_time - overall_start_time))
+    echo "All combinations processed in $(format_time $total_duration)"
+}
+
+# Process single-target files
+process_targeted_files() {
+    echo "Starting targeted processing (single target)..."
+    
+    # Check if dataset CSV exists
+    if [[ ! -f "$DATASET_CSV" ]]; then
+        echo "Error: Dataset CSV file not found: $DATASET_CSV"
+        exit 1
+    fi
+    
+    # Get file list based on criteria
+    local file_list=()
+    while IFS= read -r filename; do
+        local file_path=$(find "$DATA_DIR" -name "$filename" -type f)
+        if [[ -n "$file_path" ]]; then
+            file_list+=("$file_path")
+        else
+            echo "Warning: File not found in data directory: $filename"
+        fi
+    done < <(get_files_from_csv "$TARGET_CPU" "$TARGET_FAMILY" "$DATASET_CSV")
+    
+    # Check if we have files to process
+    if [[ ${#file_list[@]} -eq 0 ]]; then
+        echo "No files match the specified criteria: CPU=$TARGET_CPU, Family=$TARGET_FAMILY"
+        exit 1
+    fi
+    
+    # Process selected files in parallel
+    process_in_parallel "$TEMP_DIR" "$TARGET_COUNT" "${file_list[@]}"
+}
+
+# Parallel processing function
+process_in_parallel() {
+    local hash_dir="$1"
+    local target_count="$2"
+    shift 2
+    local file_list=("$@")
+    local total_files=${#file_list[@]}
+    local processed=0
+    local start_time=$(date +%s)
+    
+    echo "Total of $total_files files to process"
+    
+    # Clear temp hash directory
+    mkdir -p "$hash_dir"
+    rm -rf "$hash_dir"/*
+    
+    # Use GNU Parallel if available
+    if command -v parallel &> /dev/null; then
+        echo "Using GNU Parallel for parallel processing with $CORES cores"
+        export -f process_binary calculate_json_hash is_unique_result
+        export GHIDRA_HOME PROJECT_DIR SCRIPT SCRIPT_PATH BASE_DIR DATA_DIR RESULTS_DIR LOG_FILE LOGS_DIR
+        
+        # Create a temporary file for storing parallel progress output
+        local progress_file=$(mktemp)
+        
+        # Use --joblog to track job status
+        parallel --joblog "$TEMP_DIR/parallel_joblog.txt" --progress --eta -j "$CORES" --halt soon,fail=1 '
+            [[ -f "'$hash_dir'/COMPLETE" ]] && { 
+                echo "Target count reached, skipping further processing";
+                exit 0; 
+            }; 
+            process_binary {} "'$hash_dir'" "'$target_count'"
+        ' ::: "${file_list[@]}" 2>"$progress_file" &
+        
+        local parallel_pid=$!
+        
+        # Show progress while parallel runs
+        echo ""
+        while kill -0 $parallel_pid 2>/dev/null; do
+            if [ -f "$progress_file" ]; then
+                grep -v "^tasks\|^Computers" "$progress_file" | tail -n 1
+                
+                # Show unique results progress
+                if [ -d "$hash_dir" ]; then
+                    unique_count=$(find "$hash_dir" -type f -not -name "COMPLETE" | wc -l)
+                    if [ $unique_count -gt 0 ]; then
+                        echo "Unique results collected: $unique_count/$target_count"
+                    fi
+                fi
+            fi
+            echo -ne "\033[2A"  # Move cursor up 2 lines
+            sleep 5
+        done
+        echo -ne "\033[2B"  # Move cursor back down 2 lines
+        
+        # Remove the temporary file
+        rm -f "$progress_file"
+        
+        # Wait for parallel to finish
+        wait $parallel_pid
+    else
+        echo "GNU Parallel not installed, using native Bash parallel processing with $CORES cores"
+        # Use native Bash parallel processing
+        local running=0
+        local i=0
+        declare -A pids
+        
+        while ([ $i -lt $total_files ] || [ $running -gt 0 ]) && [ ! -f "$hash_dir/COMPLETE" ]; do
+            # Start new tasks
+            while [ $running -lt $CORES ] && [ $i -lt $total_files ] && [ ! -f "$hash_dir/COMPLETE" ]; do
+                process_binary "${file_list[$i]}" "$hash_dir" "$target_count" &
+                pids[$i]=$!
+                ((i++))
+                ((running++))
+            done
+            
+            # Check for completed tasks
+            for j in "${!pids[@]}"; do
+                if [ "${pids[$j]}" ] && ! kill -0 ${pids[$j]} 2>/dev/null; then
+                    wait ${pids[$j]} 2>/dev/null
+                    unset pids[$j]
+                    ((running--))
+                    ((processed++))
+                    
+                    # Calculate progress and ETA
+                    local current_time=$(date +%s)
+                    local elapsed=$((current_time - start_time))
+                    local progress=$((processed * 100 / total_files))
+                    
+                    if [ $processed -gt 0 ]; then
+                        local rate=$(echo "scale=2; $processed / $elapsed" | bc)
+                        local remaining_files=$((total_files - processed))
+                        local eta=$(echo "scale=0; $remaining_files / $rate" | bc 2>/dev/null)
+                        
+                        if [ -n "$eta" ] && [ "$eta" != "0" ]; then
+                            printf "\rProgress: %3d%% (%d/%d) | Running: %d | ETA: %02d:%02d:%02d | Unique: %d/%d " \
+                                "$progress" "$processed" "$total_files" "$running" \
+                                $((eta / 3600)) $(((eta % 3600) / 60)) $((eta % 60)) \
+                                $(find "$hash_dir" -type f -not -name "COMPLETE" | wc -l) "$target_count"
+                        else
+                            printf "\rProgress: %3d%% (%d/%d) | Running: %d | Unique: %d/%d " \
+                                "$progress" "$processed" "$total_files" "$running" \
+                                $(find "$hash_dir" -type f -not -name "COMPLETE" | wc -l) "$target_count"
+                        fi
+                    else
+                        printf "\rProgress: %3d%% (%d/%d) | Running: %d " \
+                            "$progress" "$processed" "$total_files" "$running"
+                    fi
+                fi
+            done
+            
+            # Check if we've reached the target count
+            if [[ -f "$hash_dir/COMPLETE" ]]; then
+                echo "Target count reached, stopping further processing"
+                # Terminate running processes
+                for pid in "${pids[@]}"; do
+                    if [ "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+                        kill "$pid" 2>/dev/null
+                    fi
+                done
+                break
+            fi
+            
+            # Brief pause to avoid excessive CPU usage
+            sleep 2
+        done
+        echo "" # New line after progress bar
+    fi
+    
+    # Report final status
+    if [[ -f "$hash_dir/COMPLETE" ]]; then
+        echo "Successfully collected $target_count unique results!"
+    else
+        unique_count=$(find "$hash_dir" -type f | wc -l)
+        echo "Processing completed. Collected $unique_count unique results."
+    fi
+}
+
+# Process all files
+process_all_files() {
+    echo "Starting to process all binary files..."
+    
+    # Collect all file paths into array
+    local all_files=()
+    while IFS= read -r file; do
+        all_files+=("$file")
+    done < <(find "$DATA_DIR" -type f)
+    
+    # Process all files in parallel
+    process_in_parallel "$TEMP_DIR" "$TARGET_COUNT" "${all_files[@]}"
+}
+
+# Main execution flow
+if [[ "$ALL_FILES" == "true" ]]; then
+    process_all_files
+elif [[ "$MULTI_TARGET" == "true" ]]; then
+    process_multi_targeted_files
+elif [[ -n "$TARGET_CPU" || -n "$TARGET_FAMILY" || $TARGET_COUNT -gt 0 ]]; then
+    process_targeted_files
+else
+    echo "No specific processing criteria provided. Please specify either 'all' or a combination of cpu/family/count."
+    show_usage
+    exit 1
+fi
+
+# Display final summary
+echo "===== Batch analysis completed $(date '+%Y-%m-%d %H:%M:%S') ====="
+echo "Analysis log saved in: $LOG_FILE"
+echo "Analysis results saved in: $RESULTS_DIR directory"
+
+# Display unique result summary
+if [[ "$MULTI_TARGET" == "true" ]]; then
+    echo ""
+    echo "===== Multi-target mode summary ====="
+    
+    # For each CPU-family combination
+    for combo_dir in "$TEMP_DIR"/*_*; do
+        if [[ -d "$combo_dir" ]]; then
+            dir_name=$(basename "$combo_dir")
+            IFS='_' read -r cpu family <<< "$dir_name"
+            
+            unique_count=$(find "$combo_dir" -type f -not -name "COMPLETE" | wc -l)
+            echo "CPU=$cpu, Family=$family: $unique_count unique results"
+        fi
+    done
+elif [[ $TARGET_COUNT -gt 0 ]]; then
+    unique_count=$(find "$TEMP_DIR" -type f -not -name "COMPLETE" | wc -l)
+    echo "Final unique result count: $unique_count"
+fi
